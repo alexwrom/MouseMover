@@ -1,0 +1,136 @@
+object LangForm: TLangForm
+  Left = 0
+  Top = 0
+  BorderStyle = Single
+  Caption = #1050#1086#1076#1099' '#1103#1079#1099#1082#1086#1074
+  ClientHeight = 630
+  ClientWidth = 390
+  Fill.Kind = Solid
+  Position = MainFormCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object ListView: TListView
+    ItemAppearanceClassName = 'TImageListItemBottomDetailAppearance'
+    ItemEditAppearanceClassName = 'TImageListItemBottomDetailShowCheckAppearance'
+    HeaderAppearanceClassName = 'TListHeaderObjects'
+    FooterAppearanceClassName = 'TListHeaderObjects'
+    Align = Client
+    Margins.Left = 5.000000000000000000
+    Margins.Top = 5.000000000000000000
+    Margins.Right = 5.000000000000000000
+    Margins.Bottom = 5.000000000000000000
+    Size.Width = 380.000000000000000000
+    Size.Height = 570.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    ItemAppearance.ItemHeight = 36
+    ItemAppearanceObjects.ItemObjects.Text.Font.Size = 14.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Text.Width = 235.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Text.Height = 35.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Text.PlaceOffset.Y = 1.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Detail.Font.Size = 14.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Detail.Font.StyleExt = {00070000000000000004000000}
+    ItemAppearanceObjects.ItemObjects.Detail.Width = 485.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Detail.Height = 35.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Detail.PlaceOffset.X = 272.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Detail.PlaceOffset.Y = 1.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Accessory.Visible = False
+    OnChange = ListViewChange
+    object ShadowEffect1: TShadowEffect
+      Distance = 3.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+  end
+  object Layout1: TLayout
+    Align = Top
+    Size.Width = 390.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object btnAdd: TButton
+      Images = MainForm.ImageList
+      ImageIndex = 10
+      Position.X = 8.000000000000000000
+      Position.Y = 4.000000000000000000
+      Size.Width = 38.000000000000000000
+      Size.Height = 38.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'addtoolbutton'
+      TabOrder = 2
+      Text = #1044#1086#1073#1072#1074#1080#1090#1100
+      OnClick = btnAddClick
+    end
+    object btnEdit: TButton
+      Enabled = False
+      Images = MainForm.ImageList
+      ImageIndex = 16
+      Position.X = 48.000000000000000000
+      Position.Y = 4.000000000000000000
+      Size.Width = 38.000000000000000000
+      Size.Height = 38.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'composetoolbutton'
+      TabOrder = 1
+      Text = #1044#1086#1073#1072#1074#1080#1090#1100
+      OnClick = btnEditClick
+    end
+    object btnDelete: TButton
+      Enabled = False
+      Images = MainForm.ImageList
+      ImageIndex = 18
+      Position.X = 344.000000000000000000
+      Position.Y = 4.000000000000000000
+      Size.Width = 38.000000000000000000
+      Size.Height = 38.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'trashtoolbutton'
+      TabOrder = 0
+      Text = #1044#1086#1073#1072#1074#1080#1090#1100
+      OnClick = btnDeleteClick
+    end
+  end
+  object Query: TFDQuery
+    Connection = MainForm.Conn
+    SQL.Strings = (
+      
+        'select ROW_NUMBER()OVER(ORDER BY lang_name)|| '#39' - '#39' || lang_name' +
+        ' as text, lang_code,lang_name '
+      'from lang '
+      'order by lang_name')
+    Left = 200
+    Top = 504
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = Query
+    ScopeMappings = <>
+    Left = 136
+    Top = 504
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 84
+    Top = 501
+    object LinkFillControlToField1: TLinkFillControlToField
+      Category = 'Quick Bindings'
+      Control = ListView
+      Track = True
+      FillDataSource = BindSourceDB1
+      FillDisplayFieldName = 'text'
+      AutoFill = True
+      FillExpressions = <
+        item
+          SourceMemberName = 'lang_code'
+          ControlMemberName = 'Detail'
+        end>
+      FillHeaderExpressions = <>
+      FillBreakGroups = <>
+    end
+  end
+end
