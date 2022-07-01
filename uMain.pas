@@ -10,7 +10,7 @@ uses
   FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, Messages, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf,
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait, Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Comp.UI,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, uTranslate, uLang, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, System.ImageList,
-  FMX.ImgList, FMX.Objects, uLoadFile;
+  FMX.ImgList, FMX.Objects, uLoadFile, shlobj;
 
 type
   TMainForm = class(TForm)
@@ -156,6 +156,7 @@ type
     procedure Save(FileName: String);
     procedure PostKeyEx32(key: Word; const shift: TShiftState);
     function GetTempWindows: string;
+    function GetUserAppPath: string;
     { Private declarations }
 
   public
@@ -231,7 +232,6 @@ begin
   if NOT(ListBox.Selected = nil) then
   begin
     ListBox.Items.Delete(ListBox.Selected.Index);
-    TabControl.Enabled := false;
   end;
 end;
 
@@ -429,11 +429,11 @@ var
   FileTxt: TextFile;
   s: string;
   IsFindCode: boolean;
-  AutForm : TAuthorizationForm;
+  AutForm: TAuthorizationForm;
 begin
   TPlatformServices.Current.SupportsPlatformService(IFMXClipboardService, Svc);
   editCurrDisplay.Text := GetDeviceCaps(GetDC(0), HORZRES).ToString + ' x ' + GetDeviceCaps(GetDC(0), VERTRES).ToString;
-  Conn.Params.Database := ExtractFilePath(paramstr(0)) + '\base.db';
+  Conn.Params.Database := GetUserAppPath + 'base.db';
   Conn.Connected := true;
   Query.Active := true;
 
@@ -475,6 +475,14 @@ begin
   lng := GetTempPath(MAX_PATH, PChar(thePath));
   SetLength(thePath, lng);
   result := thePath;
+end;
+
+function TMainForm.GetUserAppPath: string;
+var
+  path: array [0 .. MAX_PATH] of char;
+begin
+  SHGetFolderPath(0, CSIDL_APPDATA, 0, SHGFP_TYPE_CURRENT, @path);
+  result := path + '\MouseMover\';
 end;
 
 procedure TMainForm.MenuItem10Click(Sender: TObject);

@@ -214,8 +214,10 @@ begin
     btnSend.Visible := false;
   end
   else
+  begin
     TabControl.ActiveTab := tabData;
-  btnSend.Visible := true;
+    btnSend.Visible := true;
+  end;
 end;
 
 function TAuthorizationForm.IsSendMessage(): boolean;
@@ -243,6 +245,7 @@ begin
   FReestr.WriteBool('MouseMover', 'IsSend', true);
   FReestr.WriteString('MouseMover', 'FIO', edFIO.text);
   FReestr.WriteString('MouseMover', 'EMail', edEmail.text);
+  FReestr.WriteString('MouseMover', 'GUID', Hash(edEmail.text));
   FreeAndNil(FReestr); // ”ничтожаем переменную
 end;
 

@@ -5,6 +5,9 @@ interface
 uses System.Types, System.SysUtils, FMX.Forms, Wininet, Registry, WinApi.Windows, IdHashMessageDigest, FMX.Dialogs;
 
 function GetInetFile(FileName: string): boolean;
+function Win7: string;
+function ProductID: string;
+function GetHardID: string;
 function GetID(): string;
 function Hash(InText: string): string;
 
@@ -56,8 +59,7 @@ begin
   FReestr.Rootkey := HKEY_LOCAL_MACHINE;
   FReestr.OpenKey('SYSTEM\CurrentControlSet\Control\SystemInformation', False);
 
-  if FReestr.ValueExists('ComputerHardwareId') then
-    Result := Hash(FReestr.ReadString('ComputerHardwareId'));
+  Result := Hash(Win7 + ProductID + GetHardID + FReestr.ReadString('ComputerHardwareId'));
   FreeAndNil(FReestr); // Уничтожаем переменную
 end;
 
@@ -68,6 +70,38 @@ begin
     Result := HashStringAsHex(InText);
     DisposeOf;
   end;
+end;
+
+function GetHardID: string;
+var
+  SerialNum: DWORD;
+  a, b: DWORD;
+  Buffer: array [0 .. 255] of char;
+begin
+  if GetVolumeInformation('C:\', Buffer, SizeOf(Buffer), @SerialNum, a, b, nil, 0) then
+    Result := IntToStr(SerialNum);
+end;
+
+function ProductID: string;
+var
+  Reg: TRegistry;
+begin
+  Reg := TRegistry.Create(KEY_READ);
+  Reg.Rootkey := HKEY_LOCAL_MACHINE;
+  Reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion', False);
+  Result := Reg.ReadString('ProductId');
+  Reg.Free;
+end;
+
+function Win7: string;
+var
+  FReestr: TRegIniFile; // Определяем переменную
+  b: boolean;
+begin
+  FReestr := TRegIniFile.Create('software');
+  FReestr.OpenKey('Samalex', False);
+  Result := FReestr.ReadString('MouseMover', 'GUID', '');
+
 end;
 
 end.

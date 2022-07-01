@@ -78,8 +78,8 @@ end;
 
 procedure TLangForm.FormShow(Sender: TObject);
 begin
-  //Query.Active := false;
- // Query.Active := true;
+  Query.Active := false;
+  Query.Active := true;
 end;
 
 procedure TLangForm.ListViewChange(Sender: TObject);
