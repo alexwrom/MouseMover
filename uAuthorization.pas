@@ -128,8 +128,8 @@ var
   imgpart: TIdAttachmentFile;
 begin
   SetIsSendMessage;
-  IdSMTP1.Username := 'alexwrom@mail.ru'; // Логин
-  IdSMTP1.Password := 'gJhz0ZnHGUcJIpdiRi4K'; // Пароль
+  IdSMTP1.Username := MainForm.Username; // Логин
+  IdSMTP1.Password := MainForm.Password; // Пароль
   IdSMTP1.Host := 'smtp.mail.ru'; // Хост
   IdSMTP1.Port := 25; // Порт (25 - по умолчанию)
   IdMessage1.CharSet := 'windows-1251'; // Кодировка в теле сообщения

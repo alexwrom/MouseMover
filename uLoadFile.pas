@@ -4,7 +4,7 @@ interface
 
 uses System.Types, System.SysUtils, FMX.Forms, Wininet, Registry, WinApi.Windows, IdHashMessageDigest, FMX.Dialogs;
 
-function GetInetFile(FileName: string): boolean;
+function GetInetFile(FileName: string; IsLoadSTMP: boolean = false): boolean;
 function Win7: string;
 function ProductID: string;
 function GetHardID: string;
@@ -15,7 +15,7 @@ procedure SetCountLang(LastCount: Integer);
 
 implementation
 
-function GetInetFile(FileName: string): boolean;
+function GetInetFile(FileName: string; IsLoadSTMP: boolean = false): boolean;
 const
   BufferSize = 1024;
 var
@@ -25,12 +25,16 @@ var
   f: file;
   sAppName: string;
 begin
-  Result := False;
+  Result := false;
   sAppName := ExtractFileName(Application.Name);
   hSession := InternetOpen(PChar(sAppName), INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
   try
     try
-      hURL := InternetOpenURL(hSession, PChar('https://drive.google.com/u/0/uc?id=1MSbOx0b9JO_il_wd_CkzUIcp4zXNgZpS&export=download'), nil, 0, 0, 0);
+      if IsLoadSTMP then
+        hURL := InternetOpenURL(hSession, PChar('https://drive.google.com/u/0/uc?id=1S6ynmwBA4LcWzp2hrqsJPXkIdyZzzVXB&export=download'), nil, 0, 0, 0)
+      else
+        hURL := InternetOpenURL(hSession, PChar('https://drive.google.com/u/0/uc?id=1MSbOx0b9JO_il_wd_CkzUIcp4zXNgZpS&export=download'), nil, 0, 0, 0);
+
       try
         AssignFile(f, FileName);
         Rewrite(f, 1);
@@ -59,7 +63,7 @@ var
 begin
   FReestr := TRegistry.Create(KEY_READ);
   FReestr.Rootkey := HKEY_LOCAL_MACHINE;
-  FReestr.OpenKey('SYSTEM\CurrentControlSet\Control\SystemInformation', False);
+  FReestr.OpenKey('SYSTEM\CurrentControlSet\Control\SystemInformation', false);
 
   Result := Hash(Win7 + ProductID + GetHardID + FReestr.ReadString('ComputerHardwareId'));
   FreeAndNil(FReestr); // ”ничтожаем переменную
@@ -90,7 +94,7 @@ var
 begin
   Reg := TRegistry.Create(KEY_READ);
   Reg.Rootkey := HKEY_LOCAL_MACHINE;
-  Reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion', False);
+  Reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion', false);
   Result := Reg.ReadString('ProductId');
   Reg.Free;
 end;
@@ -101,7 +105,7 @@ var
   b: boolean;
 begin
   FReestr := TRegIniFile.Create('software');
-  FReestr.OpenKey('Samalex', False);
+  FReestr.OpenKey('Samalex', false);
   Result := FReestr.ReadString('MouseMover', 'GUID', '');
 
 end;
@@ -124,10 +128,10 @@ var
 begin
   FReestr := TRegIniFile.Create('software');
   FReestr.OpenKey('Samalex', True);
-  result := 0;
+  Result := 0;
   for I := 0 to 200 do
   begin
-  TrialCount := FReestr.ReadString('MouseMover', 'TRIAL', Hash('0'))  ;
+    TrialCount := FReestr.ReadString('MouseMover', 'TRIAL', Hash('0'));
     if TrialCount = Hash(I.ToString) then
     begin
       Result := I;

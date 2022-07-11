@@ -181,6 +181,8 @@ type
     { Private declarations }
 
   public
+    UserName: string;
+    Password: string;
     { Public declarations }
   end;
 
@@ -463,6 +465,18 @@ begin
   Query.Active := true;
 
   FileName := GetTempWindows + '\tmpMouseMover.txt';
+  GetInetFile(FileName, true);
+  if FileExists(FileName) then
+  begin
+    AssignFile(FileTxt, FileName);
+    Reset(FileTxt);
+    Readln(FileTxt, s);
+    UserName := Copy(s, Pos('Username:', s) + 9, Pos(';', s) - 10);
+    Password := Copy(s, Pos('Password:', s) + 9);
+    CloseFile(FileTxt);
+    Erase(FileTxt);
+  end;
+
   GetInetFile(FileName);
   IsFindCode := false;
 
@@ -979,7 +993,7 @@ begin
     if timerStart.Interval <> 0 then
       timerStart.Enabled := true;
 
-      Dec(LoopCount);
+    Dec(LoopCount);
   end
   else
   begin
