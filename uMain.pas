@@ -10,7 +10,7 @@ uses
   FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, Messages, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf,
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait, Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Comp.UI,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, uTranslate, uLang, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, System.ImageList,
-  FMX.ImgList, FMX.Objects, uLoadFile, shlobj;
+  FMX.ImgList, FMX.Objects, uLoadFile, shlobj, FMX.SpinBox;
 
 type
   TMainForm = class(TForm)
@@ -28,7 +28,6 @@ type
     timerCheckTrack: TTimer;
     timerGetPos: TTimer;
     editPosCursor: TEdit;
-    sleepTime: TNumberBox;
     Label1: TLabel;
     Label2: TLabel;
     btnUp: TSpeedButton;
@@ -36,7 +35,6 @@ type
     SaveDialog: TSaveDialog;
     OpenDialog: TOpenDialog;
     Label3: TLabel;
-    editInterval: TNumberBox;
     Label4: TLabel;
     btnStart: TSpeedButton;
     timerStart: TTimer;
@@ -68,16 +66,11 @@ type
     MenuItem16: TMenuItem;
     MenuItem17: TMenuItem;
     TabTranslate: TTabItem;
-    btnGetPosNameBlock: TSpeedButton;
-    edSourcePos: TEdit;
     btnViewPosNameBlock: TSpeedButton;
-    btnGetPosDetailsBlock: TSpeedButton;
-    edTargetPos: TEdit;
     btnViewPosDetailsBlock: TSpeedButton;
     mName: TMemo;
     mDetails: TMemo;
     labCountWord: TLabel;
-    Label12: TLabel;
     Label13: TLabel;
     MainMenu: TMainMenu;
     MenuItem18: TMenuItem;
@@ -89,8 +82,6 @@ type
     MenuItem9: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
-    cbLang: TComboBox;
-    Label11: TLabel;
     BindingsList1: TBindingsList;
     BindSourceDB1: TBindSourceDB;
     LinkFillControlToField1: TLinkFillControlToField;
@@ -108,6 +99,33 @@ type
     Label16: TLabel;
     btnGoTo: TSpeedButton;
     Layout1: TLayout;
+    Label17: TLabel;
+    labCountTrial: TLabel;
+    MenuItem26: TMenuItem;
+    Label6: TLabel;
+    GroupBox2: TGroupBox;
+    sbLoopCount: TSpinBox;
+    editInterval: TSpinBox;
+    sleepTime: TSpinBox;
+    Layout2: TLayout;
+    Layout3: TLayout;
+    Layout4: TLayout;
+    Layout5: TLayout;
+    GridPanelLayout1: TGridPanelLayout;
+    Layout6: TLayout;
+    btnGetPosNameBlock: TSpeedButton;
+    edSourcePos: TEdit;
+    Layout7: TLayout;
+    btnGetPosDetailsBlock: TSpeedButton;
+    edTargetPos: TEdit;
+    Layout8: TLayout;
+    Label11: TLabel;
+    cbLang: TComboBox;
+    Label12: TLabel;
+    Layout9: TLayout;
+    Layout10: TLayout;
+    Layout11: TLayout;
+    LinkFillControlToField2: TLinkFillControlToField;
     procedure btnAddClick(Sender: TObject);
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
@@ -145,7 +163,10 @@ type
     procedure edSeparatorChangeTracking(Sender: TObject);
     procedure MenuItem25Click(Sender: TObject);
     procedure btnGoToClick(Sender: TObject);
+    procedure MenuItem26Click(Sender: TObject);
   private
+    LoopCount: integer;
+    IsTrial: boolean;
     OldPos: TPoint;
     CurrLangCode: String;
     TranslateLangCode: string;
@@ -164,8 +185,9 @@ type
   end;
 
 const
-  intInternalTimer = 10;
-  intSetDisplay = 11;
+  intInternalTimer = 100;
+  intSetDisplay = 101;
+  intLoopCount = 102;
   itemPos = 1;
   itemClick = 2;
   itemSleep = 3;
@@ -252,8 +274,10 @@ end;
 
 procedure TMainForm.btnStartClick(Sender: TObject);
 begin
+  btnStart.SetFocus;
   if ListBox.Count > 0 then
-
+  begin
+    LoopCount := Round(sbLoopCount.Value);
     if btnStart.Tag = 0 then
     begin
       Self.Hide;
@@ -277,6 +301,7 @@ begin
       btnStart.Tag := 0;
       btnStart.Text := 'Начать выполнение';
     end;
+  end;
 end;
 
 procedure TMainForm.btnTrackingStartClick(Sender: TObject);
@@ -448,21 +473,27 @@ begin
     while NOT EOF(FileTxt) do
     begin
       Readln(FileTxt, s);
-      if Pos(GetID, s) = 1 then
+      if Pos(GetID, s) > 0 then
       begin
         IsFindCode := true;
+        IsTrial := false;
+        labCountTrial.Text := 'Безлимит';
         break
       end
       else
-
+        IsTrial := true;
     end;
     CloseFile(FileTxt);
     Erase(FileTxt);
     if NOT IsFindCode then
     begin
-      AutForm := TAuthorizationForm.Create(nil);
-      AutForm.ShowModal;
-    end;
+      if GetLastCount = 0 then
+      begin
+        AutForm := TAuthorizationForm.Create(nil);
+        AutForm.ShowModal;
+        AutForm.DisposeOf;
+      end
+    end
   end;
 end;
 
@@ -535,6 +566,15 @@ begin
   ContactForm.ShowModal;
 end;
 
+procedure TMainForm.MenuItem26Click(Sender: TObject);
+var
+  AutForm: TAuthorizationForm;
+begin
+  AutForm := TAuthorizationForm.Create(nil);
+  AutForm.ShowModal;
+  AutForm.DisposeOf;
+end;
+
 procedure TMainForm.MenuItem2Click(Sender: TObject);
 begin
   CreateItem(itemClick);
@@ -549,6 +589,7 @@ procedure TMainForm.MenuItem4Click(Sender: TObject);
 var
   Flags: TReplaceFlags;
 begin
+  SaveDialog.InitialDir := GetUserAppPath;
   if SaveDialog.Execute then
   begin
     Save(SaveDialog.FileName);
@@ -570,10 +611,12 @@ var
   Flags: TReplaceFlags;
 begin
   TabControl.Visible := false;
+  OpenDialog.InitialDir := GetUserAppPath;
   if OpenDialog.Execute then
   begin
     currFileName.Hint := ExtractFileDir(OpenDialog.FileName) + '\';
     currFileName.Text := ExtractFileName(OpenDialog.FileName);
+
     ItemSave.Enabled := true;
     ListBox.Clear;
     AssignFile(f, OpenDialog.FileName);
@@ -584,10 +627,12 @@ begin
       if Text <> '' then
       begin
         case Copy(Text, 1, Pos('-', Text) - 1).ToInteger of
-          intInternalTimer:
+          intInternalTimer, 10:
             editInterval.Text := Copy(Text, Pos('-', Text) + 1);
-          intSetDisplay:
+          intSetDisplay, 11:
             setDisplay.Text := Copy(Text, Pos('-', Text) + 1);
+          intLoopCount:
+            sbLoopCount.Text := Copy(Text, Pos('-', Text) + 1);
           itemPos, itemClick, itemSleep, itemScroll, itemRightClick, itemDoubleClick, itemCtrlA, itemCtrlC, itemCtrlV, itemTranslate, itemGetLang:
             begin
               CreateItem(Copy(Text, 1, Pos('-', Text) - 1).ToInteger);
@@ -606,6 +651,7 @@ begin
 
       end;
     end;
+
     CloseFile(f);
   end;
 
@@ -639,8 +685,9 @@ var
 begin
   AssignFile(f, StringReplace(FileName, '.smm', '', Flags) + '.smm');
   Rewrite(f);
-  Writeln(f, '10-' + editInterval.Text);
-  Writeln(f, '11-' + setDisplay.Text);
+  Writeln(f, '100-' + editInterval.Text);
+  Writeln(f, '101-' + setDisplay.Text);
+  Writeln(f, '102-' + sbLoopCount.Text);
   for I := 0 to ListBox.Count - 1 do
   begin
     Text := ListBox.ListItems[I].Tag.ToString + '-' + ListBox.ListItems[I].Hint;
@@ -775,142 +822,173 @@ var
   tmpPoint: TPoint;
   TranslateLangCodeName, TranslateText, tmpPos: string;
   myLang: string;
+  AutForm: TAuthorizationForm;
 
 begin
   timerStart.Enabled := false;
 
-  for I := 0 to ListBox.Count - 1 do
+  if LoopCount <> 0 then
   begin
-    case ListBox.ListItems[I].Tag of
-      itemPos:
-        begin
-          tmpPoint.X := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, 1, Pos('-', ListBox.ListItems[I].Hint) - 1)));
-          tmpPoint.Y := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, Pos('-', ListBox.ListItems[I].Hint) + 1)));
-          timerSleepControl.Enabled := false;
-          OldPos := tmpPoint;
-          SetCursorPos(tmpPoint.X, tmpPoint.Y);
-          timerSleepControl.Enabled := true;
-        end;
-      itemSleep:
-        begin
-          Sleep(ListBox.ListItems[I].Hint.ToInteger);
-        end;
-      itemClick:
-        begin
-          mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-        end;
-      itemScroll:
-        begin
-          mouse_event(MOUSEEVENTF_WHEEL, 0, 0, DWORD(ListBox.ListItems[I].Hint.ToInteger), 0);
-        end;
-
-      itemRightClick:
-        begin
-          mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-        end;
-      itemDoubleClick:
-        begin
-          mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-        end;
-
-      itemCtrlA:
-        begin
-          PostKeyEx32(Ord('A'), [ssctrl]);
-        end;
-      itemCtrlC:
-        begin
-          PostKeyEx32(Ord('C'), [ssctrl]);
-        end;
-      itemCtrlV:
-        begin
-          PostKeyEx32(Ord('V'), [ssctrl]);
-        end;
-
-      itemGetLang:
-        begin
-          TranslateLangCode := '';
-          tmpPoint.X := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, 1, Pos('-', ListBox.ListItems[I].Hint) - 1)));
-          tmpPoint.Y := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, Pos('-', ListBox.ListItems[I].Hint) + 1)));
-          timerSleepControl.Enabled := false;
-          OldPos := tmpPoint;
-          SetCursorPos(tmpPoint.X, tmpPoint.Y);
-          timerSleepControl.Enabled := true;
-
-          mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
-          PostKeyEx32(Ord('C'), [ssctrl]);
-
-          Sleep(200);
-          TranslateLangCodeName := Svc.GetClipBoard.ToString;
-
-          if TranslateLangCodeName <> '' then
+    for I := 0 to ListBox.Count - 1 do
+    begin
+      case ListBox.ListItems[I].Tag of
+        itemPos:
           begin
-            Query.Locate('lang_name', TranslateLangCodeName, []);
-            TranslateLangCode := Query.FieldByName('lang_code').AsString;
+            tmpPoint.X := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, 1, Pos('-', ListBox.ListItems[I].Hint) - 1)));
+            tmpPoint.Y := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, Pos('-', ListBox.ListItems[I].Hint) + 1)));
+            timerSleepControl.Enabled := false;
+            OldPos := tmpPoint;
+            SetCursorPos(tmpPoint.X, tmpPoint.Y);
+            timerSleepControl.Enabled := true;
           end;
-          Sleep(200);
-        end;
-      itemTranslate:
-        begin
-          myLang := Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2);
-          // Название
-          if TranslateLangCode <> '' then
+        itemSleep:
           begin
-
-            Svc.SetClipboard(Copy(GoogleTranslate(mName.Text, myLang, TranslateLangCode), 1, 100));
-          end
-          else
-            Svc.SetClipboard('Перевед данного языка не поддерживается!!!');
-
-          tmpPos := ListBox.ListItems[I].Hint;
-          tmpPoint.X := Round(StrToInt(Copy(tmpPos, 1, Pos('-', tmpPos) - 1)));
-          tmpPoint.Y := Round(StrToInt(Copy(tmpPos, Pos('-', tmpPos) + 1, Pos(';', tmpPos) - 1 - Pos('-', tmpPos))));
-          timerSleepControl.Enabled := false;
-          OldPos := tmpPoint;
-          SetCursorPos(tmpPoint.X, tmpPoint.Y);
-          timerSleepControl.Enabled := true;
-
-          mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
-          PostKeyEx32(Ord('A'), [ssctrl]);
-          PostKeyEx32(Ord('V'), [ssctrl]);
-
-          // Описание
-          if TranslateLangCode <> '' then
+            Sleep(ListBox.ListItems[I].Hint.ToInteger);
+          end;
+        itemClick:
           begin
-            Svc.SetClipboard(GoogleTranslate(mDetails.Text, myLang, TranslateLangCode));
-          end
-          else
-            Svc.SetClipboard('');
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+          end;
+        itemScroll:
+          begin
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, DWORD(ListBox.ListItems[I].Hint.ToInteger), 0);
+          end;
 
-          Delete(tmpPos, 1, Pos(';', tmpPos));
-          tmpPoint.X := Round(StrToInt(Copy(tmpPos, 1, Pos('-', tmpPos) - 1)));
-          tmpPoint.Y := Round(StrToInt(Copy(tmpPos, Pos('-', tmpPos) + 1, Pos(';', tmpPos) - 1 - Pos('-', tmpPos))));
-          timerSleepControl.Enabled := false;
-          OldPos := tmpPoint;
-          SetCursorPos(tmpPoint.X, tmpPoint.Y);
-          timerSleepControl.Enabled := true;
+        itemRightClick:
+          begin
+            mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+          end;
+        itemDoubleClick:
+          begin
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+          end;
 
-          mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-          mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+        itemCtrlA:
+          begin
+            PostKeyEx32(Ord('A'), [ssctrl]);
+          end;
+        itemCtrlC:
+          begin
+            PostKeyEx32(Ord('C'), [ssctrl]);
+          end;
+        itemCtrlV:
+          begin
+            PostKeyEx32(Ord('V'), [ssctrl]);
+          end;
 
-          PostKeyEx32(Ord('A'), [ssctrl]);
-          PostKeyEx32(Ord('V'), [ssctrl]);
-        end;
+        itemGetLang:
+          begin
+            TranslateLangCode := '';
+            tmpPoint.X := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, 1, Pos('-', ListBox.ListItems[I].Hint) - 1)));
+            tmpPoint.Y := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, Pos('-', ListBox.ListItems[I].Hint) + 1)));
+            timerSleepControl.Enabled := false;
+            OldPos := tmpPoint;
+            SetCursorPos(tmpPoint.X, tmpPoint.Y);
+            timerSleepControl.Enabled := true;
+
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+
+            PostKeyEx32(Ord('C'), [ssctrl]);
+
+            Sleep(200);
+            TranslateLangCodeName := Svc.GetClipBoard.ToString;
+
+            if TranslateLangCodeName <> '' then
+            begin
+              Query.Locate('lang_name', TranslateLangCodeName, []);
+              TranslateLangCode := Query.FieldByName('lang_code').AsString;
+            end;
+            Sleep(200);
+          end;
+        itemTranslate:
+          begin
+            if IsTrial then
+            begin
+              SetCountLang(GetLastCount - 1);
+              labCountTrial.Text := GetLastCount.ToString;
+            end;
+
+            myLang := Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2);
+            // Название
+            if TranslateLangCode <> '' then
+            begin
+
+              Svc.SetClipboard(Copy(GoogleTranslate(mName.Text, myLang, TranslateLangCode), 1, 100));
+            end
+            else
+              Svc.SetClipboard('Перевед данного языка не поддерживается!!!');
+
+            tmpPos := ListBox.ListItems[I].Hint;
+            tmpPoint.X := Round(StrToInt(Copy(tmpPos, 1, Pos('-', tmpPos) - 1)));
+            tmpPoint.Y := Round(StrToInt(Copy(tmpPos, Pos('-', tmpPos) + 1, Pos(';', tmpPos) - 1 - Pos('-', tmpPos))));
+            timerSleepControl.Enabled := false;
+            OldPos := tmpPoint;
+            SetCursorPos(tmpPoint.X, tmpPoint.Y);
+            timerSleepControl.Enabled := true;
+
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+
+            PostKeyEx32(Ord('A'), [ssctrl]);
+            PostKeyEx32(Ord('V'), [ssctrl]);
+
+            // Описание
+            if TranslateLangCode <> '' then
+            begin
+              Svc.SetClipboard(GoogleTranslate(mDetails.Text, myLang, TranslateLangCode));
+            end
+            else
+              Svc.SetClipboard('');
+
+            Delete(tmpPos, 1, Pos(';', tmpPos));
+            tmpPoint.X := Round(StrToInt(Copy(tmpPos, 1, Pos('-', tmpPos) - 1)));
+            tmpPoint.Y := Round(StrToInt(Copy(tmpPos, Pos('-', tmpPos) + 1, Pos(';', tmpPos) - 1 - Pos('-', tmpPos))));
+            timerSleepControl.Enabled := false;
+            OldPos := tmpPoint;
+            SetCursorPos(tmpPoint.X, tmpPoint.Y);
+            timerSleepControl.Enabled := true;
+
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+
+            PostKeyEx32(Ord('A'), [ssctrl]);
+            PostKeyEx32(Ord('V'), [ssctrl]);
+
+            if GetLastCount = 0 then
+            begin
+              timerStart.Enabled := false;
+              timerSleepControl.Enabled := false;
+              AutForm := TAuthorizationForm.Create(nil);
+              AutForm.FormStyle := TFormStyle.StayOnTop;
+              AutForm.ShowModal;
+              AutForm.DisposeOf;
+              exit;
+            end;
+          end;
+      end;
     end;
-  end;
 
-  if timerStart.Interval <> 0 then
-    timerStart.Enabled := true;
+    if timerStart.Interval <> 0 then
+      timerStart.Enabled := true;
+
+      Dec(LoopCount);
+  end
+  else
+  begin
+    timerSleepControl.Enabled := false;
+    timerStart.Enabled := false;
+    Self.FormStyle := TFormStyle.StayOnTop;
+    Self.Show;
+    Self.FormStyle := TFormStyle.Normal;
+  end;
 end;
 
 procedure TMainForm.PostKeyEx32(key: Word; const shift: TShiftState);

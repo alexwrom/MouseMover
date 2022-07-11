@@ -61,8 +61,11 @@ type
     function GetScoreInCurr(CurrCode: string): double;
     function IsSendMessage: boolean;
     procedure SetIsSendMessage;
+    procedure SendMessage;
+
     { Private declarations }
   public
+    Trial: boolean;
     { Public declarations }
   end;
 
@@ -70,6 +73,8 @@ var
   AuthorizationForm: TAuthorizationForm;
 
 implementation
+
+uses uMain;
 
 {$R *.fmx}
 
@@ -84,18 +89,18 @@ end;
 
 procedure TAuthorizationForm.btnCloseClick(Sender: TObject);
 begin
+if NOT MainForm.Visible then
   Application.Terminate;
 end;
 
 procedure TAuthorizationForm.btnReSendClick(Sender: TObject);
 begin
-  TabControl.ActiveTab := tabSend;
+  TabControl.ActiveTab := tabPayInfo;
   btnSend.Visible := true;
 end;
 
 procedure TAuthorizationForm.btnSendClick(Sender: TObject);
-var
-  imgpart: TIdAttachmentFile;
+
 begin
 
   if TabControl.ActiveTab = tabData then
@@ -103,56 +108,66 @@ begin
       ShowMessage('Заполните все поля!!!')
     else
     begin
-      TabControl.Next();
-      btnBack.Visible := true;
+      SetIsSendMessage;
+      ShowMessage('Добро пожаловать в приложение MouseMover.' + #13#10 + 'Для Вас доступна Trial версия приложения с ограниченным ресурсом переводов.');
+
+      Self.Close;
+      MainForm.Show;
     end
   else if TabControl.ActiveTab = tabPayInfo then
     TabControl.Next()
   else
   begin
-    IdSMTP1.Username := 'alexwrom@mail.ru'; // Логин
-    IdSMTP1.Password := 'WKlQxuWfNf2OQ9p90Ror'; // Пароль
-    IdSMTP1.Host := 'smtp.mail.ru'; // Хост
-    IdSMTP1.Port := 25; // Порт (25 - по умолчанию)
-    IdMessage1.CharSet := 'windows-1251'; // Кодировка в теле сообщения
-    IdMessage1.ContentType := 'multipart/alternative';
-    IdMessage1.Body.text := 'Фамилия И.О.: ' + edFIO.text + #13#10 + 'Email: ' + edEmail.text + #13#10 + 'ID пользователя: ' + GetID; // Текст сообщения
-    IdMessage1.Subject := 'Покупка'; // Тема сообщения
-    IdMessage1.From.Address := 'alexwrom@mail.ru'; // Адрес отправителя
-    IdMessage1.From.Name := 'MouseMover - Покупка лицензии';
-    IdMessage1.Recipients.EMailAddresses := 'alexwrom@gmail.com'; // Кому отправить письмо (можно через запятую если несколько e-mail'ов)
-
-    if FileAttach <> '' then
-    begin
-      IdMessage1.ContentType := 'multipart/alternative';
-      IdMessage1.MessageParts.Clear;
-      IdMessage1.IsEncoded := true;
-      imgpart := TIdAttachmentFile.Create(IdMessage1.MessageParts, FileAttach);
-      imgpart.ContentType := 'image/jpeg';
-    end
-    else
-      IdMessage1.ContentType := 'text/html';
-
-    IdSSLIOHandlerSocketOpenSSL1.DefaultPort := 0;
-    IdSSLIOHandlerSocketOpenSSL1.SSLOptions.Method := sslvTLSv1;
-    IdSSLIOHandlerSocketOpenSSL1.SSLOptions.Mode := sslmUnassigned;
-
-    IdSMTP1.IOHandler := IdSSLIOHandlerSocketOpenSSL1;
-    IdSMTP1.UseTLS := utUseExplicitTLS;
-    SetIsSendMessage;
-    try
-      // Соединение с почтовым сервером
-      IdSMTP1.Connect();
-      IdSMTP1.Send(IdMessage1);
-      ShowMessage('После проверки данных на указанный Вами адрес придет сообщение подтверждения покупки.' + #13#10 + 'Спасибо за уделенное время и приятного пользования.' + #13#10 + #13#10 +
-        'P.S. Приложение закроется после нажатия клавиши ''Ok''. Воспользоваться приложением Вы сможете после получения сообщения от Администратора.');
-      Application.Terminate;
-    except
-    end;
-    // Отсоединяемся от почтового сервера
-    IdSMTP1.Disconnect;
+    ShowMessage('Если Вы не прикрепили документ, подтверждающий оплату, мы имеем полное право игнорировать Ваш запрос. Если Вы забыли это сделать, то можете повторить отправку при повторном запуске приложения.');
+    SendMessage();
   end;
+end;
 
+procedure TAuthorizationForm.SendMessage();
+var
+  imgpart: TIdAttachmentFile;
+begin
+  SetIsSendMessage;
+  IdSMTP1.Username := 'alexwrom@mail.ru'; // Логин
+  IdSMTP1.Password := 'WKlQxuWfNf2OQ9p90Ror'; // Пароль
+  IdSMTP1.Host := 'smtp.mail.ru'; // Хост
+  IdSMTP1.Port := 25; // Порт (25 - по умолчанию)
+  IdMessage1.CharSet := 'windows-1251'; // Кодировка в теле сообщения
+  IdMessage1.ContentType := 'multipart/alternative';
+  IdMessage1.Body.text := 'Фамилия И.О.: ' + edFIO.text + #13#10 + 'Email: ' + edEmail.text + #13#10 + 'ID пользователя: ' + GetID; // Текст сообщения
+  IdMessage1.Subject := 'Покупка'; // Тема сообщения
+  IdMessage1.From.Address := 'alexwrom@mail.ru'; // Адрес отправителя
+  IdMessage1.From.Name := 'MouseMover - Покупка лицензии';
+  IdMessage1.Recipients.EMailAddresses := 'alexwrom@gmail.com'; // Кому отправить письмо (можно через запятую если несколько e-mail'ов)
+
+  if FileAttach <> '' then
+  begin
+    IdMessage1.ContentType := 'multipart/alternative';
+    IdMessage1.MessageParts.Clear;
+    IdMessage1.IsEncoded := true;
+    imgpart := TIdAttachmentFile.Create(IdMessage1.MessageParts, FileAttach);
+    imgpart.ContentType := 'image/jpeg';
+  end
+  else
+    IdMessage1.ContentType := 'text/html';
+
+  IdSSLIOHandlerSocketOpenSSL1.DefaultPort := 0;
+  IdSSLIOHandlerSocketOpenSSL1.SSLOptions.Method := sslvTLSv1;
+  IdSSLIOHandlerSocketOpenSSL1.SSLOptions.Mode := sslmUnassigned;
+
+  IdSMTP1.IOHandler := IdSSLIOHandlerSocketOpenSSL1;
+  IdSMTP1.UseTLS := utUseExplicitTLS;
+  try
+    // Соединение с почтовым сервером
+    IdSMTP1.Connect();
+    IdSMTP1.Send(IdMessage1);
+    ShowMessage('После проверки данных на указанный Вами адрес придет сообщение подтверждения покупки.' + #13#10 + 'Спасибо за уделенное время и приятного пользования.' + #13#10 + #13#10 +
+      'P.S. Приложение закроется после нажатия клавиши ''Ok''. Воспользоваться приложением Вы сможете после получения сообщения от Администратора.');
+    Application.Terminate;
+  except
+  end;
+  // Отсоединяемся от почтового сервера
+  IdSMTP1.Disconnect;
 end;
 
 procedure TAuthorizationForm.btnBackClick(Sender: TObject);
@@ -203,18 +218,22 @@ end;
 
 procedure TAuthorizationForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Application.Terminate;
+  if NOT MainForm.Visible then
+    Application.Terminate;
 end;
 
 procedure TAuthorizationForm.FormShow(Sender: TObject);
 begin
+
   if IsSendMessage then
   begin
+    Trial := false;
     TabControl.ActiveTab := tabMessage;
     btnSend.Visible := false;
   end
   else
   begin
+    Trial := true;
     TabControl.ActiveTab := tabData;
     btnSend.Visible := true;
   end;
@@ -246,6 +265,9 @@ begin
   FReestr.WriteString('MouseMover', 'FIO', edFIO.text);
   FReestr.WriteString('MouseMover', 'EMail', edEmail.text);
   FReestr.WriteString('MouseMover', 'GUID', Hash(edEmail.text));
+
+  if FReestr.ReadString('MouseMover', 'TRIAL', '') = '' then
+    FReestr.WriteString('MouseMover', 'TRIAL', Hash('200'));
   FreeAndNil(FReestr); // Уничтожаем переменную
 end;
 

@@ -10,6 +10,8 @@ function ProductID: string;
 function GetHardID: string;
 function GetID(): string;
 function Hash(InText: string): string;
+function GetLastCount: Integer;
+procedure SetCountLang(LastCount: Integer);
 
 implementation
 
@@ -102,6 +104,38 @@ begin
   FReestr.OpenKey('Samalex', False);
   Result := FReestr.ReadString('MouseMover', 'GUID', '');
 
+end;
+
+procedure SetCountLang(LastCount: Integer);
+var
+  FReestr: TRegIniFile; // Определяем переменную
+begin
+  FReestr := TRegIniFile.Create('software');
+  FReestr.OpenKey('Samalex', True);
+  FReestr.WriteString('MouseMover', 'TRIAL', Hash(LastCount.ToString));
+  FreeAndNil(FReestr); // Уничтожаем переменную
+end;
+
+function GetLastCount: Integer;
+var
+  FReestr: TRegIniFile; // Определяем переменную
+  TrialCount: string;
+  I: Integer;
+begin
+  FReestr := TRegIniFile.Create('software');
+  FReestr.OpenKey('Samalex', True);
+  result := 0;
+  for I := 0 to 200 do
+  begin
+  TrialCount := FReestr.ReadString('MouseMover', 'TRIAL', Hash('0'))  ;
+    if TrialCount = Hash(I.ToString) then
+    begin
+      Result := I;
+      break
+    end;
+  end;
+
+  FreeAndNil(FReestr); // Уничтожаем переменную
 end;
 
 end.
