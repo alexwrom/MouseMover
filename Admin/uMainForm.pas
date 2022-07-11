@@ -66,7 +66,7 @@ end;
 procedure TMainForm.SendMessage(EMailTo: string);
 begin
   IdSMTP1.Username := 'alexwrom@mail.ru'; // Логин
-  IdSMTP1.Password := 'irAt8u6Q9GkwTORWaHPf'; // Пароль
+  IdSMTP1.Password := 'gJhz0ZnHGUcJIpdiRi4K'; // Пароль
   IdSMTP1.Host := 'smtp.mail.ru'; // Хост
   IdSMTP1.Port := 25; // Порт (25 - по умолчанию)
   IdMessage1.CharSet := 'windows-1251'; // Кодировка в теле сообщения
@@ -89,6 +89,7 @@ begin
     IdSMTP1.Send(IdMessage1);
     ShowMessage('Рассылка отправлена');
   except
+    ShowMessage('Ошибка доставки сообщения Администратору. Повторите позже');
   end;
   // Отсоединяемся от почтового сервера
   IdSMTP1.Disconnect;
