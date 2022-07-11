@@ -89,8 +89,8 @@ end;
 
 procedure TAuthorizationForm.btnCloseClick(Sender: TObject);
 begin
-if NOT MainForm.Visible then
-  Application.Terminate;
+  if NOT MainForm.Visible then
+    Application.Terminate;
 end;
 
 procedure TAuthorizationForm.btnReSendClick(Sender: TObject);
@@ -129,11 +129,10 @@ var
 begin
   SetIsSendMessage;
   IdSMTP1.Username := 'alexwrom@mail.ru'; // Логин
-  IdSMTP1.Password := 'WKlQxuWfNf2OQ9p90Ror'; // Пароль
+  IdSMTP1.Password := 'irAt8u6Q9GkwTORWaHPf'; // Пароль
   IdSMTP1.Host := 'smtp.mail.ru'; // Хост
   IdSMTP1.Port := 25; // Порт (25 - по умолчанию)
   IdMessage1.CharSet := 'windows-1251'; // Кодировка в теле сообщения
-  IdMessage1.ContentType := 'multipart/alternative';
   IdMessage1.Body.text := 'Фамилия И.О.: ' + edFIO.text + #13#10 + 'Email: ' + edEmail.text + #13#10 + 'ID пользователя: ' + GetID; // Текст сообщения
   IdMessage1.Subject := 'Покупка'; // Тема сообщения
   IdMessage1.From.Address := 'alexwrom@mail.ru'; // Адрес отправителя
@@ -165,6 +164,7 @@ begin
       'P.S. Приложение закроется после нажатия клавиши ''Ok''. Воспользоваться приложением Вы сможете после получения сообщения от Администратора.');
     Application.Terminate;
   except
+    ShowMessage('Ошибка доставки сообщения Администратору. Повторите позже');
   end;
   // Отсоединяемся от почтового сервера
   IdSMTP1.Disconnect;

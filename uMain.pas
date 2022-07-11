@@ -10,7 +10,7 @@ uses
   FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, Messages, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf,
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait, Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Comp.UI,
   IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, uTranslate, uLang, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, System.ImageList,
-  FMX.ImgList, FMX.Objects, uLoadFile, shlobj, FMX.SpinBox;
+  FMX.ImgList, FMX.Objects, uLoadFile, shlobj, FMX.SpinBox, IdIPMCastBase, IdIPMCastServer;
 
 type
   TMainForm = class(TForm)
@@ -124,8 +124,8 @@ type
     Label12: TLabel;
     Layout9: TLayout;
     Layout10: TLayout;
-    Layout11: TLayout;
     LinkFillControlToField2: TLinkFillControlToField;
+    StatusBar: TStatusBar;
     procedure btnAddClick(Sender: TObject);
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);

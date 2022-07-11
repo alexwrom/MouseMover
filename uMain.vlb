@@ -217,7 +217,7 @@ Coordinates=344,464,91,36
 Coordinates=270,10,106,168
 
 []
-Coordinates=34,497,52,51
+Coordinates=687,436,67,36
 Visible=True
 
 [Label14]
@@ -252,9 +252,6 @@ Coordinates=10,368,79,58
 
 [Layout7]
 Coordinates=764,436,60,36
-
-[Layout11]
-Coordinates=687,436,67,36
 
 [btnGetPosDetailsBlock]
 Coordinates=541,10,146,58

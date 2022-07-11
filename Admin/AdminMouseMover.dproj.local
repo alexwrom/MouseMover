@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.187,=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.846,=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022.07.11 12:07:37.829,=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022.07.11 13:27:10.728,C:\Users\Alex\Documents\Embarcadero\Studio\Projects\MainForm.pas=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022.07.11 13:27:10.728,C:\Users\Alex\Documents\Embarcadero\Studio\Projects\MainForm.fmx=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2022.07.11 13:27:26.207,C:\Users\Alex\Documents\Embarcadero\Studio\Projects\AdminMouseMover.dproj=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2022.07.11 13:28:17.465,C:\Users\Alex\Documents\Embarcadero\Studio\Projects\AdminMouseMover.dproj=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\AdminMouseMover.dproj</Transaction>
+    <Transaction>2022.07.11 13:28:49.316,D:\Delphi\Android\MouseMover\Admin\AdminMouseMover.dproj=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\AdminMouseMover.dproj</Transaction>
+    <Transaction>2022.07.11 13:29:14.366,C:\Users\Alex\Documents\Embarcadero\Studio\Projects\uMainForm.fmx=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\MainForm.fmx</Transaction>
+    <Transaction>2022.07.11 13:29:14.366,C:\Users\Alex\Documents\Embarcadero\Studio\Projects\uMainForm.pas=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\MainForm.pas</Transaction>
+    <Transaction>2022.07.11 13:29:25.624,D:\Delphi\Android\MouseMover\Admin\uMainForm.pas=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\uMainForm.pas</Transaction>
+    <Transaction>2022.07.11 13:29:25.624,D:\Delphi\Android\MouseMover\Admin\uMainForm.fmx=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\uMainForm.fmx</Transaction>
+  </Transactions>
+</BorlandProject>

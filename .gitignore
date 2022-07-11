@@ -3,3 +3,8 @@
 /win64
 /Android
 /__recovery
+/Admin/__history
+/Admin/Win32
+/Admin/win64
+/Admin/Android
+/Admin/__recovery
