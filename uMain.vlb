@@ -3,13 +3,13 @@ Visible=False
 Coordinates=334,464,97,33
 
 [TabTranslate]
-Coordinates=362,528,90,36
+Coordinates=1133,646,90,36
 
 [Label7]
-Coordinates=1004,10,53,58
+Coordinates=411,332,53,58
 
 [MenuItem13]
-Coordinates=832,528,86,36
+Coordinates=378,584,86,36
 
 [Query]
 Coordinates=610,570,49,36
@@ -22,64 +22,64 @@ Coordinates=373,426,132,36
 Coordinates=10,10,139,212
 
 [tabSleep]
-Coordinates=10,482,65,36
+Coordinates=10,770,65,36
 
 [timerCheckTrack]
 Coordinates=215,426,112,36
 
 [numScroll]
-Coordinates=692,368,72,58
+Coordinates=1017,10,72,58
 
 [Label8]
-Coordinates=10,232,53,58
+Coordinates=262,416,53,58
 
 [btnCorrect]
-Coordinates=386,10,75,58
+Coordinates=461,248,75,58
 
 [GroupBox1]
-Coordinates=148,232,79,58
+Coordinates=306,332,79,58
 
 [timerStart]
 Coordinates=146,426,71,36
 
 [Label5]
-Coordinates=485,300,53,58
+Coordinates=382,248,53,58
 
 [MenuItem5]
-Coordinates=1077,482,79,36
+Coordinates=1200,500,79,36
 
 [btnViewPosNameBlock]
-Coordinates=821,232,148,58
+Coordinates=670,248,148,58
 
 [Label3]
-Coordinates=1067,10,53,58
+Coordinates=657,332,53,58
 
 [MenuItem15]
-Coordinates=721,482,86,36
+Coordinates=418,646,86,36
 
 [btnTrackingStart]
-Coordinates=979,232,109,58
+Coordinates=127,416,109,58
 
 [MenuItem1]
-Coordinates=1166,482,79,36
+Coordinates=679,770,79,36
 
 [editPosCursor]
-Coordinates=1182,232,96,58
+Coordinates=988,416,96,58
 
 [MenuItem3]
-Coordinates=263,482,79,36
+Coordinates=96,646,79,36
 
 [Label1]
-Coordinates=99,368,53,58
+Coordinates=10,248,53,58
 
 [timerGetPos]
 Coordinates=784,105,86,36
 
 [MenuItem17]
-Coordinates=981,482,86,36
+Coordinates=1104,584,86,36
 
 [Label10]
-Coordinates=314,300,60,58
+Coordinates=709,416,60,58
 
 [timerSleepControl]
 Coordinates=784,209,118,36
@@ -91,31 +91,31 @@ Coordinates=784,261,45,36
 Coordinates=784,313,80,36
 
 [btnStart]
-Coordinates=512,232,60,58
+Coordinates=446,416,60,58
 
 [currFileName]
-Coordinates=72,300,92,58
+Coordinates=1115,10,92,58
 
 [setDisplay]
-Coordinates=1098,232,74,58
+Coordinates=294,500,74,58
 
 [Label2]
-Coordinates=782,300,53,58
+Coordinates=748,10,53,58
 
 [MenuItem16]
-Coordinates=441,482,86,36
+Coordinates=154,584,86,36
 
 [btnViewPos]
-Coordinates=582,232,82,58
+Coordinates=562,248,82,58
 
 [btnDel]
-Coordinates=10,300,52,58
+Coordinates=932,332,52,58
 
 [btnViewPosDetailsBlock]
-Coordinates=1092,300,153,58
+Coordinates=1091,332,153,58
 
 [tabPos]
-Coordinates=202,528,54,36
+Coordinates=484,770,54,36
 
 [OpenDialog]
 Coordinates=784,469,82,36
@@ -124,217 +124,245 @@ Coordinates=784,469,82,36
 Coordinates=765,510,83,36
 
 [btnAdd]
-Coordinates=929,300,55,58
+Coordinates=1010,332,55,58
 
 [editCurrDisplay]
-Coordinates=510,368,103,58
+Coordinates=844,248,103,58
 
 [MenuItem10]
-Coordinates=551,528,86,36
+Coordinates=122,708,86,36
 
 [MenuItem14]
-Coordinates=106,528,86,36
+Coordinates=1038,708,86,36
 
 [btnDown]
-Coordinates=300,232,65,58
+Coordinates=89,248,65,58
 
 [TabControl]
-Coordinates=633,482,78,36
+Coordinates=616,646,78,36
 
 [MenuItem12]
-Coordinates=10,528,86,36
+Coordinates=306,646,86,36
 
 [Label4]
-Coordinates=941,10,53,58
+Coordinates=909,416,53,58
 
 [MenuItem11]
-Coordinates=647,528,86,36
+Coordinates=10,708,86,36
 
 [MenuItem2]
-Coordinates=174,482,79,36
+Coordinates=933,708,79,36
 
 [btnUp]
-Coordinates=674,232,49,58
+Coordinates=219,500,49,58
 
 [swScroll]
-Coordinates=866,10,65,58
+Coordinates=618,416,65,58
 
 [tabScroll]
-Coordinates=817,482,65,36
+Coordinates=1042,646,65,36
 
 [Label9]
-Coordinates=548,300,53,58
+Coordinates=736,332,53,58
 
 [mDetails]
-Coordinates=73,232,65,58
+Coordinates=291,248,65,58
 
 [MenuItem4]
-Coordinates=352,482,79,36
+Coordinates=346,708,79,36
 
 [mName]
-Coordinates=623,368,59,58
+Coordinates=1059,248,59,58
 
 [LangForm.BindSourceDB1]
 Coordinates=860,500,145,123
 
 [MenuItem6]
-Coordinates=85,482,79,36
+Coordinates=735,708,79,36
 
 [MenuItem23]
-Coordinates=537,482,86,36
+Coordinates=451,708,86,36
 
 [MenuItem9]
-Coordinates=743,528,79,36
+Coordinates=201,646,79,36
 
 [MenuItem20]
-Coordinates=266,528,86,36
+Coordinates=1150,708,86,36
 
 [MenuItem18]
-Coordinates=1195,436,86,36
+Coordinates=1088,500,86,36
 
 [ItemSave]
-Coordinates=774,368,69,36
+Coordinates=1216,584,69,36
 
 [MainMenu]
 Coordinates=502,464,74,36
 
 [Label13]
-Coordinates=244,300,60,58
+Coordinates=10,500,60,58
 
 [MenuItem7]
-Coordinates=892,482,79,36
+Coordinates=825,646,79,36
 
 [labCountWord]
-Coordinates=403,368,97,58
+Coordinates=96,500,97,58
 
 [MenuItem8]
-Coordinates=462,528,79,36
+Coordinates=720,646,79,36
 
 [BindingsList1]
 Coordinates=344,464,91,36
 
 [BindSourceDB1]
-Coordinates=270,10,106,168
+Coordinates=616,32,106,168
 
 []
-Coordinates=687,436,67,36
+Coordinates=827,10,60,58
 Visible=True
 
 [Label14]
-Coordinates=263,368,60,58
+Coordinates=1196,416,60,58
 
 [tabSeparator]
-Coordinates=1096,436,89,36
+Coordinates=564,770,89,36
 
 [btnGoTo]
-Coordinates=792,10,64,58
+Coordinates=1270,332,64,58
 
 [btnGetPosNameBlock]
-Coordinates=1130,10,141,58
+Coordinates=490,332,141,58
 
 [ImageList]
 Coordinates=726,563,70,36
 
 [Layout5]
-Coordinates=1026,436,60,36
+Coordinates=101,770,60,36
 
 [Label6]
-Coordinates=237,232,53,58
+Coordinates=127,332,53,58
 
 [MenuItem24]
-Coordinates=930,436,86,36
+Coordinates=930,646,86,36
 
 [MenuItem19]
-Coordinates=834,436,86,36
+Coordinates=906,584,86,36
 
 [GroupBox2]
-Coordinates=10,368,79,58
+Coordinates=341,416,79,58
 
 [Layout7]
-Coordinates=764,436,60,36
+Coordinates=1002,500,60,36
 
 [btnGetPosDetailsBlock]
-Coordinates=541,10,146,58
+Coordinates=1282,416,146,58
 
 [MenuItem25]
-Coordinates=591,436,86,36
+Coordinates=1249,646,86,36
 
 [MenuItem21]
-Coordinates=495,436,86,36
+Coordinates=234,708,86,36
 
 [Layout9]
-Coordinates=425,436,60,36
+Coordinates=1262,708,60,36
 
 [Label15]
-Coordinates=611,300,60,58
+Coordinates=1144,248,60,58
 
 [Label12]
-Coordinates=174,300,60,58
+Coordinates=973,248,60,58
 Visible=True
 
 [edTargetPos]
-Coordinates=994,300,88,58
+Coordinates=795,416,88,58
 
 [Layout6]
-Coordinates=355,436,60,36
+Coordinates=530,646,60,36
 
 [GridPanelLayout1]
-Coordinates=227,436,118,36
+Coordinates=10,584,118,36
 
 [labCountTrial]
-Coordinates=384,300,91,58
+Coordinates=815,332,91,58
 
 [Layout4]
-Coordinates=157,436,60,36
+Coordinates=563,708,60,36
 
 [Label17]
-Coordinates=471,10,60,58
+Coordinates=1110,416,60,58
 
 [Layout3]
-Coordinates=87,436,60,36
+Coordinates=187,770,60,36
 
 [cbLang]
-Coordinates=159,10,101,146
+Coordinates=435,10,101,146
 
 [Label16]
-Coordinates=375,232,60,58
+Coordinates=394,500,60,58
 
 [Image1]
-Coordinates=445,232,57,58
+Coordinates=1230,248,57,58
 
 [sleepTime]
-Coordinates=845,300,74,58
-
-[Layout10]
-Coordinates=10,436,67,36
+Coordinates=206,332,74,58
 
 [Label11]
-Coordinates=333,368,60,58
+Coordinates=532,416,60,58
 
 [Layout8]
-Coordinates=1185,368,60,36
+Coordinates=1018,584,60,36
 
 [Layout1]
-Coordinates=1115,368,60,36
+Coordinates=649,708,60,36
 
 [Layout2]
-Coordinates=1045,368,60,36
+Coordinates=10,646,60,36
 
 [editInterval]
-Coordinates=733,232,78,58
+Coordinates=913,10,78,58
 
 [edSeparator]
-Coordinates=697,10,85,58
-
-[MenuItem26]
-Coordinates=949,368,86,36
+Coordinates=180,248,85,58
 
 [MenuItem22]
-Coordinates=853,368,86,36
+Coordinates=372,770,86,36
 
 [sbLoopCount]
-Coordinates=162,368,91,58
+Coordinates=10,416,91,58
 
 [edSourcePos]
-Coordinates=681,300,91,58
+Coordinates=10,332,91,58
+
+[miLicense]
+Coordinates=273,770,73,36
+
+[miUpdate]
+Coordinates=811,584,69,36
+
+[StatusBar]
+Coordinates=714,584,71,36
+
+[MenuItem28]
+Coordinates=602,584,86,36
+
+[MenuItem26]
+Coordinates=490,584,86,36
+
+[MenuItem27]
+Coordinates=266,584,86,36
+
+[tabLang]
+Coordinates=915,500,61,36
+
+[MenuItem29]
+Coordinates=688,500,86,36
+
+[Layout11]
+Coordinates=480,500,67,36
+
+[ListViewLang]
+Coordinates=175,10,107,234
+Visible=True
+
+[layBtns]
+Coordinates=840,708,67,36
 

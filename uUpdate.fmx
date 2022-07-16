@@ -1,0 +1,36 @@
+object UpdateForm: TUpdateForm
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  BorderStyle = Single
+  Caption = #1054#1073#1085#1086#1074#1083#1077#1085#1080#1077
+  ClientHeight = 180
+  ClientWidth = 210
+  Fill.Kind = Solid
+  Position = MainFormCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object AniIndicator: TAniIndicator
+    Align = Client
+    Enabled = True
+    Size.Width = 210.000000000000000000
+    Size.Height = 120.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object labWait: TLabel
+    Align = Bottom
+    StyledSettings = [Family]
+    Position.Y = 120.000000000000000000
+    Size.Width = 210.000000000000000000
+    Size.Height = 60.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 13.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.HorzAlign = Center
+    Text = #1055#1086#1076#1086#1078#1076#1080#1090#1077'. '#1048#1076#1077#1090' '#1079#1072#1075#1088#1091#1079#1082#1072' '
+    TabOrder = 0
+  end
+end

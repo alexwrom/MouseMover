@@ -2,9 +2,9 @@ unit uLoadFile;
 
 interface
 
-uses System.Types, System.SysUtils, FMX.Forms, Wininet, Registry, WinApi.Windows, IdHashMessageDigest, FMX.Dialogs;
+uses System.Types, System.SysUtils, FMX.Forms, Wininet, Registry, WinApi.Windows, IdHashMessageDigest, FMX.Dialogs, System.Threading;
 
-function GetInetFile(FileName: string; IsLoadSTMP: boolean = false): boolean;
+function GetInetFile(FileName: string; URL: string): boolean;
 function Win7: string;
 function ProductID: string;
 function GetHardID: string;
@@ -12,10 +12,22 @@ function GetID(): string;
 function Hash(InText: string): string;
 function GetLastCount: Integer;
 procedure SetCountLang(LastCount: Integer);
+function GetTempWindows: string;
 
 implementation
 
-function GetInetFile(FileName: string; IsLoadSTMP: boolean = false): boolean;
+function GetTempWindows: string;
+var
+  lng: DWORD;
+  thePath: string;
+begin
+  SetLength(thePath, MAX_PATH);
+  lng := GetTempPath(MAX_PATH, PChar(thePath));
+  SetLength(thePath, lng);
+  result := thePath;
+end;
+
+function GetInetFile(FileName: string; URL: string): boolean;
 const
   BufferSize = 1024;
 var
@@ -25,24 +37,23 @@ var
   f: file;
   sAppName: string;
 begin
-  Result := false;
+  result := false;
+
   sAppName := ExtractFileName(Application.Name);
   hSession := InternetOpen(PChar(sAppName), INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
   try
     try
-      if IsLoadSTMP then
-        hURL := InternetOpenURL(hSession, PChar('https://drive.google.com/u/0/uc?id=1S6ynmwBA4LcWzp2hrqsJPXkIdyZzzVXB&export=download'), nil, 0, 0, 0)
-      else
-        hURL := InternetOpenURL(hSession, PChar('https://drive.google.com/u/0/uc?id=1MSbOx0b9JO_il_wd_CkzUIcp4zXNgZpS&export=download'), nil, 0, 0, 0);
-
+      hURL := InternetOpenURL(hSession, PChar(URL), nil, 0, 0, 0);
       try
         AssignFile(f, FileName);
         Rewrite(f, 1);
+
         repeat
           InternetReadFile(hURL, @Buffer, SizeOf(Buffer), BufferLen);
           BlockWrite(f, Buffer, BufferLen);
+
         until BufferLen = 0;
-        Result := True;
+        result := True;
       finally
         CloseFile(f);
         InternetCloseHandle(hURL);
@@ -65,7 +76,7 @@ begin
   FReestr.Rootkey := HKEY_LOCAL_MACHINE;
   FReestr.OpenKey('SYSTEM\CurrentControlSet\Control\SystemInformation', false);
 
-  Result := Hash(Win7 + ProductID + GetHardID + FReestr.ReadString('ComputerHardwareId'));
+  result := Hash(Win7 + ProductID + GetHardID + FReestr.ReadString('ComputerHardwareId'));
   FreeAndNil(FReestr); // ”ничтожаем переменную
 end;
 
@@ -73,7 +84,7 @@ function Hash(InText: string): string;
 begin
   with TIdHashMessageDigest5.Create do
   begin
-    Result := HashStringAsHex(InText);
+    result := HashStringAsHex(InText);
     DisposeOf;
   end;
 end;
@@ -85,7 +96,7 @@ var
   Buffer: array [0 .. 255] of char;
 begin
   if GetVolumeInformation('C:\', Buffer, SizeOf(Buffer), @SerialNum, a, b, nil, 0) then
-    Result := IntToStr(SerialNum);
+    result := IntToStr(SerialNum);
 end;
 
 function ProductID: string;
@@ -95,7 +106,7 @@ begin
   Reg := TRegistry.Create(KEY_READ);
   Reg.Rootkey := HKEY_LOCAL_MACHINE;
   Reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion', false);
-  Result := Reg.ReadString('ProductId');
+  result := Reg.ReadString('ProductId');
   Reg.Free;
 end;
 
@@ -106,7 +117,7 @@ var
 begin
   FReestr := TRegIniFile.Create('software');
   FReestr.OpenKey('Samalex', false);
-  Result := FReestr.ReadString('MouseMover', 'GUID', '');
+  result := FReestr.ReadString('MouseMover', 'GUID', '');
 
 end;
 
@@ -128,13 +139,13 @@ var
 begin
   FReestr := TRegIniFile.Create('software');
   FReestr.OpenKey('Samalex', True);
-  Result := 0;
+  result := 0;
   for I := 0 to 200 do
   begin
     TrialCount := FReestr.ReadString('MouseMover', 'TRIAL', Hash('0'));
     if TrialCount = Hash(I.ToString) then
     begin
-      Result := I;
+      result := I;
       break
     end;
   end;

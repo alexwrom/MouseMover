@@ -31,10 +31,7 @@ begin
     result := result + 'unknow.';
     Exit;
   end;
-  if AResponce.StatusCode <> 200 then
-  begin
-    result := result + AResponce.StatusText;
-  end;
+
   try
     for j := 0 to TJSONArray(TJSONArray(TJSONObject.ParseJSONValue(AResponce.ContentAsString)).Items[0]).Count - 1 do
         result := result + TJSONArray(TJSONArray(TJSONArray(TJSONObject.ParseJSONValue(AResponce.ContentAsString)).Items[0]).Items[j]).Items[0].Value;

@@ -9,7 +9,9 @@ uses
   uAddEditForm in 'uAddEditForm.pas' {AddEditForm},
   uLoadFile in 'uLoadFile.pas',
   uAuthorization in 'uAuthorization.pas' {AuthorizationForm},
-  uContact in 'uContact.pas' {ContactForm};
+  uContact in 'uContact.pas' {ContactForm},
+  uUpdate in 'uUpdate.pas' {UpdateForm},
+  uTranscriptions in 'uTranscriptions.pas';
 
 {$R *.res}
 
@@ -20,5 +22,6 @@ begin
   Application.CreateForm(TLangForm, LangForm);
   Application.CreateForm(TAddEditForm, AddEditForm);
   Application.CreateForm(TContactForm, ContactForm);
+  Application.CreateForm(TUpdateForm, UpdateForm);
   Application.Run;
 end.
