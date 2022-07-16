@@ -1123,7 +1123,7 @@ begin
             begin
               sleep(100);
               tmpPoint.X := Round(StrToInt(Copy(tmpCSP, 1, Pos('-', tmpCSP) - 1))) - 300;
-              tmpPoint.Y := Round(StrToInt(Copy(tmpCSP, Pos('-', tmpCSP) + 1, Pos(';', tmpPos) - 1 - Pos('-', tmpCSP))));
+              tmpPoint.Y := Round(StrToInt(Copy(tmpCSP, Pos('-', tmpCSP) + 1, Pos(';', tmpCSP) - 1 - Pos('-', tmpCSP))));
               timerSleepControl.Enabled := false;
               OldPos := tmpPoint;
               SetCursorPos(tmpPoint.X, tmpPoint.Y);
@@ -1141,7 +1141,7 @@ begin
             begin
               sleep(100);
               tmpPoint.X := Round(StrToInt(Copy(tmpCTP, 1, Pos('-', tmpCTP) - 1))) - 300;
-              tmpPoint.Y := Round(StrToInt(Copy(tmpCTP, Pos('-', tmpCTP) + 1, Pos(';', tmpPos) - 1 - Pos('-', tmpCTP))));
+              tmpPoint.Y := Round(StrToInt(Copy(tmpCTP, Pos('-', tmpCTP) + 1, Pos(';', tmpCTP) - 1 - Pos('-', tmpCTP))));
               timerSleepControl.Enabled := false;
               OldPos := tmpPoint;
               SetCursorPos(tmpPoint.X, tmpPoint.Y);
