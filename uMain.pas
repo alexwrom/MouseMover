@@ -312,6 +312,8 @@ end;
 
 procedure TMainForm.btnStartClick(Sender: TObject);
 begin
+  mName.Text := '';
+  mDetails.Text := '';
   setkey(Lo(GetUserDefaultUILanguage), sublang_default);
   btnStart.SetFocus;
   if ListBox.Count > 0 then
@@ -857,13 +859,13 @@ begin
   begin
     case TagTranslate of
       0:
-        btnGetPosNameBlock.Text := 'Начать запись позиции названия';
+        btnGetPosNameBlock.Text := 'Начать запись позиции целового названия';
       1:
-        btnGetPosDetailsBlock.Text := 'Начать запись позиции описания';
+        btnGetPosDetailsBlock.Text := 'Начать запись позиции целового описания';
       2:
-        btnGetPosCurrNameBlock.Text := 'Начать запись позиции описания';
+        btnGetPosCurrNameBlock.Text := 'Начать запись позиции исходного названия';
       3:
-        btnGetPosCurrDetailsBlock.Text := 'Начать запись позиции описания';
+        btnGetPosCurrDetailsBlock.Text := 'Начать запись позиции исходного описания';
     end;
     ListBox.Selected.Hint := edSourcePos.Text + ';' + edTargetPos.Text + ';' + edCurrentSourcePos.Text + ';' + edCurrentTargetPos.Text + ';' + Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2);
   end;
@@ -1110,19 +1112,23 @@ begin
               labCountTrial.Text := GetLastCount.ToString;
             end;
 
+
             tmpPos := ListBox.ListItems[I].Hint;
-            tmpSP := tmpPos;
+            tmpSP := Copy(tmpPos,1,Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpTP := tmpPos;
+            tmpTP := Copy(tmpPos,1,Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpCSP := tmpPos;
+            tmpCSP := Copy(tmpPos,1,Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpCTP := tmpPos;
+            tmpCTP := Copy(tmpPos,1,Pos(';', tmpPos));
+            Delete(tmpPos, 1, Pos(';', tmpPos));
+            myLang := Copy(tmpPos,1);
+
 
             if mName.Text = '' then
             begin
               sleep(100);
-              tmpPoint.X := Round(StrToInt(Copy(tmpCSP, 1, Pos('-', tmpCSP) - 1))) - 300;
+              tmpPoint.X := Round(StrToInt(Copy(tmpCSP, 1, Pos('-', tmpCSP) - 1)));
               tmpPoint.Y := Round(StrToInt(Copy(tmpCSP, Pos('-', tmpCSP) + 1, Pos(';', tmpCSP) - 1 - Pos('-', tmpCSP))));
               timerSleepControl.Enabled := false;
               OldPos := tmpPoint;
@@ -1130,17 +1136,16 @@ begin
               mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
               mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
               PostKeyEx32(Ord('A'), [ssctrl]);
-              sleep(100);
+              sleep(200);
               PostKeyEx32(Ord('C'), [ssctrl]);
-              sleep(100);
+              sleep(200);
               mName.Text := Svc.GetClipBoard.ToString;
-
             end;
 
             if mDetails.Text = '' then
             begin
               sleep(100);
-              tmpPoint.X := Round(StrToInt(Copy(tmpCTP, 1, Pos('-', tmpCTP) - 1))) - 300;
+              tmpPoint.X := Round(StrToInt(Copy(tmpCTP, 1, Pos('-', tmpCTP) - 1)));
               tmpPoint.Y := Round(StrToInt(Copy(tmpCTP, Pos('-', tmpCTP) + 1, Pos(';', tmpCTP) - 1 - Pos('-', tmpCTP))));
               timerSleepControl.Enabled := false;
               OldPos := tmpPoint;
@@ -1148,13 +1153,12 @@ begin
               mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
               mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
               PostKeyEx32(Ord('A'), [ssctrl]);
-              sleep(100);
+              sleep(200);
               PostKeyEx32(Ord('C'), [ssctrl]);
-              sleep(100);
+              sleep(200);
               mDetails.Text := Svc.GetClipBoard.ToString;
-
             end;
-            myLang := Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2);
+
             // Название
             if TranslateLangCode <> '' then
             begin
@@ -1165,7 +1169,6 @@ begin
               Svc.SetClipboard('Перевед данного языка не поддерживается!!!');
 
             sleep(100);
-            tmpPos := ListBox.ListItems[I].Hint;
             tmpPoint.X := Round(StrToInt(Copy(tmpSP, 1, Pos('-', tmpSP) - 1)));
             tmpPoint.Y := Round(StrToInt(Copy(tmpSP, Pos('-', tmpSP) + 1, Pos(';', tmpSP) - 1 - Pos('-', tmpSP))));
             timerSleepControl.Enabled := false;
@@ -1179,6 +1182,7 @@ begin
             sleep(100);
             PostKeyEx32(Ord('V'), [ssctrl]);
             sleep(100);
+
             // Описание
             if TranslateLangCode <> '' then
             begin
@@ -1186,6 +1190,7 @@ begin
             end
             else
               Svc.SetClipboard('');
+
             sleep(100);
             tmpPoint.X := Round(StrToInt(Copy(tmpTP, 1, Pos('-', tmpTP) - 1)));
             tmpPoint.Y := Round(StrToInt(Copy(tmpTP, Pos('-', tmpTP) + 1, Pos(';', tmpTP) - 1 - Pos('-', tmpTP))));
