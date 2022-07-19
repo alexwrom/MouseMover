@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uContact,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus, uAuthorization,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.ListBox, ShellAPI,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.ListBox, ShellAPI, uImages,
   FMX.TabControl, FMX.Edit, FMX.EditBox, FMX.NumberBox, Winapi.Windows, FMX.Platform, System.Threading,
   FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, Messages, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf,
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait, Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Comp.UI,
@@ -143,9 +143,11 @@ type
     btnGetPosCurrNameBlock: TSpeedButton;
     edCurrentSourcePos: TEdit;
     btnInfo: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    SpeedButton5: TSpeedButton;
-    SpeedButton6: TSpeedButton;
+    btnInfo2: TSpeedButton;
+    btnInfo4: TSpeedButton;
+    btnInfo3: TSpeedButton;
+    btnInfoPos: TSpeedButton;
+    Layout13: TLayout;
     procedure btnAddClick(Sender: TObject);
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
@@ -190,6 +192,7 @@ type
     procedure MenuItem28Click(Sender: TObject);
     procedure ListViewLangItemClick(const Sender: TObject; const AItem: TListViewItem);
     procedure MenuItem29Click(Sender: TObject);
+    procedure btnInfoClick(Sender: TObject);
   private
     LoopCount: integer;
     IsTrial: boolean;
@@ -205,6 +208,7 @@ type
     procedure Save(FileName: String);
     procedure PostKeyEx32(key: word; const shift: TShiftState);
     function GetUserAppPath: string;
+    function IsLangExists: boolean;
     { Private declarations }
 
   public
@@ -310,6 +314,16 @@ begin
   ShellAPI.ShellExecute(0, 'Open', 'https://www.youtube.com/channel/UCD7uILhzRHyib6H25UtJpYw', nil, nil, SW_SHOWNORMAL);
 end;
 
+procedure TMainForm.btnInfoClick(Sender: TObject);
+var
+  ImageForm: TImageForm;
+begin
+  ImageForm := TImageForm.Create(nil);
+  ImageForm.Image.Bitmap := ImageForm.ImageList.Source[(Sender as TSpeedButton).Tag].MultiResBitmap[0].Bitmap;
+  ImageForm.ShowModal;
+  ImageForm.DisposeOf;
+end;
+
 procedure TMainForm.btnStartClick(Sender: TObject);
 begin
   mName.Text := '';
@@ -398,6 +412,7 @@ begin
   lItem := TListBoxItem.Create(nil);
   with lItem do
   begin
+    layBtns.Enabled := Not IsLangExists;
     Parent := ListBox;
     ImageIndex := itemType - 1;
     if ListBox.Selected <> nil then
@@ -439,7 +454,10 @@ begin
         end;
       itemSeparator:
         begin
-          Text := '----<>----';
+          if defHint <> '' then
+            Text := '----<' + defHint + '>----'
+          else
+            Text := '----<>----';
           Hint := '';
         end;
 
@@ -486,6 +504,18 @@ begin
   end;
 end;
 
+function TMainForm.IsLangExists: boolean;
+var
+  I: integer;
+begin
+  for I := 0 to ListBox.Count - 1 do
+    if ListBox.ListItems[I].Tag = itemLang then
+    begin
+      result := true;
+      exit;
+    end;
+end;
+
 procedure TMainForm.edSeparatorChangeTracking(Sender: TObject);
 begin
 
@@ -513,6 +543,8 @@ var
   s: string;
   IsFindCode: boolean;
   AutForm: TAuthorizationForm;
+  IsReadUpdate: boolean;
+  IsReadSMTP: boolean;
 begin
   TPlatformServices.Current.SupportsPlatformService(IFMXClipboardService, Svc);
   editCurrDisplay.Text := GetDeviceCaps(GetDC(0), HORZRES).ToString + ' x ' + GetDeviceCaps(GetDC(0), VERTRES).ToString;
@@ -521,27 +553,39 @@ begin
   Query.Active := true;
 
   FileName := GetTempWindows + '\tmpMouseMover.txt';
-  GetInetFile(FileName, 'https://drive.google.com/u/0/uc?id=1S6ynmwBA4LcWzp2hrqsJPXkIdyZzzVXB&export=download');
-  if FileExists(FileName) then
-  begin
-    AssignFile(FileTxt, FileName);
-    Reset(FileTxt);
-    Readln(FileTxt, s);
-    UserName := Copy(s, Pos('Username:', s) + 9, Pos(';', s) - 10);
-    Password := Copy(s, Pos('Password:', s) + 9);
-    CloseFile(FileTxt);
-    Erase(FileTxt);
-  end;
 
   GetInetFile(FileName, 'https://drive.google.com/u/0/uc?id=1MSbOx0b9JO_il_wd_CkzUIcp4zXNgZpS&export=download');
   IsFindCode := false;
-
+  IsReadUpdate := false;
+  IsReadSMTP := false;
   if FileExists(FileName) then
   begin
     AssignFile(FileTxt, FileName);
     Reset(FileTxt);
     while NOT EOF(FileTxt) do
     begin
+
+      // Проверка обновления
+      if NOT IsReadUpdate then
+      begin
+        Readln(FileTxt, s);
+        if Pos(s, Self.Caption) = 0 then
+        begin
+          ShowMessage('Для Вас доступно новое обновление. v' + s);
+          miUpdate.Text := 'Обновить до версии ' + s;
+          miUpdate.Visible := true;
+        end;
+        IsReadUpdate := true;
+      end;
+      // SMTP
+      if NOT IsReadSMTP then
+      begin
+        Readln(FileTxt, s);
+        UserName := Copy(s, Pos('Username:', s) + 9, Pos(';', s) - 10);
+        Password := Copy(s, Pos('Password:', s) + 9);
+        IsReadSMTP := true;
+      end;
+      // Проверка на наличие ключа
       Readln(FileTxt, s);
       if Pos(GetID, s) > 0 then
       begin
@@ -569,30 +613,6 @@ begin
       end
     end
   end;
-
-  TTask.Run( // uses System.Threading
-    procedure
-    begin
-      GetInetFile(FileName, 'https://drive.google.com/u/0/uc?id=1LbU_DYzhjD6yb3GuR7l57bj6h1yo2nRY&export=download');
-      TThread.Synchronize(nil,
-        procedure
-        begin
-          if FileExists(FileName) then
-          begin
-            AssignFile(FileTxt, FileName);
-            Reset(FileTxt);
-            Readln(FileTxt, s);
-            CloseFile(FileTxt);
-            Erase(FileTxt);
-          end;
-          if Pos(s, Self.Caption) = 0 then
-          begin
-            ShowMessage('Для Вас доступно новое обновление. v' + s);
-            miUpdate.Text := 'Обновить до версии ' + s;
-            miUpdate.Visible := true;
-          end;
-        end);
-    end);
 end;
 
 function TMainForm.GetUserAppPath: string;
@@ -669,7 +689,15 @@ begin
 end;
 
 procedure TMainForm.MenuItem29Click(Sender: TObject);
+var
+  I: integer;
 begin
+  if ListBox.Count > 0 then
+    if MessageDlg('Выбор компонента "Выбрать языки" повлечет очистку списка введенных компонентов. Продолжить?', TMsgDlgType.mtWarning, [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = 6 then
+    begin
+      for I := 0 to ListBox.Count - 1 do
+        ListBox.Items.Delete(0);
+    end;
   CreateItem(itemLang);
   layBtns.Enabled := false;
 end;
@@ -729,6 +757,7 @@ var
   I: integer;
   Text: string;
   Flags: TReplaceFlags;
+  itemID: integer;
 begin
   TabControl.Visible := false;
   OpenDialog.InitialDir := GetUserAppPath;
@@ -738,42 +767,61 @@ begin
     currFileName.Text := ExtractFileName(OpenDialog.FileName);
 
     ItemSave.Enabled := true;
-    ListBox.Clear;
-    AssignFile(f, OpenDialog.FileName);
-    Reset(f);
-    while NOT EOF(f) do
-    begin
-      Readln(f, Text);
-      if Text <> '' then
+
+    layBtns.Enabled := Not IsLangExists;
+    ListBox.Visible := false;
+
+    TTask.Run( // uses System.Threading
+      procedure
       begin
-        case Copy(Text, 1, Pos('-', Text) - 1).ToInteger of
-          intInternalTimer, 10:
-            editInterval.Text := Copy(Text, Pos('-', Text) + 1);
-          intSetDisplay, 11:
-            setDisplay.Text := Copy(Text, Pos('-', Text) + 1);
-          intLoopCount:
-            sbLoopCount.Text := Copy(Text, Pos('-', Text) + 1);
-          itemLang, itemTab, itemEnter, itemText, itemPos, itemClick, itemSleep, itemScroll, itemRightClick, itemDoubleClick, itemCtrlA, itemCtrlC, itemCtrlV, itemTranslate, itemGetLang:
-            begin
-              CreateItem(Copy(Text, 1, Pos('-', Text) - 1).ToInteger);
-              ListBox.ListItems[ListBox.Count - 1].Hint := Copy(Text, Pos('-', Text) + 1);
+
+        ListBox.Clear;
+        AssignFile(f, OpenDialog.FileName);
+        Reset(f);
+        while NOT EOF(f) do
+        begin
+          Readln(f, Text);
+          if Text <> '' then
+          begin
+            itemID := Copy(Text, 1, Pos('-', Text) - 1).ToInteger;
+            case itemID of
+              intInternalTimer, 10:
+                editInterval.Text := Copy(Text, Pos('-', Text) + 1);
+              intSetDisplay, 11:
+                setDisplay.Text := Copy(Text, Pos('-', Text) + 1);
+              intLoopCount:
+                sbLoopCount.Text := Copy(Text, Pos('-', Text) + 1);
+              itemLang, itemTab, itemEnter, itemText, itemPos, itemClick, itemSleep, itemScroll, itemRightClick, itemDoubleClick, itemCtrlA, itemCtrlC, itemCtrlV, itemTranslate, itemGetLang:
+                begin
+                  CreateItem(itemID);
+                  ListBox.ListItems[ListBox.Count - 1].Hint := Copy(Text, Pos('-', Text) + 1);
+                  if itemID in [itemEnter, itemText, itemClick, itemSleep, itemScroll] then
+                    if IsLangExists then
+
+                      ListBox.ListItems[ListBox.Count - 1].Height := 0;
+                end;
+              itemSeparator:
+                begin
+                  CreateItem(itemID);
+                  ListBox.ListItems[ListBox.Count - 1].Hint := Copy(Text, Pos('-', Text) + 1);
+                  if ListBox.ListItems[ListBox.Count - 1].Hint = '' then
+                    ListBox.ListItems[ListBox.Count - 1].Text := '----<>----'
+                  else
+                    ListBox.ListItems[ListBox.Count - 1].Text := '----' + Copy(Text, Pos('-', Text) + 1) + '----';
+                end;
             end;
-          itemSeparator:
-            begin
-              CreateItem(Copy(Text, 1, Pos('-', Text) - 1).ToInteger);
-              ListBox.ListItems[ListBox.Count - 1].Hint := Copy(Text, Pos('-', Text) + 1);
-              if ListBox.ListItems[ListBox.Count - 1].Hint = '' then
-                ListBox.ListItems[ListBox.Count - 1].Text := '----<>----'
-              else
-                ListBox.ListItems[ListBox.Count - 1].Text := '----' + Copy(Text, Pos('-', Text) + 1) + '----';
-            end;
+
+          end;
         end;
 
-      end;
-    end;
+        TThread.Synchronize(nil,
+          procedure
+          begin
+            CloseFile(f);
+            ListBox.Visible := true;
+          end);
+      end);
 
-    CloseFile(f);
-    layBtns.Enabled := true;
   end;
 
 end;
@@ -1098,7 +1146,7 @@ begin
 
             if TranslateLangCodeName <> '' then
             begin
-              Query.Locate('lang_name', TranslateLangCodeName, []);
+              Query.Locate('lang_name', TranslateLangCodeName, [loPartialKey]);
               TranslateLangCode := Query.FieldByName('lang_code').AsString;
             end;
             sleep(200);
@@ -1112,18 +1160,16 @@ begin
               labCountTrial.Text := GetLastCount.ToString;
             end;
 
-
             tmpPos := ListBox.ListItems[I].Hint;
-            tmpSP := Copy(tmpPos,1,Pos(';', tmpPos));
+            tmpSP := Copy(tmpPos, 1, Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpTP := Copy(tmpPos,1,Pos(';', tmpPos));
+            tmpTP := Copy(tmpPos, 1, Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpCSP := Copy(tmpPos,1,Pos(';', tmpPos));
+            tmpCSP := Copy(tmpPos, 1, Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpCTP := Copy(tmpPos,1,Pos(';', tmpPos));
+            tmpCTP := Copy(tmpPos, 1, Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
-            myLang := Copy(tmpPos,1);
-
+            myLang := Copy(tmpPos, 1);
 
             if mName.Text = '' then
             begin
@@ -1283,6 +1329,10 @@ begin
         TabControl.Visible := true;
         TabControl.ActiveTab := tabPos;
         editPosCursor.Text := (Sender as TListBoxItem).Hint;
+        if (Sender as TListBoxItem).Tag = itemGetLang then
+          btnInfoPos.Tag := 4
+        else
+          btnInfoPos.Tag := 5;
       end;
     itemTranslate:
       begin
@@ -1350,27 +1400,45 @@ begin
 
   if AItem.Checked then
   begin
-    ListBox.Selected.Hint := ListBox.Selected.Hint + AItem.Detail + ';';
-    ListBox.ListItems[ListBox.Count - 1].IsSelected := true;
 
-    CreateItem(itemSeparator, AItem.Text);
-    ListBox.ListItems[ListBox.Count - 2].IsSelected := false;
-    ListBox.ListItems[ListBox.Count - 1].IsSelected := true;
-    ItemsClick(ListBox.ListItems[ListBox.Count - 1]);
+    TTask.Run( // uses System.Threading
+      procedure
+      begin
+        ListBox.Selected.Hint := ListBox.Selected.Hint + AItem.Detail + ';';
+        ListBox.ListItems[ListBox.Count - 1].IsSelected := true;
 
-    CreateItem(itemPos);
-    CreateItem(itemClick);
+        CreateItem(itemSeparator, AItem.Text);
 
-    CreateItem(itemSleep, '500');
-    ListBox.ListItems[ListBox.Count - 1].IsSelected := true;
-    ItemsClick(ListBox.ListItems[ListBox.Count - 1]);
+        CreateItem(itemPos);
+        // Остальное прячем
+        CreateItem(itemClick);
+        ListBox.ListItems[ListBox.Count - 1].Height := 0;
 
-    CreateItem(itemText, AItem.Text);
-    CreateItem(itemEnter);
-    CreateItem(itemSleep, '500');
+        CreateItem(itemSleep, '500');
+        ListBox.ListItems[ListBox.Count - 1].Height := 0;
 
-    ListBox.ListItems[ListBox.Count - 1].IsSelected := true;
-    ItemsClick(ListBox.ListItems[ListBox.Count - 1]);
+        CreateItem(itemText, AItem.Text);
+        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+
+        CreateItem(itemEnter);
+        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+
+        CreateItem(itemSleep, '300');
+        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+
+        CreateItem(itemScroll, '-10000');
+        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+
+        CreateItem(itemSleep, '500');
+        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+        ListBox.ClearSelection;
+        TThread.Synchronize(nil,
+          procedure
+          begin
+             ListBox.ListItems[0].IsSelected := true;
+          end);
+      end);
+
   end
   else
   begin
@@ -1383,7 +1451,7 @@ begin
       begin
         editPosCursor.Text := '0-0';
         edSeparator.Text := '';
-        for J := 1 to 7 do
+        for J := 1 to 9 do
           ListBox.Items.Delete(I);
 
         break;
@@ -1391,7 +1459,6 @@ begin
   end;
 
   ListBox.ListItems[0].IsSelected := true;
-  ItemsClick(ListBox.ListItems[0]);
 end;
 
 end.

@@ -61,6 +61,8 @@ begin
   end;
   LangForm.Query.Active := false;
   LangForm.Query.Active := true;
+  MainForm.Query.Active := false;
+  MainForm.Query.Active := true;
   btnCancelClick(nil);
 end;
 

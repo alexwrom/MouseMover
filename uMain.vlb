@@ -18,9 +18,6 @@ Visible=False
 [FDGUIxWaitCursor1]
 Coordinates=373,426,132,36
 
-[ListBox]
-Coordinates=10,10,139,212
-
 [tabSleep]
 Coordinates=10,770,65,36
 
@@ -365,4 +362,7 @@ Visible=True
 
 [layBtns]
 Coordinates=840,708,67,36
+
+[ListBox]
+Coordinates=10,10,139,212
 

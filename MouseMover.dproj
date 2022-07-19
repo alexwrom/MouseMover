@@ -228,6 +228,10 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="uTranscriptions.pas"/>
+        <DCCReference Include="uImages.pas">
+            <Form>ImageForm</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

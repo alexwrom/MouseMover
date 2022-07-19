@@ -11,7 +11,8 @@ uses
   uAuthorization in 'uAuthorization.pas' {AuthorizationForm},
   uContact in 'uContact.pas' {ContactForm},
   uUpdate in 'uUpdate.pas' {UpdateForm},
-  uTranscriptions in 'uTranscriptions.pas';
+  uTranscriptions in 'uTranscriptions.pas',
+  uImages in 'uImages.pas' {ImageForm};
 
 {$R *.res}
 
@@ -23,5 +24,6 @@ begin
   Application.CreateForm(TAddEditForm, AddEditForm);
   Application.CreateForm(TContactForm, ContactForm);
   Application.CreateForm(TUpdateForm, UpdateForm);
+  Application.CreateForm(TImageForm, ImageForm);
   Application.Run;
 end.
