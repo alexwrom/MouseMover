@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uContact,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus, uAuthorization,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.ListBox, ShellAPI, uImages,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.ListBox, ShellAPI, uImages, Math,
   FMX.TabControl, FMX.Edit, FMX.EditBox, FMX.NumberBox, Winapi.Windows, FMX.Platform, System.Threading,
   FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, Messages, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf,
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait, Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Comp.UI,
@@ -148,6 +148,9 @@ type
     btnInfo3: TSpeedButton;
     btnInfoPos: TSpeedButton;
     Layout13: TLayout;
+    btnView: TSpeedButton;
+    edNamePos: TEdit;
+    Label18: TLabel;
     procedure btnAddClick(Sender: TObject);
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
@@ -193,6 +196,8 @@ type
     procedure ListViewLangItemClick(const Sender: TObject; const AItem: TListViewItem);
     procedure MenuItem29Click(Sender: TObject);
     procedure btnInfoClick(Sender: TObject);
+    procedure btnViewClick(Sender: TObject);
+    procedure edNamePosChangeTracking(Sender: TObject);
   private
     LoopCount: integer;
     IsTrial: boolean;
@@ -221,6 +226,7 @@ const
   intInternalTimer = 100;
   intSetDisplay = 101;
   intLoopCount = 102;
+  intBtnViewTag = 103;
   itemPos = 1;
   itemClick = 2;
   itemSleep = 3;
@@ -377,27 +383,46 @@ begin
     end;
 end;
 
+procedure TMainForm.btnViewClick(Sender: TObject);
+var
+  I: integer;
+
+begin
+  btnView.Tag := IfThen(btnView.Tag = 0, 1, 0);
+  btnView.ImageIndex := IfThen(btnView.Tag = 0, 33, 34);
+  for I := 0 to ListBox.Count - 1 do
+  begin
+    if ListBox.ListItems[I].Tag in [itemTab, itemEnter, itemClick, itemRightClick, itemDoubleClick, itemCtrlA, itemCtrlC, itemCtrlV] then
+      ListBox.ListItems[I].Height := IfThen(btnView.Tag = 1, 0, 25);
+
+    if IsLangExists then
+      if ListBox.ListItems[I].Tag in [itemEnter, itemText, itemClick, itemSleep, itemScroll] then
+        ListBox.ListItems[I].Height := 0;
+  end;
+
+end;
+
 procedure TMainForm.btnViewPosClick(Sender: TObject);
 var
   tmpPoint: TPoint;
 begin
-  if (ListBox.Selected.Tag = itemPos) or (ListBox.Selected.Tag = itemGetLang) then
-  begin
+  { if (ListBox.Selected.Tag = itemPos) or (ListBox.Selected.Tag = itemGetLang) then
+    begin
     tmpPoint.X := Round(StrToInt(Copy(editPosCursor.Text, 1, Pos('-', editPosCursor.Text) - 1)));
     tmpPoint.Y := Round(StrToInt(Copy(editPosCursor.Text, Pos('-', editPosCursor.Text) + 1)));
-  end
-  else if (Sender as TSpeedButton).Tag = 0 then
-  begin
+    end
+    else if (Sender as TSpeedButton).Tag = 0 then
+    begin
     tmpPoint.X := Round(StrToInt(Copy(edSourcePos.Text, 1, Pos('-', edSourcePos.Text) - 1)));
     tmpPoint.Y := Round(StrToInt(Copy(edSourcePos.Text, Pos('-', edSourcePos.Text) + 1)));
-  end
-  else
-  begin
+    end
+    else
+    begin
     tmpPoint.X := Round(StrToInt(Copy(edTargetPos.Text, 1, Pos('-', edTargetPos.Text) - 1)));
     tmpPoint.Y := Round(StrToInt(Copy(edTargetPos.Text, Pos('-', edTargetPos.Text) + 1)));
-  end;
-  timerSleepControl.Enabled := false;
-  SetCursorPos(tmpPoint.X, tmpPoint.Y);
+    end;
+    timerSleepControl.Enabled := false;
+    SetCursorPos(tmpPoint.X, tmpPoint.Y); }
 end;
 
 procedure TMainForm.cbLangChange(Sender: TObject);
@@ -410,6 +435,7 @@ var
   lItem: TListBoxItem;
 begin
   lItem := TListBoxItem.Create(nil);
+  lItem.StyleLookup := 'listboxitemstyle';
   with lItem do
   begin
     layBtns.Enabled := Not IsLangExists;
@@ -436,7 +462,7 @@ begin
       itemPos:
         begin
           Text := 'Переместить курсор';
-          Hint := '0-0';
+          Hint := '0-0;Переместить курсор';
         end;
       itemSleep:
         begin
@@ -455,7 +481,7 @@ begin
       itemSeparator:
         begin
           if defHint <> '' then
-            Text := '----<' + defHint + '>----'
+            Text := '----' + defHint + '----'
           else
             Text := '----<>----';
           Hint := '';
@@ -499,7 +525,11 @@ begin
     if defHint <> '' then
       Hint := defHint;
 
+    if itemType in [itemTab, itemEnter, itemClick, itemRightClick, itemDoubleClick, itemCtrlA, itemCtrlC, itemCtrlV] then
+      Height := IfThen(btnView.Tag = 1, 0, 25);
+
     Tag := itemType;
+
     OnClick := ItemsClick;
   end;
 end;
@@ -508,12 +538,22 @@ function TMainForm.IsLangExists: boolean;
 var
   I: integer;
 begin
+  result := false;
   for I := 0 to ListBox.Count - 1 do
     if ListBox.ListItems[I].Tag = itemLang then
     begin
       result := true;
       exit;
     end;
+end;
+
+procedure TMainForm.edNamePosChangeTracking(Sender: TObject);
+begin
+  if ListBox.Selected.Tag = itemPos then
+  begin
+    ListBox.Selected.Hint := editPosCursor.Text + ';' + edNamePos.Text;
+    ListBox.Selected.Text := edNamePos.Text;
+  end;
 end;
 
 procedure TMainForm.edSeparatorChangeTracking(Sender: TObject);
@@ -700,6 +740,7 @@ begin
     end;
   CreateItem(itemLang);
   layBtns.Enabled := false;
+  btnView.Tag := 1;
 end;
 
 procedure TMainForm.miLicenseClick(Sender: TObject);
@@ -769,13 +810,10 @@ begin
     ItemSave.Enabled := true;
 
     layBtns.Enabled := Not IsLangExists;
-    ListBox.Visible := false;
-
+    ListBox.Clear;
     TTask.Run( // uses System.Threading
       procedure
       begin
-
-        ListBox.Clear;
         AssignFile(f, OpenDialog.FileName);
         Reset(f);
         while NOT EOF(f) do
@@ -785,6 +823,8 @@ begin
           begin
             itemID := Copy(Text, 1, Pos('-', Text) - 1).ToInteger;
             case itemID of
+              intBtnViewTag:
+                btnView.Tag := Copy(Text, Pos('-', Text) + 1).ToInteger;
               intInternalTimer, 10:
                 editInterval.Text := Copy(Text, Pos('-', Text) + 1);
               intSetDisplay, 11:
@@ -795,9 +835,20 @@ begin
                 begin
                   CreateItem(itemID);
                   ListBox.ListItems[ListBox.Count - 1].Hint := Copy(Text, Pos('-', Text) + 1);
-                  if itemID in [itemEnter, itemText, itemClick, itemSleep, itemScroll] then
-                    if IsLangExists then
 
+                  if itemID = itemPos then
+                    if Pos(';', Text) = 0 then
+                    begin
+                      ListBox.ListItems[ListBox.Count - 1].Text := 'Переместить курсор';
+                    end
+                    else
+                    begin
+                      ListBox.ListItems[ListBox.Count - 1].Text := Copy(Text, Pos(';', Text) + 1);
+                      ListBox.ListItems[ListBox.Count - 1].Hint := Copy(Text, Pos('-', Text) + 1, Pos(';', Text) - Pos('-', Text) - 1);
+                    end;
+
+                  if IsLangExists then
+                    if itemID in [itemEnter, itemText, itemClick, itemSleep, itemScroll] then
                       ListBox.ListItems[ListBox.Count - 1].Height := 0;
                 end;
               itemSeparator:
@@ -810,15 +861,19 @@ begin
                     ListBox.ListItems[ListBox.Count - 1].Text := '----' + Copy(Text, Pos('-', Text) + 1) + '----';
                 end;
             end;
-
           end;
         end;
 
         TThread.Synchronize(nil,
           procedure
+          var
+            I: integer;
           begin
             CloseFile(f);
-            ListBox.Visible := true;
+            for I := 0 to ListBox.Count - 1 do
+            begin
+               ListBox.ListItems[i].StyleLookup := 'listboxitemstyle';
+            end;
           end);
       end);
 
@@ -858,6 +913,7 @@ begin
   Writeln(f, '100-' + editInterval.Text);
   Writeln(f, '101-' + setDisplay.Text);
   Writeln(f, '102-' + sbLoopCount.Text);
+  Writeln(f, '103-' + btnView.Tag.ToString);
   for I := 0 to ListBox.Count - 1 do
   begin
     Text := ListBox.ListItems[I].Tag.ToString + '-' + ListBox.ListItems[I].Hint;
@@ -1057,8 +1113,17 @@ begin
       case ListBox.ListItems[I].Tag of
         itemPos:
           begin
-            tmpPoint.X := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, 1, Pos('-', ListBox.ListItems[I].Hint) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, Pos('-', ListBox.ListItems[I].Hint) + 1)));
+            if Pos(';', ListBox.ListItems[I].Hint) = 0 then
+            begin
+              tmpPoint.X := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, 1, Pos('-', ListBox.ListItems[I].Hint) - 1)));
+              tmpPoint.Y := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, Pos('-', ListBox.ListItems[I].Hint) + 1)));
+            end
+            else
+            begin
+              tmpPoint.X := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, 1, Pos('-', ListBox.ListItems[I].Hint) - 1)));
+              tmpPoint.Y := Round(StrToInt(Copy(ListBox.ListItems[I].Hint, Pos('-', ListBox.ListItems[I].Hint) + 1, Pos(';', ListBox.ListItems[I].Hint) - Pos('-', ListBox.ListItems[I].Hint) - 1)));
+            end;
+
             timerSleepControl.Enabled := false;
             OldPos := tmpPoint;
             SetCursorPos(tmpPoint.X, tmpPoint.Y);
@@ -1328,7 +1393,17 @@ begin
       begin
         TabControl.Visible := true;
         TabControl.ActiveTab := tabPos;
-        editPosCursor.Text := (Sender as TListBoxItem).Hint;
+        if Pos(';', (Sender as TListBoxItem).Hint) = 0 then
+        begin
+          editPosCursor.Text := (Sender as TListBoxItem).Hint;
+          edNamePos.Text := 'Переместить курсор';
+        end
+        else
+        begin
+          editPosCursor.Text := Copy((Sender as TListBoxItem).Hint, 1, Pos(';', (Sender as TListBoxItem).Hint) - 1);
+          edNamePos.Text := Copy((Sender as TListBoxItem).Hint, Pos(';', (Sender as TListBoxItem).Hint) + 1);
+        end;
+
         if (Sender as TListBoxItem).Tag = itemGetLang then
           btnInfoPos.Tag := 4
         else
@@ -1409,33 +1484,33 @@ begin
 
         CreateItem(itemSeparator, AItem.Text);
 
-        CreateItem(itemPos);
+        CreateItem(itemPos, '0-0;Добавить перевод на другой язык');
         // Остальное прячем
         CreateItem(itemClick);
-        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
 
         CreateItem(itemSleep, '500');
-        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
 
         CreateItem(itemText, AItem.Text);
-        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
 
         CreateItem(itemEnter);
-        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
 
         CreateItem(itemSleep, '300');
-        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
 
         CreateItem(itemScroll, '-10000');
-        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
 
         CreateItem(itemSleep, '500');
-        ListBox.ListItems[ListBox.Count - 1].Height := 0;
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
         ListBox.ClearSelection;
         TThread.Synchronize(nil,
           procedure
           begin
-             ListBox.ListItems[0].IsSelected := true;
+            ListBox.ListItems[0].IsSelected := true;
           end);
       end);
 
