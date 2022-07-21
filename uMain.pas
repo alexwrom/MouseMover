@@ -135,11 +135,11 @@ type
     tabLang: TTabItem;
     ListViewLang: TListView;
     LinkFillControlToField3: TLinkFillControlToField;
-    GridPanelLayout2: TGridPanelLayout;
+    layAutoData: TGridPanelLayout;
     Layout10: TLayout;
     btnGetPosCurrDetailsBlock: TSpeedButton;
     edCurrentTargetPos: TEdit;
-    Layout12: TLayout;
+    Layout: TLayout;
     btnGetPosCurrNameBlock: TSpeedButton;
     edCurrentSourcePos: TEdit;
     btnInfo: TSpeedButton;
@@ -151,6 +151,14 @@ type
     btnView: TSpeedButton;
     edNamePos: TEdit;
     Label18: TLabel;
+    swGetData: TSwitch;
+    Layout14: TLayout;
+    Label19: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
+    layHandData: TLayout;
+    Label22: TLabel;
+    Label23: TLabel;
     procedure btnAddClick(Sender: TObject);
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
@@ -198,6 +206,7 @@ type
     procedure btnInfoClick(Sender: TObject);
     procedure btnViewClick(Sender: TObject);
     procedure edNamePosChangeTracking(Sender: TObject);
+    procedure swGetDataSwitch(Sender: TObject);
   private
     LoopCount: integer;
     IsTrial: boolean;
@@ -332,8 +341,12 @@ end;
 
 procedure TMainForm.btnStartClick(Sender: TObject);
 begin
-  mName.Text := '';
-  mDetails.Text := '';
+  if NOT swGetData.IsChecked then
+  begin
+    mName.Text := '';
+    mDetails.Text := '';
+  end;
+
   setkey(Lo(GetUserDefaultUILanguage), sublang_default);
   btnStart.SetFocus;
   if ListBox.Count > 0 then
@@ -393,7 +406,7 @@ begin
   for I := 0 to ListBox.Count - 1 do
   begin
     if ListBox.ListItems[I].Tag in [itemTab, itemEnter, itemClick, itemRightClick, itemDoubleClick, itemCtrlA, itemCtrlC, itemCtrlV] then
-      ListBox.ListItems[I].Height := IfThen(btnView.Tag = 1, 0, 25);
+      ListBox.ListItems[I].Height := IfThen(btnView.Tag = 1, 0, 20);
 
     if IsLangExists then
       if ListBox.ListItems[I].Tag in [itemEnter, itemText, itemClick, itemSleep, itemScroll] then
@@ -427,7 +440,7 @@ end;
 
 procedure TMainForm.cbLangChange(Sender: TObject);
 begin
-  ListBox.Selected.Hint := edSourcePos.Text + ';' + edTargetPos.Text + ';' + edCurrentSourcePos.Text + ';' + edCurrentTargetPos.Text + ';' + Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2);
+  ListBox.Selected.Hint := edSourcePos.Text + ';' + edTargetPos.Text + ';' + edCurrentSourcePos.Text + ';' + edCurrentTargetPos.Text + ';' + Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2) + ';' + swGetData.IsChecked.ToString;
 end;
 
 procedure TMainForm.CreateItem(itemType: integer; defHint: string = '');
@@ -435,21 +448,13 @@ var
   lItem: TListBoxItem;
 begin
   lItem := TListBoxItem.Create(nil);
-  lItem.StyleLookup := 'listboxitemstyle';
+  // lItem.StyleLookup := 'listboxitemnodetail';
   with lItem do
   begin
     layBtns.Enabled := Not IsLangExists;
-    Parent := ListBox;
-    ImageIndex := itemType - 1;
-    if ListBox.Selected <> nil then
-    begin
-      Index := ListBox.Selected.Index + 1;
-      ListBox.InsertObject(Index, lItem);
-
-    end;
-
+    // ItemData.Bitmap := ImageList.Source[itemType - 1].MultiResBitmap[0].Bitmap;
     StyledSettings := [];
-    TextSettings.Font.Style := [TFontStyle.fsBold];
+
     case itemType of
       itemLang:
         Text := 'Выбрать языки';
@@ -485,6 +490,7 @@ begin
           else
             Text := '----<>----';
           Hint := '';
+          TextSettings.Font.Style := [TFontStyle.fsBold];
         end;
 
       itemRightClick:
@@ -526,11 +532,23 @@ begin
       Hint := defHint;
 
     if itemType in [itemTab, itemEnter, itemClick, itemRightClick, itemDoubleClick, itemCtrlA, itemCtrlC, itemCtrlV] then
-      Height := IfThen(btnView.Tag = 1, 0, 25);
+      Height := IfThen(btnView.Tag = 1, 0, 20);
 
     Tag := itemType;
 
     OnClick := ItemsClick;
+
+    if ListBox.Selected <> nil then
+    begin
+      Index := ListBox.Selected.Index + 1;
+      ListBox.InsertObject(Index, lItem);
+    end
+    else
+    begin
+
+      ListBox.InsertObject(ListBox.Count, lItem);
+      ListBox.ScrollToItem(ListBox.ListItems[ListBox.Count - 1]);
+    end;
   end;
 end;
 
@@ -811,6 +829,7 @@ begin
 
     layBtns.Enabled := Not IsLangExists;
     ListBox.Clear;
+
     TTask.Run( // uses System.Threading
       procedure
       begin
@@ -824,7 +843,10 @@ begin
             itemID := Copy(Text, 1, Pos('-', Text) - 1).ToInteger;
             case itemID of
               intBtnViewTag:
-                btnView.Tag := Copy(Text, Pos('-', Text) + 1).ToInteger;
+                begin
+                  btnView.Tag := Copy(Text, Pos('-', Text) + 1).ToInteger;
+                  btnView.ImageIndex := IfThen(btnView.Tag = 0, 33, 34);
+                end;
               intInternalTimer, 10:
                 editInterval.Text := Copy(Text, Pos('-', Text) + 1);
               intSetDisplay, 11:
@@ -844,7 +866,7 @@ begin
                     else
                     begin
                       ListBox.ListItems[ListBox.Count - 1].Text := Copy(Text, Pos(';', Text) + 1);
-                      ListBox.ListItems[ListBox.Count - 1].Hint := Copy(Text, Pos('-', Text) + 1, Pos(';', Text) - Pos('-', Text) - 1);
+                      ListBox.ListItems[ListBox.Count - 1].Hint := Copy(Text, Pos('-', Text) + 1);
                     end;
 
                   if IsLangExists then
@@ -870,10 +892,6 @@ begin
             I: integer;
           begin
             CloseFile(f);
-            for I := 0 to ListBox.Count - 1 do
-            begin
-               ListBox.ListItems[i].StyleLookup := 'listboxitemstyle';
-            end;
           end);
       end);
 
@@ -938,18 +956,25 @@ end;
 
 procedure TMainForm.setkey(const langid, sublangid: word);
 var
-  layout: array [0 .. kl_namelength] of char;
+  Layout: array [0 .. kl_namelength] of char;
   d: word;
   s: string;
 begin
   d := (sublangid shl 10) or langid or (longint(0) shl 16);
   s := inttohex(d, 8);
-  loadkeyboardlayout(strcopy(layout, pchar(s)), klf_activate);
+  loadkeyboardlayout(strcopy(Layout, pchar(s)), klf_activate);
 end;
 
 procedure TMainForm.sleepTimeChangeTracking(Sender: TObject);
 begin
   ListBox.Selected.Hint := sleepTime.Text;
+end;
+
+procedure TMainForm.swGetDataSwitch(Sender: TObject);
+begin
+  layHandData.Visible := swGetData.IsChecked;
+  layAutoData.Visible := NOT swGetData.IsChecked;
+  ListBox.Selected.Hint := edSourcePos.Text + ';' + edTargetPos.Text + ';' + edCurrentSourcePos.Text + ';' + edCurrentTargetPos.Text + ';' + Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2) + ';' + swGetData.IsChecked.ToString;
 end;
 
 procedure TMainForm.timerCheckTrackTimer(Sender: TObject);
@@ -971,7 +996,7 @@ begin
       3:
         btnGetPosCurrDetailsBlock.Text := 'Начать запись позиции исходного описания';
     end;
-    ListBox.Selected.Hint := edSourcePos.Text + ';' + edTargetPos.Text + ';' + edCurrentSourcePos.Text + ';' + edCurrentTargetPos.Text + ';' + Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2);
+    ListBox.Selected.Hint := edSourcePos.Text + ';' + edTargetPos.Text + ';' + edCurrentSourcePos.Text + ';' + edCurrentTargetPos.Text + ';' + Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2) + ';' + swGetData.IsChecked.ToString;
   end;
 
   timerGetPos.Enabled := false;
@@ -1103,6 +1128,8 @@ var
   tmpTP: string;
   tmpCSP: string;
   tmpCTP: string;
+  IsAutoData: boolean;
+  OldInd: integer;
 begin
   timerStart.Enabled := false;
 
@@ -1211,8 +1238,10 @@ begin
 
             if TranslateLangCodeName <> '' then
             begin
+              OldInd := cbLang.Selected.Index;
               Query.Locate('lang_name', TranslateLangCodeName, [loPartialKey]);
               TranslateLangCode := Query.FieldByName('lang_code').AsString;
+              cbLang.ItemIndex := OldInd;
             end;
             sleep(200);
           end;
@@ -1234,7 +1263,9 @@ begin
             Delete(tmpPos, 1, Pos(';', tmpPos));
             tmpCTP := Copy(tmpPos, 1, Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
-            myLang := Copy(tmpPos, 1);
+            myLang := Copy(tmpPos, 1, Pos(';', tmpPos) - 1);
+            Delete(tmpPos, 1, Pos(';', tmpPos));
+            IsAutoData := Copy(tmpPos, 1).ToBoolean;
 
             if mName.Text = '' then
             begin
@@ -1387,6 +1418,7 @@ var
   s: string;
   tmp: string;
   I: integer;
+  queryLang: string;
 begin
   case (Sender as TListBoxItem).Tag of
     itemPos, itemGetLang:
@@ -1422,8 +1454,19 @@ begin
         Delete(s, 1, Pos(';', s));
         edCurrentTargetPos.Text := Copy(s, 1, Pos(';', s) - 1);
         Delete(s, 1, Pos(';', s));
-        Query.Locate('lang_code', s, []);
+
+        if Pos(';', s) = 0 then
+          Query.Locate('lang_code', s, [])
+        else
+        begin
+          queryLang := Copy(s, 1, Pos(';', s) - 1);
+          Query.Locate('lang_code', queryLang, []);
+          Delete(s, 1, Pos(';', s));
+          swGetData.IsChecked := s.ToBoolean;
+        end;
+
         cbLang.ItemIndex := Query.FieldByName('row').AsInteger - 1;
+
       end;
     itemSleep:
       begin
@@ -1487,25 +1530,25 @@ begin
         CreateItem(itemPos, '0-0;Добавить перевод на другой язык');
         // Остальное прячем
         CreateItem(itemClick);
-        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 20);
 
         CreateItem(itemSleep, '500');
-        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 20);
 
         CreateItem(itemText, AItem.Text);
-        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 20);
 
         CreateItem(itemEnter);
-        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 20);
 
         CreateItem(itemSleep, '300');
-        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 20);
 
         CreateItem(itemScroll, '-10000');
-        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 20);
 
         CreateItem(itemSleep, '500');
-        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 25);
+        ListBox.ListItems[ListBox.Count - 1].Height := IfThen(btnView.Tag = 1, 0, 20);
         ListBox.ClearSelection;
         TThread.Synchronize(nil,
           procedure
