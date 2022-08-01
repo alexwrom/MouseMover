@@ -224,10 +224,6 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="uTranscriptions.pas"/>
-        <DCCReference Include="uImages.pas">
-            <Form>ImageForm</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
         <DCCReference Include="uMain.pas">
             <Form>MainForm</Form>
             <FormType>fmx</FormType>

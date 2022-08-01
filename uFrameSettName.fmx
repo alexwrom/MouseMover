@@ -7,6 +7,27 @@ object FrameSettName: TFrameSettName
   Size.Width = 512.000000000000000000
   Size.Height = 556.000000000000000000
   Size.PlatformDefault = False
+  object Rectangle5: TRectangle
+    Align = Contents
+    Fill.Kind = Gradient
+    Fill.Gradient.Points = <
+      item
+        Color = xFFFECC98
+        Offset = 0.000000000000000000
+      end
+      item
+        Color = xFFEBC9FF
+        Offset = 1.000000000000000000
+      end>
+    Fill.Gradient.StartPosition.X = 0.500000000000000000
+    Fill.Gradient.StartPosition.Y = 1.000000000000000000
+    Fill.Gradient.StopPosition.X = 0.499999970197677600
+    Fill.Gradient.StopPosition.Y = 0.000000000000000000
+    Size.Width = 512.000000000000000000
+    Size.Height = 556.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+  end
   object Label13: TLabel
     Align = Top
     AutoSize = True
@@ -142,7 +163,7 @@ object FrameSettName: TFrameSettName
       Size.Height = 57.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claSlategray
+      TextSettings.FontColor = claDarkslateblue
       TextSettings.HorzAlign = Trailing
       Text = #1048#1079' Youtube'
       TabOrder = 3
@@ -157,7 +178,7 @@ object FrameSettName: TFrameSettName
       Size.Height = 57.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claSlategray
+      TextSettings.FontColor = claDarkslateblue
       Text = #1056#1091#1095#1085#1086#1081
       TabOrder = 1
     end
@@ -171,7 +192,8 @@ object FrameSettName: TFrameSettName
       Size.Height = 16.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claSlategray
+      TextSettings.FontColor = claDarkslateblue
+      TextSettings.HorzAlign = Center
       Text = #1042#1099#1073#1086#1088' '#1090#1080#1087#1072' '#1087#1086#1083#1091#1095#1077#1085#1080#1103' '#1076#1072#1085#1085#1099#1093':'
       TabOrder = 2
     end
@@ -194,13 +216,13 @@ object FrameSettName: TFrameSettName
       Size.Height = 16.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claSlategray
+      TextSettings.FontColor = claDarkslateblue
+      TextSettings.HorzAlign = Center
       Text = #1048#1089#1093#1086#1076#1085#1099#1081' '#1103#1079#1099#1082' '#1076#1083#1103' '#1087#1077#1088#1077#1074#1086#1076#1072':'
       TabOrder = 1
     end
     object cbLang: TComboBox
-      Position.X = 20.000000000000000000
-      Position.Y = 26.000000000000000000
+      Align = Center
       Size.Width = 273.000000000000000000
       Size.Height = 32.000000000000000000
       Size.PlatformDefault = False
@@ -244,7 +266,7 @@ object FrameSettName: TFrameSettName
       Text = #1047#1072#1087#1091#1089#1090#1080#1090#1100' '#1085#1072#1089#1090#1088#1086#1081#1082#1091
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claBrown
+      TextSettings.FontColor = claDarkslateblue
       XRadius = 3.000000000000000000
       YRadius = 3.000000000000000000
       OnClick = btnStartSettingNameClick

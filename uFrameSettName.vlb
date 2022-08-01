@@ -71,11 +71,21 @@ Coordinates=104,10,68,33
 Visible=False
 
 [BindSourceDB1]
-Coordinates=104,10,92,141
+Coordinates=104,10,92,87
 
 [BindingsList1]
 Coordinates=364,80,82,33
 
 []
 Coordinates=355,326,70,33
+
+[btnStartSettingName]
+Coordinates=215,98,116,33
+
+[Layout12]
+Coordinates=243,150,59,33
+
+[Rectangle5]
+Coordinates=364,213,69,33
+Visible=True
 

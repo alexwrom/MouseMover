@@ -30,6 +30,7 @@ type
     sbPauseTwo: TSpinBox;
     TabItem9: TTabItem;
     btnPublish: TSpeedButton;
+    Rectangle5: TRectangle;
     procedure btnSettNamePosAddClick(Sender: TObject);
     procedure btnPauseOneClick(Sender: TObject);
     procedure btnSettTranslateClick(Sender: TObject);

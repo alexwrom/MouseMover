@@ -47,6 +47,12 @@ type
     Label7: TLabel;
     Label8: TLabel;
     btnReSend: TButton;
+    Rectangle5: TRectangle;
+    Rectangle1: TRectangle;
+    Rectangle2: TRectangle;
+    Rectangle3: TRectangle;
+    Rectangle4: TRectangle;
+    Rectangle6: TRectangle;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCloseClick(Sender: TObject);

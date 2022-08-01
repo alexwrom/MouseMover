@@ -11,7 +11,6 @@ uses
   uContact in 'uContact.pas' {ContactForm},
   uUpdate in 'uUpdate.pas' {UpdateForm},
   uTranscriptions in 'uTranscriptions.pas',
-  uImages in 'uImages.pas' {ImageForm},
   uMain in 'uMain.pas' {MainForm},
   uStartSettingLang in 'uStartSettingLang.pas' {FormStartLang},
   uFrameSettLang in 'uFrameSettLang.pas' {FrameSettLang: TFrame},
@@ -29,7 +28,6 @@ begin
   Application.CreateForm(TAddEditForm, AddEditForm);
   Application.CreateForm(TContactForm, ContactForm);
   Application.CreateForm(TUpdateForm, UpdateForm);
-  Application.CreateForm(TImageForm, ImageForm);
   Application.CreateForm(TFormStartLang, FormStartLang);
   Application.CreateForm(TFormStartName, FormStartName);
   Application.CreateForm(TFormStartSubtitle, FormStartSubtitle);

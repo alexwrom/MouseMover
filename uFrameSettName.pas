@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uStartSettingName,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.Memo.Types, FMX.Edit, FMX.TabControl, FMX.ListBox, FMX.ScrollBox, FMX.Memo, FMX.Layouts, FMX.Controls.Presentation, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components,
-  Data.Bind.DBScope, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.EditBox, FMX.SpinBox;
+  Data.Bind.DBScope, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.EditBox, FMX.SpinBox, FMX.Objects;
 
 type
   TFrameSettName = class(TFrame)
@@ -33,6 +33,7 @@ type
     LinkFillControlToField1: TLinkFillControlToField;
     Layout12: TLayout;
     btnStartSettingName: TCornerButton;
+    Rectangle5: TRectangle;
     procedure swGetDataSwitch(Sender: TObject);
     procedure cbLangChange(Sender: TObject);
     procedure mNameChangeTracking(Sender: TObject);

@@ -4,9 +4,6 @@ Coordinates=1064,690,73,33
 [FDGUIxWaitCursor1]
 Coordinates=818,562,113,33
 
-[Label17]
-Coordinates=1313,376,52,51
-
 [miUpdate]
 Coordinates=1401,752,61,33
 
@@ -25,9 +22,6 @@ Coordinates=967,690,62,33
 [MenuItem8]
 Coordinates=10,752,68,33
 
-[Label16]
-Coordinates=1338,544,52,51
-
 [timerGetPos]
 Coordinates=1022,56,75,33
 
@@ -36,9 +30,6 @@ Coordinates=1022,111,64,33
 
 [Conn]
 Coordinates=11,77,40,33
-
-[labCountTrial]
-Coordinates=1007,544,80,51
 
 [miLicense]
 Coordinates=325,752,64,33
@@ -57,9 +48,6 @@ Coordinates=538,690,68,33
 
 [BindSourceDB1]
 Coordinates=1100,10,92,159
-
-[btnGoTo]
-Coordinates=943,460,57,51
 
 [ImageList]
 Coordinates=597,788,62,33
@@ -88,7 +76,7 @@ Visible=False
 Coordinates=362,76,102,105
 
 []
-Coordinates=879,752,73,33
+Coordinates=991,752,53,33
 Visible=False
 
 [effectPlay]
@@ -96,12 +84,6 @@ Coordinates=1022,441,62,33
 
 [lbLang]
 Coordinates=10,10,116,213
-
-[Layout2]
-Coordinates=991,752,53,33
-
-[labProfile]
-Coordinates=1124,544,61,51
 
 [QueryObjects]
 Coordinates=685,376,81,51

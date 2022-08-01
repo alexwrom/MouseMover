@@ -42,6 +42,7 @@ type
     btnPauseTwo: TSpeedButton;
     TabItem10: TTabItem;
     btnClose: TSpeedButton;
+    Rectangle5: TRectangle;
     procedure btnSettNamePosAddClick(Sender: TObject);
     procedure btnGetPosNameBlockClick(Sender: TObject);
     procedure btnGetPosDetailsBlockClick(Sender: TObject);

@@ -63,8 +63,12 @@ Coordinates=10,270,112,58
 Coordinates=388,270,154,58
 
 [BindSourceDB1]
-Coordinates=197,65,106,168
+Coordinates=197,65,112,124
 
 [BindingsList1]
 Coordinates=118,98,91,36
+
+[Rectangle5]
+Coordinates=136,1,80,36
+Visible=True
 

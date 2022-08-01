@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, FireDAC.Comp.Client,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.ListView.Appearances;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.ListView.Appearances, FMX.Objects;
 
 type
   TAddEditForm = class(TForm)
@@ -14,6 +14,7 @@ type
     btnCancel: TSpeedButton;
     Label1: TLabel;
     Label2: TLabel;
+    Rectangle5: TRectangle;
     procedure FormShow(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);

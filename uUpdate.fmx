@@ -13,6 +13,27 @@ object UpdateForm: TUpdateForm
   FormFactor.Devices = [Desktop]
   OnShow = FormShow
   DesignerMasterStyle = 0
+  object Rectangle5: TRectangle
+    Align = Contents
+    Fill.Kind = Gradient
+    Fill.Gradient.Points = <
+      item
+        Color = xFFFECC98
+        Offset = 0.000000000000000000
+      end
+      item
+        Color = xFFEBC9FF
+        Offset = 1.000000000000000000
+      end>
+    Fill.Gradient.StartPosition.X = 0.500000000000000000
+    Fill.Gradient.StartPosition.Y = 1.000000000000000000
+    Fill.Gradient.StopPosition.X = 0.499999970197677600
+    Fill.Gradient.StopPosition.Y = 0.000000000000000000
+    Size.Width = 210.000000000000000000
+    Size.Height = 180.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+  end
   object AniIndicator: TAniIndicator
     Align = Client
     Enabled = True
@@ -29,6 +50,7 @@ object UpdateForm: TUpdateForm
     Size.PlatformDefault = False
     TextSettings.Font.Size = 13.000000000000000000
     TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.FontColor = claDarkslateblue
     TextSettings.HorzAlign = Center
     Text = #1055#1086#1076#1086#1078#1076#1080#1090#1077'. '#1048#1076#1077#1090' '#1079#1072#1075#1088#1091#1079#1082#1072' '
     TabOrder = 0

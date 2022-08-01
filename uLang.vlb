@@ -31,3 +31,6 @@ Coordinates=257,141,49,51
 Coordinates=10,10,89,195
 Visible=True
 
+[MainForm.queryProfiles]
+Visible=False
+

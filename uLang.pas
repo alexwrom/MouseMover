@@ -8,7 +8,7 @@ uses
   FMX.ListView, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components,
-  Data.Bind.DBScope, FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.DialogService, FMX.Effects;
+  Data.Bind.DBScope, FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.DialogService, FMX.Effects, FMX.Objects;
 
 type
   TLangForm = class(TForm)
@@ -22,6 +22,7 @@ type
     btnEdit: TButton;
     btnDelete: TButton;
     ShadowEffect1: TShadowEffect;
+    Rectangle5: TRectangle;
     procedure btnDeleteClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);

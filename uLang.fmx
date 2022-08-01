@@ -12,11 +12,33 @@ object LangForm: TLangForm
   FormFactor.Devices = [Desktop]
   OnShow = FormShow
   DesignerMasterStyle = 0
+  object Rectangle5: TRectangle
+    Align = Contents
+    Fill.Kind = Gradient
+    Fill.Gradient.Points = <
+      item
+        Color = xFFFECC98
+        Offset = 0.000000000000000000
+      end
+      item
+        Color = xFFEBC9FF
+        Offset = 1.000000000000000000
+      end>
+    Fill.Gradient.StartPosition.X = 0.500000000000000000
+    Fill.Gradient.StartPosition.Y = 1.000000000000000000
+    Fill.Gradient.StopPosition.X = 0.499999970197677600
+    Fill.Gradient.StopPosition.Y = 0.000000000000000000
+    Size.Width = 390.000000000000000000
+    Size.Height = 630.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+  end
   object ListView: TListView
     ItemAppearanceClassName = 'TImageListItemBottomDetailAppearance'
     ItemEditAppearanceClassName = 'TImageListItemBottomDetailShowCheckAppearance'
     HeaderAppearanceClassName = 'TListHeaderObjects'
     FooterAppearanceClassName = 'TListHeaderObjects'
+    Transparent = True
     Align = Client
     Margins.Left = 5.000000000000000000
     Margins.Top = 5.000000000000000000
@@ -28,6 +50,8 @@ object LangForm: TLangForm
     TabOrder = 0
     ItemAppearance.ItemHeight = 36
     ItemAppearanceObjects.ItemObjects.Text.Font.Size = 14.000000000000000000
+    ItemAppearanceObjects.ItemObjects.Text.Font.StyleExt = {00070000000000000004000000}
+    ItemAppearanceObjects.ItemObjects.Text.TextColor = claDarkslateblue
     ItemAppearanceObjects.ItemObjects.Text.Width = 235.000000000000000000
     ItemAppearanceObjects.ItemObjects.Text.Height = 35.000000000000000000
     ItemAppearanceObjects.ItemObjects.Text.PlaceOffset.Y = 1.000000000000000000

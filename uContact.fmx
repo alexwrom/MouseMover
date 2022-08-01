@@ -16,6 +16,27 @@ object ContactForm: TContactForm
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   DesignerMasterStyle = 0
+  object Rectangle5: TRectangle
+    Align = Contents
+    Fill.Kind = Gradient
+    Fill.Gradient.Points = <
+      item
+        Color = xFFFECC98
+        Offset = 0.000000000000000000
+      end
+      item
+        Color = xFFEBC9FF
+        Offset = 1.000000000000000000
+      end>
+    Fill.Gradient.StartPosition.X = 0.500000000000000000
+    Fill.Gradient.StartPosition.Y = 1.000000000000000000
+    Fill.Gradient.StopPosition.X = 0.499999970197677600
+    Fill.Gradient.StopPosition.Y = 0.000000000000000000
+    Size.Width = 312.000000000000000000
+    Size.Height = 122.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+  end
   object Label7: TLabel
     Align = Top
     AutoSize = True
@@ -30,7 +51,7 @@ object ContactForm: TContactForm
     Size.Height = 16.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     TextSettings.VertAlign = Leading
     Text = 'Developer: Aliaksandr Samasiuk'
     TabOrder = 9
@@ -49,7 +70,7 @@ object ContactForm: TContactForm
     Size.Height = 16.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     TextSettings.VertAlign = Leading
     Text = 'Copyright 2022 - %s'
     TabOrder = 5
@@ -68,7 +89,7 @@ object ContactForm: TContactForm
     Size.Height = 16.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     TextSettings.VertAlign = Leading
     Text = 'Email: alexwrom@gmail.com'
     TabOrder = 8
@@ -87,7 +108,7 @@ object ContactForm: TContactForm
     Size.Height = 16.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     TextSettings.VertAlign = Leading
     Text = 'Skype: wrom1989'
     TabOrder = 7
@@ -106,7 +127,7 @@ object ContactForm: TContactForm
     Size.Height = 16.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     TextSettings.VertAlign = Leading
     Text = 'Telegram, WhatsApp, Viber: +37533 648-03-28'
     TabOrder = 6

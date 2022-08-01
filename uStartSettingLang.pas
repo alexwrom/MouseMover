@@ -16,6 +16,7 @@ type
     btnApplyAll: TCornerButton;
     btnCancel: TCornerButton;
     Image1: TImage;
+    Rectangle5: TRectangle;
     procedure btnStartClick(Sender: TObject);
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
@@ -142,6 +143,7 @@ begin
 
   Self.FormStyle := TFormStyle.StayOnTop;
   Self.Show;
+  MainForm.SetHint(MainForm.CurrListBox.Selected.Hint);
   // Self.FormStyle := TFormStyle.Normal;
   FindNextItemPos;
 end;

@@ -11,11 +11,32 @@ object AddEditForm: TAddEditForm
   FormFactor.Devices = [Desktop]
   OnShow = FormShow
   DesignerMasterStyle = 0
+  object Rectangle5: TRectangle
+    Align = Contents
+    Fill.Kind = Gradient
+    Fill.Gradient.Points = <
+      item
+        Color = xFFFECC98
+        Offset = 0.000000000000000000
+      end
+      item
+        Color = xFFEBC9FF
+        Offset = 1.000000000000000000
+      end>
+    Fill.Gradient.StartPosition.X = 0.500000000000000000
+    Fill.Gradient.StartPosition.Y = 1.000000000000000000
+    Fill.Gradient.StopPosition.X = 0.499999970197677600
+    Fill.Gradient.StopPosition.Y = 0.000000000000000000
+    Size.Width = 226.000000000000000000
+    Size.Height = 156.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+  end
   object edName: TEdit
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     TabOrder = 1
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     Position.X = 8.000000000000000000
     Position.Y = 27.000000000000000000
     Size.Width = 209.000000000000000000
@@ -28,7 +49,7 @@ object AddEditForm: TAddEditForm
     TabOrder = 0
     MaxLength = 2
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     Position.X = 8.000000000000000000
     Position.Y = 81.000000000000000000
     Size.Width = 49.000000000000000000
@@ -37,6 +58,7 @@ object AddEditForm: TAddEditForm
     StyledSettings = [Family, Size]
   end
   object btnSave: TSpeedButton
+    StyledSettings = [Family, Size, Style]
     Images = MainForm.ImageList
     ImageIndex = 15
     Position.X = 8.000000000000000000
@@ -45,9 +67,11 @@ object AddEditForm: TAddEditForm
     Size.Height = 35.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'composetoolbuttonbordered'
+    TextSettings.FontColor = claDarkslateblue
     OnClick = btnSaveClick
   end
   object btnCancel: TSpeedButton
+    StyledSettings = [Family, Size, Style]
     Images = MainForm.ImageList
     ImageIndex = 19
     Position.X = 182.000000000000000000
@@ -56,6 +80,7 @@ object AddEditForm: TAddEditForm
     Size.Height = 35.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'composetoolbutton'
+    TextSettings.FontColor = claDarkslateblue
     OnClick = btnCancelClick
   end
   object Label1: TLabel
@@ -66,7 +91,7 @@ object AddEditForm: TAddEditForm
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1103#1079#1099#1082#1072
     TabOrder = 5
   end
@@ -78,7 +103,7 @@ object AddEditForm: TAddEditForm
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claSlategray
+    TextSettings.FontColor = claDarkslateblue
     Text = '2-'#1093' '#1089#1080#1084#1074#1086#1083#1100#1085#1099#1081' '#1082#1086#1076
     TabOrder = 4
   end

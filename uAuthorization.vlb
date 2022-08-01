@@ -1,3 +1,6 @@
 ﻿[MainForm.Query]
 Visible=False
 
+[MainForm.queryProfiles]
+Visible=False
+

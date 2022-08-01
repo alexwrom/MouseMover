@@ -51,10 +51,6 @@ type
     Image: TImage;
     MenuItem24: TMenuItem;
     MenuItem25: TMenuItem;
-    Label16: TLabel;
-    btnGoTo: TSpeedButton;
-    Label17: TLabel;
-    labCountTrial: TLabel;
     miLicense: TMenuItem;
     LinkFillControlToField2: TLinkFillControlToField;
     StatusBar: TStatusBar;
@@ -73,8 +69,6 @@ type
     QueryObjects: TFDQuery;
     Layout1: TLayout;
     Label3: TLabel;
-    Layout2: TLayout;
-    labProfile: TLabel;
     btnAddProfile: TSpeedButton;
     Image2: TImage;
     ShadowEffect3: TShadowEffect;
@@ -103,6 +97,17 @@ type
     btnCloseSetting: TCornerButton;
     Layout12: TLayout;
     btnStartSettingSub: TCornerButton;
+    Label17: TLabel;
+    labCountTrial: TLabel;
+    btnGoTo: TSpeedButton;
+    Image5: TImage;
+    ShadowEffect1: TShadowEffect;
+    Layout3: TLayout;
+    Rectangle1: TRectangle;
+    Rectangle2: TRectangle;
+    Rectangle3: TRectangle;
+    Rectangle4: TRectangle;
+    Rectangle5: TRectangle;
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
     procedure btnTrackingStartClick(Sender: TObject);
@@ -175,10 +180,12 @@ begin
     ProfileID := lvProfiles.Items[lvProfiles.Selected.Index].Detail.ToInteger;
     OpenFiles(nil);
     MultiViewLeft.HideMaster;
-    labProfile.Text := lvProfiles.Items[lvProfiles.Selected.Index].Text;
+    btnMasterLeft.Text := lvProfiles.Items[lvProfiles.Selected.Index].Text;
     effectPlay.Enabled := true;
     btnStart.Enabled := true;
     btnSettings.Enabled := true;
+    FrameSettName.mName.Text := '';
+    FrameSettName.mDetails.Text := '';
 
     CurrListBox := lbLang;
     lbLang.ClearSelection;
@@ -204,22 +211,23 @@ end;
 
 procedure TMainForm.btnStartClick(Sender: TObject);
 begin
-  if NOT FrameSettName.swGetData.IsChecked then
+  if (FrameSettName.swGetData.IsChecked) and ((FrameSettName.mName.Text = '') or (FrameSettName.mDetails.Text = '')) then
   begin
-    FrameSettName.mName.Text := '';
-    FrameSettName.mDetails.Text := '';
-  end;
-
-  setkey(Lo(GetUserDefaultUILanguage), sublang_default);
-
-  if lbLang.Count > 0 then
+    ShowMessage('У Вас выбран режим ручного ввода названия и описания. Одно из полей пустое. Введите его в меню настроек.');
+  end
+  else
   begin
-    Self.Hide;
-    GetCursorPos(OldPos);
-    // timerStart.Interval := editInterval.Text.ToInteger;
-    timerStart.Enabled := true;
-    timerSleepControl.Enabled := true;
-    btnStart.Tag := 1;
+    setkey(Lo(GetUserDefaultUILanguage), sublang_default);
+
+    if lbLang.Count > 0 then
+    begin
+      Self.Hide;
+      GetCursorPos(OldPos);
+      timerStart.Interval := 200;
+      timerStart.Enabled := true;
+      timerSleepControl.Enabled := true;
+      btnStart.Tag := 1;
+    end;
   end;
 end;
 
@@ -511,7 +519,6 @@ begin
   // end);
   // end);
 
-  LoopCount := FrameSettLang.ListViewLang.Items.CheckedCount(true);
 end;
 
 procedure TMainForm.MenuItem8Click(Sender: TObject);
@@ -724,7 +731,7 @@ var
   OldInd: integer;
 begin
   timerStart.Enabled := false;
-
+  LoopCount := ROUND((lbLang.Count - 1) / 9);
   if LoopCount <> 0 then
   begin
     for I := 0 to lbLang.Count - 1 do
@@ -734,13 +741,13 @@ begin
           begin
             if Pos(';', lbLang.ListItems[I].Hint) = 0 then
             begin
-              tmpPoint.X := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1)));
+              tmpPoint.X := ROUND(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
+              tmpPoint.Y := ROUND(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1)));
             end
             else
             begin
-              tmpPoint.X := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1, Pos(';', lbLang.ListItems[I].Hint) - Pos('-', lbLang.ListItems[I].Hint) - 1)));
+              tmpPoint.X := ROUND(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
+              tmpPoint.Y := ROUND(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1, Pos(';', lbLang.ListItems[I].Hint) - Pos('-', lbLang.ListItems[I].Hint) - 1)));
             end;
 
             timerSleepControl.Enabled := false;
@@ -803,8 +810,8 @@ begin
         itemGetLang:
           begin
             TranslateLangCode := '';
-            tmpPoint.X := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1)));
+            tmpPoint.X := ROUND(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
+            tmpPoint.Y := ROUND(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1)));
             timerSleepControl.Enabled := false;
             OldPos := tmpPoint;
             SetCursorPos(tmpPoint.X, tmpPoint.Y);
@@ -854,8 +861,8 @@ begin
             if FrameSettName.mName.Text = '' then
             begin
               sleep(100);
-              tmpPoint.X := Round(StrToInt(Copy(tmpCSP, 1, Pos('-', tmpCSP) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(tmpCSP, Pos('-', tmpCSP) + 1, Pos(';', tmpCSP) - 1 - Pos('-', tmpCSP))));
+              tmpPoint.X := ROUND(StrToInt(Copy(tmpCSP, 1, Pos('-', tmpCSP) - 1)));
+              tmpPoint.Y := ROUND(StrToInt(Copy(tmpCSP, Pos('-', tmpCSP) + 1, Pos(';', tmpCSP) - 1 - Pos('-', tmpCSP))));
               timerSleepControl.Enabled := false;
               OldPos := tmpPoint;
               SetCursorPos(tmpPoint.X, tmpPoint.Y);
@@ -871,8 +878,8 @@ begin
             if FrameSettName.mDetails.Text = '' then
             begin
               sleep(100);
-              tmpPoint.X := Round(StrToInt(Copy(tmpCTP, 1, Pos('-', tmpCTP) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(tmpCTP, Pos('-', tmpCTP) + 1, Pos(';', tmpCTP) - 1 - Pos('-', tmpCTP))));
+              tmpPoint.X := ROUND(StrToInt(Copy(tmpCTP, 1, Pos('-', tmpCTP) - 1)));
+              tmpPoint.Y := ROUND(StrToInt(Copy(tmpCTP, Pos('-', tmpCTP) + 1, Pos(';', tmpCTP) - 1 - Pos('-', tmpCTP))));
               timerSleepControl.Enabled := false;
               OldPos := tmpPoint;
               SetCursorPos(tmpPoint.X, tmpPoint.Y);
@@ -895,8 +902,8 @@ begin
               Svc.SetClipboard('Перевед данного языка не поддерживается!!!');
 
             sleep(100);
-            tmpPoint.X := Round(StrToInt(Copy(tmpSP, 1, Pos('-', tmpSP) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(tmpSP, Pos('-', tmpSP) + 1, Pos(';', tmpSP) - 1 - Pos('-', tmpSP))));
+            tmpPoint.X := ROUND(StrToInt(Copy(tmpSP, 1, Pos('-', tmpSP) - 1)));
+            tmpPoint.Y := ROUND(StrToInt(Copy(tmpSP, Pos('-', tmpSP) + 1, Pos(';', tmpSP) - 1 - Pos('-', tmpSP))));
             timerSleepControl.Enabled := false;
             OldPos := tmpPoint;
             SetCursorPos(tmpPoint.X, tmpPoint.Y);
@@ -918,8 +925,8 @@ begin
               Svc.SetClipboard('');
 
             sleep(100);
-            tmpPoint.X := Round(StrToInt(Copy(tmpTP, 1, Pos('-', tmpTP) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(tmpTP, Pos('-', tmpTP) + 1, Pos(';', tmpTP) - 1 - Pos('-', tmpTP))));
+            tmpPoint.X := ROUND(StrToInt(Copy(tmpTP, 1, Pos('-', tmpTP) - 1)));
+            tmpPoint.Y := ROUND(StrToInt(Copy(tmpTP, Pos('-', tmpTP) + 1, Pos(';', tmpTP) - 1 - Pos('-', tmpTP))));
             timerSleepControl.Enabled := false;
             OldPos := tmpPoint;
             SetCursorPos(tmpPoint.X, tmpPoint.Y);
