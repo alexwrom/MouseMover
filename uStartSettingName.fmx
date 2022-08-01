@@ -1,9 +1,10 @@
 object FormStartName: TFormStartName
   Left = 0
   Top = 0
+  BorderStyle = Single
   Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1087#1077#1088#1077#1074#1086#1076#1072' '#1085#1072#1079#1074#1072#1085#1080#1103' '#1080' '#1086#1087#1080#1089#1072#1085#1080#1103
-  ClientHeight = 318
-  ClientWidth = 516
+  ClientHeight = 320
+  ClientWidth = 520
   Position = MainFormCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -13,33 +14,33 @@ object FormStartName: TFormStartName
   object tcSettName: TTabControl
     Align = Bottom
     FullSize = False
-    Position.Y = 268.000000000000000000
-    Size.Width = 516.000000000000000000
+    Position.Y = 270.000000000000000000
+    Size.Width = 520.000000000000000000
     Size.Height = 50.000000000000000000
     Size.PlatformDefault = False
     TabIndex = 0
     TabOrder = 7
     TabPosition = None
     Sizes = (
-      516s
+      520s
       50s
-      516s
+      520s
       50s
-      516s
+      520s
       50s
-      516s
+      520s
       50s
-      516s
+      520s
       50s
-      516s
+      520s
       50s
-      516s
+      520s
       50s
-      516s
+      520s
       50s
-      516s
+      520s
       50s
-      516s
+      520s
       50s)
     object TabItem1: TTabItem
       CustomIcon = <
@@ -66,7 +67,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -97,7 +98,7 @@ object FormStartName: TFormStartName
         AutoSize = True
         StyledSettings = [Family, Size]
         Position.Y = 50.000000000000000000
-        Size.Width = 516.000000000000000000
+        Size.Width = 520.000000000000000000
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -110,7 +111,7 @@ object FormStartName: TFormStartName
         Align = Top
         AutoSize = True
         StyledSettings = [Family, Size]
-        Size.Width = 516.000000000000000000
+        Size.Width = 520.000000000000000000
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -135,7 +136,7 @@ object FormStartName: TFormStartName
         TextSettings.FontColor = claSlategray
         Margins.Left = 100.000000000000000000
         Margins.Right = 100.000000000000000000
-        Size.Width = 316.000000000000000000
+        Size.Width = 320.000000000000000000
         Size.Height = 34.000000000000000000
         Size.PlatformDefault = False
         StyledSettings = [Family]
@@ -150,7 +151,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 71.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -177,7 +178,6 @@ object FormStartName: TFormStartName
       ExplicitSize.cx = 103.000000000000000000
       ExplicitSize.cy = 26.000000000000000000
       object btnSettGetLang: TSpeedButton
-        Tag = 1
         Align = Top
         StyledSettings = [Family]
         ImageIndex = 2
@@ -187,7 +187,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -242,7 +242,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -299,7 +299,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -338,7 +338,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -395,7 +395,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -445,7 +445,7 @@ object FormStartName: TFormStartName
         AutoSize = True
         StyledSettings = [Family, Size]
         Position.Y = 50.000000000000000000
-        Size.Width = 516.000000000000000000
+        Size.Width = 520.000000000000000000
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -458,7 +458,7 @@ object FormStartName: TFormStartName
         Align = Top
         AutoSize = True
         StyledSettings = [Family, Size]
-        Size.Width = 516.000000000000000000
+        Size.Width = 520.000000000000000000
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -466,7 +466,7 @@ object FormStartName: TFormStartName
         Text = #1054#1078#1080#1076#1072#1090#1100
         TabOrder = 1
       end
-      object SpinBox1: TSpinBox
+      object sleepTimeTwo: TSpinBox
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         Align = Top
         TabOrder = 36
@@ -480,7 +480,7 @@ object FormStartName: TFormStartName
         TextSettings.Font.Size = 18.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claSlategray
-        Size.Width = 516.000000000000000000
+        Size.Width = 520.000000000000000000
         Size.Height = 34.000000000000000000
         Size.PlatformDefault = False
         StyledSettings = [Family]
@@ -495,7 +495,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 71.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -531,7 +531,7 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
@@ -553,7 +553,9 @@ object FormStartName: TFormStartName
       StyleLookup = ''
       TabOrder = 0
       Text = 'TabItem10'
-      object SpeedButton1: TSpeedButton
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+      object btnClose: TSpeedButton
         Align = Top
         StyledSettings = [Family]
         ImageIndex = 2
@@ -563,15 +565,15 @@ object FormStartName: TFormStartName
         Margins.Bottom = 5.000000000000000000
         Position.X = 5.000000000000000000
         Position.Y = 5.000000000000000000
-        Size.Width = 506.000000000000000000
+        Size.Width = 510.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'cornerbuttonstyle'
-        Text = #1059#1082#1072#1079#1072#1090#1100
+        Text = #1047#1072#1074#1077#1088#1096#1080#1090#1100
         TextSettings.Font.Size = 14.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claBrown
-        OnClick = SpeedButton1Click
+        OnClick = btnCloseClick
       end
     end
   end
@@ -579,8 +581,8 @@ object FormStartName: TFormStartName
     Align = Client
     AutoSize = True
     StyledSettings = [Family, Style]
-    Size.Width = 516.000000000000000000
-    Size.Height = 74.666664123535160000
+    Size.Width = 520.000000000000000000
+    Size.Height = 76.666656494140630000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 14.000000000000000000
     TextSettings.FontColor = claBrown
@@ -751,8 +753,8 @@ object FormStartName: TFormStartName
       end>
     Align = Bottom
     MarginWrapMode = Fit
-    Position.Y = 74.666664123535160000
-    Size.Width = 516.000000000000000000
+    Position.Y = 76.666656494140630000
+    Size.Width = 520.000000000000000000
     Size.Height = 193.333343505859400000
     Size.PlatformDefault = False
   end

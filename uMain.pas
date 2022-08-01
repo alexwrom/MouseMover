@@ -3,7 +3,7 @@ unit uMain;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uContact, uFrameSettLang,
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uContact, uFrameSettLang, uStartSettingSubtitle,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus, uAuthorization, uFrameSettName, uStartSettingName,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.ListBox, ShellAPI, uImages, Math, StrUtils,
   FMX.TabControl, FMX.Edit, FMX.EditBox, FMX.NumberBox, Winapi.Windows, FMX.Platform, System.Threading,
@@ -34,8 +34,6 @@ const
 
 type
   TMainForm = class(TForm)
-    TabControl: TTabControl;
-    tabSleep: TTabItem;
     timerCheckTrack: TTimer;
     timerGetPos: TTimer;
     btnStart: TSpeedButton;
@@ -44,10 +42,6 @@ type
     Conn: TFDConnection;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     MainMenu: TMainMenu;
-    MenuItem18: TMenuItem;
-    MenuItem6: TMenuItem;
-    MenuItem23: TMenuItem;
-    MenuItem9: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     BindingsList1: TBindingsList;
@@ -62,14 +56,12 @@ type
     Label17: TLabel;
     labCountTrial: TLabel;
     miLicense: TMenuItem;
-    Layout3: TLayout;
     LinkFillControlToField2: TLinkFillControlToField;
     StatusBar: TStatusBar;
     miUpdate: TMenuItem;
     LinkFillControlToField3: TLinkFillControlToField;
     effectPlay: TShadowEffect;
     MultiViewLeft: TMultiView;
-    MultiViewRight: TMultiView;
     btnMasterLeft: TSpeedButton;
     lbSubtitles: TListBox;
     lbNameDetail: TListBox;
@@ -107,6 +99,10 @@ type
     LinkFillControlToField5: TLinkFillControlToField;
     LinkFillControlToField6: TLinkFillControlToField;
     editPosCursor: TEdit;
+    Layout6: TLayout;
+    btnCloseSetting: TCornerButton;
+    Layout12: TLayout;
+    btnStartSettingSub: TCornerButton;
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
     procedure btnTrackingStartClick(Sender: TObject);
@@ -116,7 +112,6 @@ type
     procedure timerSleepControlTimer(Sender: TObject);
 
     procedure FormCreate(Sender: TObject);
-    procedure MenuItem9Click(Sender: TObject);
     procedure MenuItem8Click(Sender: TObject);
     procedure btnGoToClick(Sender: TObject);
     procedure miLicenseClick(Sender: TObject);
@@ -124,6 +119,11 @@ type
     procedure btnChangeProfileClick(Sender: TObject);
     procedure btnCancelProfileClick(Sender: TObject);
     procedure TabSettLangClick(Sender: TObject);
+    procedure btnCloseSettingClick(Sender: TObject);
+    procedure btnStartSettingSubClick(Sender: TObject);
+    procedure TabSettNameClick(Sender: TObject);
+    procedure TabSettSubtitleClick(Sender: TObject);
+    procedure MultiViewSettShown(Sender: TObject);
   private
     LoopCount: integer;
     IsTrial: boolean;
@@ -137,6 +137,7 @@ type
     function GetUserAppPath: string;
     function IsLangExists: boolean;
     procedure LoadFileToListBox(idType: integer; lListBox: TListBox);
+
     { Private declarations }
 
   public
@@ -150,7 +151,7 @@ type
     function CreateItem(itemType: integer; ListBox: TListBox; defHint: string = ''): TListBoxItem;
     procedure PostKeyEx32(key: word; const shift: TShiftState);
     procedure setkey(const langid, sublangid: word); overload;
-
+    procedure SetHint(HintText: string);
     { Public declarations }
   end;
 
@@ -177,15 +178,23 @@ begin
     labProfile.Text := lvProfiles.Items[lvProfiles.Selected.Index].Text;
     effectPlay.Enabled := true;
     btnStart.Enabled := true;
+    btnSettings.Enabled := true;
 
+    CurrListBox := lbLang;
     lbLang.ClearSelection;
     lbLang.ListItems[0].IsSelected := true;
     ItemsClick(lbLang.ListItems[0]);
 
+    CurrListBox := lbNameDetail;
     lbNameDetail.ClearSelection;
     lbNameDetail.ListItems[4].IsSelected := true;
     ItemsClick(lbNameDetail.ListItems[4]);
   end;
+end;
+
+procedure TMainForm.btnCloseSettingClick(Sender: TObject);
+begin
+  MultiViewSett.HideMaster;
 end;
 
 procedure TMainForm.btnGoToClick(Sender: TObject);
@@ -212,6 +221,18 @@ begin
     timerSleepControl.Enabled := true;
     btnStart.Tag := 1;
   end;
+end;
+
+procedure TMainForm.btnStartSettingSubClick(Sender: TObject);
+begin
+  MainForm.MultiViewSett.HideMaster;
+  MainForm.Hide;
+  FormStartSubtitle.ShowModal;
+
+  MainForm.FormStyle := TFormStyle.StayOnTop;
+  MainForm.Show;
+  MainForm.FormStyle := TFormStyle.Normal;
+  MainForm.MultiViewSett.ShowMaster;
 end;
 
 procedure TMainForm.btnTrackingStartClick(Sender: TObject);
@@ -431,10 +452,13 @@ begin
   end;
 end;
 
+procedure TMainForm.MultiViewSettShown(Sender: TObject);
+begin
+  CurrListBox := lbLang;
+end;
+
 procedure TMainForm.OpenFiles(Sender: TObject);
 begin
-  TabControl.Visible := false;
-
   LoadFileToListBox(1, lbLang);
   LoadFileToListBox(2, lbNameDetail);
   LoadFileToListBox(3, lbSubtitles);
@@ -495,12 +519,6 @@ begin
   LangForm.ShowModal;
 end;
 
-procedure TMainForm.MenuItem9Click(Sender: TObject);
-begin
-  lbLang.Clear;
-  TabControl.Visible := false;
-end;
-
 procedure TMainForm.setkey(const langid, sublangid: word);
 var
   Layout: array [0 .. kl_namelength] of char;
@@ -516,6 +534,17 @@ procedure TMainForm.TabSettLangClick(Sender: TObject);
 begin
   lbLang.ClearSelection;
   lbLang.ListItems[0].IsSelected := true;
+  CurrListBox := lbLang;
+end;
+
+procedure TMainForm.TabSettNameClick(Sender: TObject);
+begin
+  CurrListBox := lbNameDetail;
+end;
+
+procedure TMainForm.TabSettSubtitleClick(Sender: TObject);
+begin
+  CurrListBox := lbSubtitles;
 end;
 
 procedure TMainForm.timerCheckTrackTimer(Sender: TObject);
@@ -528,7 +557,7 @@ begin
   begin
     if (CurrListBox.Selected.Tag = itemPos) then
       CurrListBox.Selected.Hint := editPosCursor.Text
-    else if (CurrListBox.Selected.Tag = itemGetLang) then
+    else if (CurrListBox.Selected.Tag = itemTranslate) then
       CurrListBox.Selected.Hint := FormStartName.edSourcePos.Text + ';' + FormStartName.edTargetPos.Text + ';' + FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
         Copy(FrameSettName.cbLang.Selected.Text, Pos('(', FrameSettName.cbLang.Selected.Text) + 1, 2) + ';' + FrameSettName.swGetData.IsChecked.ToString;
   end;
@@ -539,6 +568,12 @@ begin
     FormStartName.FormStyle := TFormStyle.StayOnTop;
     FormStartName.Show;
   end
+  else if tcSettings.ActiveTab = TabSettSubtitle then
+  begin
+    FormStartSubtitle.tcSettSub.Next();
+    FormStartSubtitle.FormStyle := TFormStyle.StayOnTop;
+    FormStartSubtitle.Show;
+  end
   else
   begin
     Self.FormStyle := TFormStyle.StayOnTop;
@@ -548,7 +583,28 @@ begin
   end;
   timerGetPos.Enabled := false;
   timerCheckTrack.Enabled := false;
+  SetHint(CurrListBox.Selected.Hint);
+end;
 
+procedure TMainForm.SetHint(HintText: string);
+var
+  tmpQuery: TFDQuery;
+  idType: integer;
+begin
+  CurrListBox.Selected.Hint := HintText;
+  tmpQuery := TFDQuery.Create(nil);
+  tmpQuery.Connection := Conn;
+
+  if CurrListBox = lbLang then
+    idType := 1
+  else if CurrListBox = lbNameDetail then
+    idType := 2
+  else
+    idType := 3;
+
+  tmpQuery.SQL.Add('update objects set hint_component = ''' + HintText + ''' where id_profile = ' + ProfileID.ToString + ' and id_type = ' + idType.ToString + ' and id_order=' + (CurrListBox.Selected.Index + 1).ToString);
+  tmpQuery.ExecSQL;
+  tmpQuery.DisposeOf;
 end;
 
 procedure TMainForm.timerGetPosTimer(Sender: TObject);

@@ -33,7 +33,7 @@ type
     btnSettGetLang: TSpeedButton;
     Label3: TLabel;
     Label4: TLabel;
-    SpinBox1: TSpinBox;
+    sleepTimeTwo: TSpinBox;
     btnPublish: TSpeedButton;
     labText: TLabel;
     Image: TImage;
@@ -41,7 +41,7 @@ type
     ImageList: TImageList;
     btnPauseTwo: TSpeedButton;
     TabItem10: TTabItem;
-    SpeedButton1: TSpeedButton;
+    btnClose: TSpeedButton;
     procedure btnSettNamePosAddClick(Sender: TObject);
     procedure btnGetPosNameBlockClick(Sender: TObject);
     procedure btnGetPosDetailsBlockClick(Sender: TObject);
@@ -51,7 +51,7 @@ type
     procedure btnSettGetLangClick(Sender: TObject);
     procedure btnPauseTwoClick(Sender: TObject);
     procedure btnStopSettName(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure btnCloseClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
@@ -72,6 +72,7 @@ begin
   labText.Text := 'Если Ваш компьютерный медленно работает, то здесь Вы можете указать большую паузу на загрузку перевода. Если нет, то используйте данные по-умолчанию.';
   Image.Visible := false;
   tcSettName.Height := 120;
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[4].IsSelected := true;
   MainForm.btnTrackingStartClick(btnGetPosCurrDetailsBlock);
   Self.Hide;
@@ -81,7 +82,7 @@ procedure TFormStartName.btnGetPosCurrNameBlockClick(Sender: TObject);
 begin
   labText.Text := 'После нажатия кнопки "Указать" наведите указатель на блок "Описание" исходного языка.';
   Image.MultiResBitmap[0].Bitmap := ImageList.Source[4].MultiResBitmap[0].Bitmap;
-
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[4].IsSelected := true;
   MainForm.btnTrackingStartClick(btnGetPosCurrNameBlock);
   Self.Hide;
@@ -91,7 +92,7 @@ procedure TFormStartName.btnGetPosDetailsBlockClick(Sender: TObject);
 begin
   labText.Text := 'После нажатия кнопки "Указать" наведите указатель на блок "Название" исходного языка.';
   Image.MultiResBitmap[0].Bitmap := ImageList.Source[3].MultiResBitmap[0].Bitmap;
-
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[4].IsSelected := true;
   MainForm.btnTrackingStartClick(btnGetPosDetailsBlock);
   Self.Hide;
@@ -101,7 +102,7 @@ procedure TFormStartName.btnGetPosNameBlockClick(Sender: TObject);
 begin
   labText.Text := 'После нажатия кнопки "Указать" наведите указатель на блок "Описание" целового языка.';
   Image.MultiResBitmap[0].Bitmap := ImageList.Source[2].MultiResBitmap[0].Bitmap;
-
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[4].IsSelected := true;
   MainForm.btnTrackingStartClick(btnGetPosNameBlock);
   Self.Hide;
@@ -109,8 +110,9 @@ end;
 
 procedure TFormStartName.btnPauseOneClick(Sender: TObject);
 begin
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[2].IsSelected := true;
-  MainForm.lbLang.Selected.Hint := sleepTime.Text;
+  MainForm.SetHint(sleepTime.Text);
 
   labText.Text := 'После нажатия кнопки "Указать" наведите указатель на первые буквы названия целового языка.';
   tcSettName.Height := 50;
@@ -122,8 +124,9 @@ end;
 
 procedure TFormStartName.btnPauseTwoClick(Sender: TObject);
 begin
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[5].IsSelected := true;
-  MainForm.lbLang.Selected.Hint := sleepTime.Text;
+    MainForm.SetHint(sleepTimeTwo.Text);
 
   labText.Text := 'После нажатия кнопки "Указать" наведите указатель на кнопку "Опубликовать".';
   tcSettName.Height := 50;
@@ -136,6 +139,7 @@ procedure TFormStartName.btnStopSettName(Sender: TObject);
 begin
   labText.Text := 'Настройка завершена.';
   Image.Visible := false;
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[6].IsSelected := true;
   MainForm.btnTrackingStartClick(Sender);
   Self.Hide;
@@ -143,10 +147,10 @@ end;
 
 procedure TFormStartName.FormShow(Sender: TObject);
 begin
-MainForm.CurrListBox :=  MainForm.lbNameDetail;
+  MainForm.CurrListBox := MainForm.lbNameDetail;
 end;
 
-procedure TFormStartName.SpeedButton1Click(Sender: TObject);
+procedure TFormStartName.btnCloseClick(Sender: TObject);
 begin
   Self.Close;
 end;
@@ -155,7 +159,7 @@ procedure TFormStartName.btnSettGetLangClick(Sender: TObject);
 begin
   labText.Text := 'После нажатия кнопки "Указать" наведите указатель на блок "Название" целового языка.';
   Image.MultiResBitmap[0].Bitmap := ImageList.Source[1].MultiResBitmap[0].Bitmap;
-
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[3].IsSelected := true;
   MainForm.btnTrackingStartClick(Sender);
   Self.Hide;
@@ -166,7 +170,7 @@ begin
   labText.Text := 'Если Ваш компьютерный медленно работает, то здесь Вы можете указать большую паузу до открытия окна редактирования. Если нет, то используйте данные по-умолчанию.';
   tcSettName.Height := 120;
   Image.Visible := false;
-
+  MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[0].IsSelected := true;
   MainForm.btnTrackingStartClick(Sender);
   Self.Hide;

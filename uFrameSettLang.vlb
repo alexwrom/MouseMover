@@ -4,67 +4,67 @@ Coordinates=462,309,120,33
 
 [MainForm.queryProfiles]
 Visible=False
-Coordinates=224,369,132,33
+Coordinates=224,369,151,36
 
 [btnSettLang]
-Coordinates=551,10,74,51
+Coordinates=148,270,84,58
 
 [Label26]
-Coordinates=80,254,52,51
+Coordinates=10,354,60,58
 
 [MainForm.BindSourceDB2]
-Coordinates=304,10,144,69
+Coordinates=331,10,167,80
 
 [ImageList]
-Coordinates=462,364,62,33
+Coordinates=462,364,70,36
 
 [btnOkPopup]
-Coordinates=645,10,76,51
+Coordinates=10,438,86,58
 
 [Label25]
-Coordinates=10,254,52,51
+Coordinates=324,354,60,58
 
 [recPopup]
-Coordinates=303,322,61,33
+Coordinates=215,438,69,36
 
 [Layout15]
-Coordinates=226,322,59,33
+Coordinates=122,438,67,36
 
 [ListViewLang]
-Coordinates=10,10,89,195
+Coordinates=10,10,107,234
 Visible=True
 
 [QueryLang]
-Coordinates=562,254,68,33
+Coordinates=562,254,78,36
 Visible=False
 
 [btnBackToLang]
-Coordinates=650,254,92,51
+Coordinates=258,270,104,58
 
 [Layout12]
-Coordinates=149,322,59,33
+Coordinates=310,438,67,36
 
 [MainForm.BindSourceDB1]
-Coordinates=127,10,144,69
+Coordinates=410,354,167,58
 
 [btnStartSettingLang]
-Coordinates=10,322,113,33
+Coordinates=403,438,129,36
 
 [sbLangAddPause]
-Coordinates=436,254,101,51
+Coordinates=96,354,116,58
 
 [Label24]
-Coordinates=481,10,52,51
+Coordinates=238,354,60,58
 
 [sbLangBtnPause]
-Coordinates=150,254,98,51
+Coordinates=10,270,112,58
 
 [MainForm.QueryObjects]
-Coordinates=272,254,133,51
+Coordinates=388,270,154,58
 
 [BindSourceDB1]
-Coordinates=562,254,92,141
+Coordinates=197,65,106,168
 
 [BindingsList1]
-Coordinates=118,98,82,33
+Coordinates=118,98,91,36
 

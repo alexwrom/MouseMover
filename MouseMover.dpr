@@ -16,7 +16,8 @@ uses
   uStartSettingLang in 'uStartSettingLang.pas' {FormStartLang},
   uFrameSettLang in 'uFrameSettLang.pas' {FrameSettLang: TFrame},
   uFrameSettName in 'uFrameSettName.pas' {FrameSettName: TFrame},
-  uStartSettingName in 'uStartSettingName.pas' {FormStartName};
+  uStartSettingName in 'uStartSettingName.pas' {FormStartName},
+  uStartSettingSubtitle in 'uStartSettingSubtitle.pas' {FormStartSubtitle};
 
 {$R *.res}
 
@@ -31,5 +32,6 @@ begin
   Application.CreateForm(TImageForm, ImageForm);
   Application.CreateForm(TFormStartLang, FormStartLang);
   Application.CreateForm(TFormStartName, FormStartName);
+  Application.CreateForm(TFormStartSubtitle, FormStartSubtitle);
   Application.Run;
 end.

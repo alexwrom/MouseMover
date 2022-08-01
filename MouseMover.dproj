@@ -250,6 +250,10 @@
             <Form>FormStartName</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uStartSettingSubtitle.pas">
+            <Form>FormStartSubtitle</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
