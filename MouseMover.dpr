@@ -3,7 +3,6 @@ program MouseMover;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  uMain in 'uMain.pas' {MainForm},
   uLang in 'uLang.pas' {LangForm},
   uTranslate in 'uTranslate.pas',
   uAddEditForm in 'uAddEditForm.pas' {AddEditForm},
@@ -12,7 +11,12 @@ uses
   uContact in 'uContact.pas' {ContactForm},
   uUpdate in 'uUpdate.pas' {UpdateForm},
   uTranscriptions in 'uTranscriptions.pas',
-  uImages in 'uImages.pas' {ImageForm};
+  uImages in 'uImages.pas' {ImageForm},
+  uMain in 'uMain.pas' {MainForm},
+  uStartSettingLang in 'uStartSettingLang.pas' {FormStartLang},
+  uFrameSettLang in 'uFrameSettLang.pas' {FrameSettLang: TFrame},
+  uFrameSettName in 'uFrameSettName.pas' {FrameSettName: TFrame},
+  uStartSettingName in 'uStartSettingName.pas' {FormStartName};
 
 {$R *.res}
 
@@ -25,5 +29,7 @@ begin
   Application.CreateForm(TContactForm, ContactForm);
   Application.CreateForm(TUpdateForm, UpdateForm);
   Application.CreateForm(TImageForm, ImageForm);
+  Application.CreateForm(TFormStartLang, FormStartLang);
+  Application.CreateForm(TFormStartName, FormStartName);
   Application.Run;
 end.

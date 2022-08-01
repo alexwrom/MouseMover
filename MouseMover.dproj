@@ -4,7 +4,7 @@
         <ProjectVersion>19.3</ProjectVersion>
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -201,10 +201,6 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="uMain.pas">
-            <Form>MainForm</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
         <DCCReference Include="uLang.pas">
             <Form>LangForm</Form>
             <FormType>fmx</FormType>
@@ -230,6 +226,28 @@
         <DCCReference Include="uTranscriptions.pas"/>
         <DCCReference Include="uImages.pas">
             <Form>ImageForm</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uMain.pas">
+            <Form>MainForm</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uStartSettingLang.pas">
+            <Form>FormStartLang</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uFrameSettLang.pas">
+            <Form>FrameSettLang</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="uFrameSettName.pas">
+            <Form>FrameSettName</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="uStartSettingName.pas">
+            <Form>FormStartName</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

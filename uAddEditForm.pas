@@ -61,8 +61,11 @@ begin
   end;
   LangForm.Query.Active := false;
   LangForm.Query.Active := true;
-  MainForm.Query.Active := false;
-  MainForm.Query.Active := true;
+  MainForm.FrameSettLang.QueryLang.Active := false;
+  MainForm.FrameSettLang.QueryLang.Active := true;
+
+  MainForm.FrameSettName.QueryLang.Active := false;
+  MainForm.FrameSettName.QueryLang.Active := true;
   btnCancelClick(nil);
 end;
 

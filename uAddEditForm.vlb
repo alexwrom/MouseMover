@@ -4,3 +4,9 @@ Visible=False
 [LangForm.Query]
 Visible=False
 
+[MainForm.QueryLang]
+Visible=False
+
+[MainForm.queryProfiles]
+Visible=False
+
