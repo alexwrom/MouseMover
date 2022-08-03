@@ -97,14 +97,12 @@ end;
 
 procedure TFrameSettLang.btnStartSettingLangClick(Sender: TObject);
 begin
-  MainForm.MultiViewSett.HideMaster;
   MainForm.Hide;
   FormStartLang.ShowModal;
 
   MainForm.FormStyle := TFormStyle.StayOnTop;
   MainForm.Show;
   MainForm.FormStyle := TFormStyle.Normal;
-  MainForm.MultiViewSett.ShowMaster;
 end;
 
 procedure TFrameSettLang.DelHint(IdOrder: integer);

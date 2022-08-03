@@ -52,20 +52,19 @@ uses uMain;
 
 procedure TFrameSettName.btnStartSettingNameClick(Sender: TObject);
 begin
-  MainForm.MultiViewSett.HideMaster;
   MainForm.Hide;
   FormStartName.ShowModal;
 
   MainForm.FormStyle := TFormStyle.StayOnTop;
   MainForm.Show;
   MainForm.FormStyle := TFormStyle.Normal;
-  MainForm.MultiViewSett.ShowMaster;
 end;
 
 procedure TFrameSettName.cbLangChange(Sender: TObject);
 begin
+  MainForm.CurrListBox := MainForm.lbNameDetail;
   MainForm.lbNameDetail.Selected.Hint := FormStartName.edSourcePos.Text + ';' + FormStartName.edTargetPos.Text + ';' + FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
-    Copy(cbLang.Selected.Text, Pos('(', cbLang.Selected.Text) + 1, 2) + ';' + swGetData.IsChecked.ToString;
+    Copy(cbLang.Selected.Text, cbLang.Selected.Text.Length - 2, 2) + ';' + swGetData.IsChecked.ToString;
   MainForm.SetHint(MainForm.lbNameDetail.Selected.Hint);
 end;
 
@@ -76,11 +75,12 @@ end;
 
 procedure TFrameSettName.swGetDataSwitch(Sender: TObject);
 begin
+  MainForm.CurrListBox := MainForm.lbNameDetail;
   MainForm.lbNameDetail.ClearSelection;
   MainForm.lbNameDetail.ListItems[4].IsSelected := true;
   layHandData.Visible := swGetData.IsChecked;
   MainForm.lbNameDetail.Selected.Hint := FormStartName.edSourcePos.Text + ';' + FormStartName.edTargetPos.Text + ';' + FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
-    Copy(MainForm.lbNameDetail.Selected.Text, Pos('(', MainForm.lbNameDetail.Selected.Text) + 1, 2) + ';' + swGetData.IsChecked.ToString;
+    Copy(cbLang.Selected.Text, cbLang.Selected.Text.Length - 2, 2) + ';' + swGetData.IsChecked.ToString;
   MainForm.SetHint(MainForm.lbNameDetail.Selected.Hint);
 end;
 

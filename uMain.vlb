@@ -1,162 +1,246 @@
-﻿[MenuItem24]
-Coordinates=1064,690,73,33
-
-[FDGUIxWaitCursor1]
-Coordinates=818,562,113,33
-
-[miUpdate]
-Coordinates=1401,752,61,33
+﻿[FDGUIxWaitCursor1]
+Coordinates=818,562,132,36
 
 [btnStart]
-Coordinates=210,460,53,51
+Coordinates=1109,292,60,58
 
 [BindingsList1]
-Coordinates=384,714,82,33
+Coordinates=384,714,91,36
 
 [timerSleepControl]
-Coordinates=196,714,103,33
-
-[StatusBar]
-Coordinates=967,690,62,33
-
-[MenuItem8]
-Coordinates=10,752,68,33
+Coordinates=196,714,118,36
 
 [timerGetPos]
-Coordinates=1022,56,75,33
-
-[MainMenu]
-Coordinates=1022,111,64,33
+Coordinates=1022,56,86,36
 
 [Conn]
-Coordinates=11,77,40,33
-
-[miLicense]
-Coordinates=325,752,64,33
+Coordinates=11,77,45,36
 
 [timerCheckTrack]
-Coordinates=1022,386,97,33
+Coordinates=1022,386,112,36
 
 [timerStart]
-Coordinates=943,788,62,33
-
-[MenuItem25]
-Coordinates=515,752,73,33
-
-[MenuItem7]
-Coordinates=538,690,68,33
+Coordinates=943,788,71,36
 
 [BindSourceDB1]
-Coordinates=1100,10,92,159
+Coordinates=840,10,112,124
 
 [ImageList]
-Coordinates=597,788,62,33
-
-[btnMasterLeft]
-Coordinates=1219,544,82,51
+Coordinates=597,788,70,36
 
 [lbNameDetail]
-Coordinates=675,10,116,213
+Coordinates=345,10,139,256
 
 [lvProfiles]
-Coordinates=175,10,89,213
+Coordinates=10,10,107,256
 Visible=True
 
-[MultiViewLeft]
-Coordinates=115,752,80,33
-
 [lbSubtitles]
-Coordinates=510,10,116,213
+Coordinates=675,10,139,256
 
 [queryProfiles]
-Coordinates=1160,30,80,33
+Coordinates=1160,30,90,36
 Visible=False
 
 [BindSourceDB2]
-Coordinates=362,76,102,105
+Coordinates=197,76,122,124
 
 []
-Coordinates=991,752,53,33
+Coordinates=504,606,91,36
 Visible=False
 
 [effectPlay]
-Coordinates=1022,441,62,33
+Coordinates=1022,441,71,36
 
 [lbLang]
-Coordinates=10,10,116,213
+Coordinates=510,10,139,256
 
 [QueryObjects]
-Coordinates=685,376,81,51
+Coordinates=580,460,93,58
 
 [Label3]
-Coordinates=452,544,46,51
-
-[Layout1]
-Coordinates=793,752,53,33
-
-[Layout5]
-Coordinates=452,690,53,33
+Coordinates=150,376,53,58
 
 [ShadowEffect4]
-Coordinates=703,1,88,33
+Coordinates=703,1,101,36
 
 [btnCancelProfile]
-Coordinates=808,460,96,51
+Coordinates=804,460,109,58
 
 [btnAddProfile]
-Coordinates=114,376,82,51
+Coordinates=319,376,92,58
 
 [MonochromeEffect1]
-Coordinates=1301,1,113,33
-
-[MultiViewSett]
-Coordinates=10,690,81,33
+Coordinates=1301,1,129,36
 
 [ShadowEffect2]
-Coordinates=1180,295,88,33
+Coordinates=1180,295,101,36
 
 [ShadowEffect3]
-Coordinates=1180,350,88,33
+Coordinates=1180,350,101,36
 
 [TabSettSubtitle]
-Coordinates=1289,628,89,33
+Coordinates=621,606,103,36
 
 [btnChangeProfile]
-Coordinates=617,544,100,51
+Coordinates=10,376,114,58
 
 [Image2]
-Coordinates=602,376,49,51
+Coordinates=497,460,57,58
 
 [tcSettings]
-Coordinates=1106,628,64,33
-
-[btnSettings]
-Coordinates=1001,628,70,33
+Coordinates=116,606,71,36
 
 [Image4]
-Coordinates=232,376,49,51
-
-[Layout4]
-Coordinates=721,628,53,33
+Coordinates=586,292,57,58
 
 [btnDelProfile]
-Coordinates=1098,292,78,51
+Coordinates=927,376,89,58
 
 [Image1]
-Coordinates=890,376,49,51
+Coordinates=936,292,57,58
 
 [TabSettName]
-Coordinates=414,628,80,33
+Coordinates=385,606,93,36
 
 [TabSettLang]
-Coordinates=300,628,76,33
+Coordinates=750,606,88,36
 
 [Image3]
-Coordinates=1232,10,49,51
+Coordinates=424,292,57,58
 
 [ShadowEffect5]
-Coordinates=1381,276,88,33
+Coordinates=1381,276,101,36
 
 [Image]
-Coordinates=931,544,44,51
+Coordinates=860,292,50,58
+
+[Rectangle1]
+Coordinates=10,606,80,36
+
+[btnGoTo]
+Coordinates=1019,292,64,58
+
+[btnInfo]
+Coordinates=417,460,54,58
+
+[Image5]
+Coordinates=341,292,57,58
+
+[Image9]
+Coordinates=10,460,57,58
+
+[laySettings]
+Coordinates=960,544,78,36
+
+[btnCloseApp]
+Coordinates=527,376,88,58
+
+[ShadowEffect9]
+Coordinates=343,573,101,36
+
+[Layout3]
+Coordinates=874,544,60,36
+
+[Rectangle2]
+Coordinates=768,544,80,36
+
+[Image8]
+Coordinates=93,292,57,58
+
+[Image11]
+Coordinates=837,376,64,58
+
+[ShadowEffect10]
+Coordinates=76,573,108,36
+
+[Layout12]
+Coordinates=675,544,67,36
+
+[Rectangle5]
+Coordinates=569,544,80,36
+
+[Image12]
+Coordinates=437,376,64,58
+
+[ShadowEffect7]
+Coordinates=852,56,101,36
+
+[btnCloseSetting]
+Coordinates=437,544,106,36
+
+[Layout2]
+Coordinates=351,544,60,36
+
+[btnMove]
+Coordinates=770,292,64,58
+
+[labCountTrial]
+Coordinates=720,376,91,58
+
+[btnSettings]
+Coordinates=699,460,79,58
+
+[Label4]
+Coordinates=641,376,53,58
+
+[Label2]
+Coordinates=176,292,53,58
+
+[ShadowEffect1]
+Coordinates=852,221,101,36
+
+[btnMasterLeft]
+Coordinates=176,460,93,58
+
+[Image10]
+Coordinates=229,376,64,58
+
+[Rectangle3]
+Coordinates=245,544,80,36
+
+[ShadowEffect12]
+Coordinates=852,331,108,36
+
+[btnSystem]
+Coordinates=669,292,75,58
+
+[ShadowEffect8]
+Coordinates=852,621,101,36
+
+[ShadowEffect11]
+Coordinates=612,647,108,36
+
+[Label17]
+Coordinates=255,292,60,58
+
+[Layout6]
+Coordinates=159,544,60,36
+
+[editPosCursor]
+Coordinates=295,460,96,58
+
+[btnStartSettingSub]
+Coordinates=10,544,123,36
+
+[Image7]
+Coordinates=10,292,57,58
+
+[Rectangle4]
+Coordinates=939,460,80,36
+
+[Label1]
+Coordinates=507,292,53,58
+
+[layTop]
+Coordinates=213,606,60,36
+
+[layBottom]
+Coordinates=299,606,60,36
+
+[imgBackground]
+Coordinates=93,460,57,58
+
+[effectPlaySett]
+Coordinates=697,285,101,36
 

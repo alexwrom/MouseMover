@@ -96,6 +96,9 @@ end;
 
 procedure TFormStartLang.btnCancelClick(Sender: TObject);
 begin
+  labText.Text := 'Перед началом настройки языков откройте в браузере Youtube Studio и перейдите в настройки субтитров на одном из Ваших новых видео.' +
+    ' Затем вернитесь в программу и нажав кнопку "Начать" наведите на кнопку в браузере "ДОБАВИТЬ ПЕРЕВОД НА ДРУГОЙ ЯЗЫК".';
+  btnStart.Text := 'Начать';
   Self.Close;
 end;
 
@@ -144,7 +147,6 @@ begin
   Self.FormStyle := TFormStyle.StayOnTop;
   Self.Show;
   MainForm.SetHint(MainForm.CurrListBox.Selected.Hint);
-  // Self.FormStyle := TFormStyle.Normal;
   FindNextItemPos;
 end;
 
@@ -170,7 +172,7 @@ begin
       break;
     end;
 
-  if I = MainForm.lbLang.Count - 1 then
+  if I = MainForm.lbLang.Count then
   begin
     btnStart.Visible := false;
     btnApplyAll.Visible := false;
@@ -193,7 +195,6 @@ begin
 
     IsShowing := TRUE;
   end;
-
 end;
 
 procedure TFormStartLang.timerGetPosTimer(Sender: TObject);

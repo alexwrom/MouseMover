@@ -184,14 +184,13 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1049</VerInfo_Locale>
-        <Icon_MainIcon>MouseMover_Icon.ico</Icon_MainIcon>
+        <Icon_MainIcon>MouseMover_Icon1.ico</Icon_MainIcon>
         <VerInfo_Release>5</VerInfo_Release>
         <VerInfo_Keys>CompanyName=by Samasiuk;FileDescription=MouseMover by Samasiuk;FileVersion=1.0.5.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.samasiuk.$(MSBuildProjectName);ProductName=MouseMover by Samasiuk;ProductVersion=1.0.5.0;Comments=</VerInfo_Keys>
         <PF_UWPPublisher>CN=Samasiuk</PF_UWPPublisher>
         <PF_UWPPackageName>MouseMover</PF_UWPPackageName>
         <PF_UWPPackageDisplayName>MouseMover by Samasiuk</PF_UWPPackageDisplayName>
         <PF_UWPPublisherDisplayName>MouseMover by Samasiuk</PF_UWPPublisherDisplayName>
-        <PF_UWPDistributionType>Store</PF_UWPDistributionType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
