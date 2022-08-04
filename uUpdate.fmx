@@ -18,11 +18,11 @@ object UpdateForm: TUpdateForm
     Fill.Kind = Gradient
     Fill.Gradient.Points = <
       item
-        Color = xFFFECC98
+        Color = xF9504099
         Offset = 0.000000000000000000
       end
       item
-        Color = xFFEBC9FF
+        Color = xFFFE7BBF
         Offset = 1.000000000000000000
       end>
     Fill.Gradient.StartPosition.X = 0.500000000000000000
@@ -50,7 +50,7 @@ object UpdateForm: TUpdateForm
     Size.PlatformDefault = False
     TextSettings.Font.Size = 13.000000000000000000
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claDarkslateblue
+    TextSettings.FontColor = claHotpink
     TextSettings.HorzAlign = Center
     Text = #1055#1086#1076#1086#1078#1076#1080#1090#1077'. '#1048#1076#1077#1090' '#1079#1072#1075#1088#1091#1079#1082#1072' '
     TabOrder = 0

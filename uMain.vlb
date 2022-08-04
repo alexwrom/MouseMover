@@ -46,11 +46,8 @@ Visible=False
 Coordinates=197,76,122,124
 
 []
-Coordinates=504,606,91,36
+Coordinates=569,544,80,36
 Visible=False
-
-[effectPlay]
-Coordinates=1022,441,71,36
 
 [lbLang]
 Coordinates=510,10,139,256
@@ -69,9 +66,6 @@ Coordinates=804,460,109,58
 
 [btnAddProfile]
 Coordinates=319,376,92,58
-
-[MonochromeEffect1]
-Coordinates=1301,1,129,36
 
 [ShadowEffect2]
 Coordinates=1180,295,101,36
@@ -115,9 +109,6 @@ Coordinates=1381,276,101,36
 [Image]
 Coordinates=860,292,50,58
 
-[Rectangle1]
-Coordinates=10,606,80,36
-
 [btnGoTo]
 Coordinates=1019,292,64,58
 
@@ -136,14 +127,8 @@ Coordinates=960,544,78,36
 [btnCloseApp]
 Coordinates=527,376,88,58
 
-[ShadowEffect9]
-Coordinates=343,573,101,36
-
 [Layout3]
 Coordinates=874,544,60,36
-
-[Rectangle2]
-Coordinates=768,544,80,36
 
 [Image8]
 Coordinates=93,292,57,58
@@ -151,14 +136,8 @@ Coordinates=93,292,57,58
 [Image11]
 Coordinates=837,376,64,58
 
-[ShadowEffect10]
-Coordinates=76,573,108,36
-
 [Layout12]
 Coordinates=675,544,67,36
-
-[Rectangle5]
-Coordinates=569,544,80,36
 
 [Image12]
 Coordinates=437,376,64,58
@@ -187,29 +166,14 @@ Coordinates=641,376,53,58
 [Label2]
 Coordinates=176,292,53,58
 
-[ShadowEffect1]
-Coordinates=852,221,101,36
-
 [btnMasterLeft]
 Coordinates=176,460,93,58
 
 [Image10]
 Coordinates=229,376,64,58
 
-[Rectangle3]
-Coordinates=245,544,80,36
-
-[ShadowEffect12]
-Coordinates=852,331,108,36
-
 [btnSystem]
 Coordinates=669,292,75,58
-
-[ShadowEffect8]
-Coordinates=852,621,101,36
-
-[ShadowEffect11]
-Coordinates=612,647,108,36
 
 [Label17]
 Coordinates=255,292,60,58
@@ -226,9 +190,6 @@ Coordinates=10,544,123,36
 [Image7]
 Coordinates=10,292,57,58
 
-[Rectangle4]
-Coordinates=939,460,80,36
-
 [Label1]
 Coordinates=507,292,53,58
 
@@ -241,6 +202,6 @@ Coordinates=299,606,60,36
 [imgBackground]
 Coordinates=93,460,57,58
 
-[effectPlaySett]
-Coordinates=697,285,101,36
+[effectPlay]
+Coordinates=1301,1,129,36
 

@@ -22,11 +22,11 @@ object ContactForm: TContactForm
     Fill.Kind = Gradient
     Fill.Gradient.Points = <
       item
-        Color = xFFFECC98
+        Color = xF9504099
         Offset = 0.000000000000000000
       end
       item
-        Color = xFFEBC9FF
+        Color = xFFFE7BBF
         Offset = 1.000000000000000000
       end>
     Fill.Gradient.StartPosition.X = 0.500000000000000000
@@ -71,7 +71,7 @@ object ContactForm: TContactForm
     Size.Height = 16.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claDarkslateblue
+    TextSettings.FontColor = claHotpink
     TextSettings.VertAlign = Leading
     Text = 'Copyright 2022 - %s'
     TabOrder = 5

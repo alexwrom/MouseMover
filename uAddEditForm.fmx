@@ -11,16 +11,16 @@ object AddEditForm: TAddEditForm
   FormFactor.Devices = [Desktop]
   OnShow = FormShow
   DesignerMasterStyle = 0
-  object Rectangle5: TRectangle
+  object Rectangle2: TRectangle
     Align = Contents
     Fill.Kind = Gradient
     Fill.Gradient.Points = <
       item
-        Color = xFFFECC98
+        Color = xF9504099
         Offset = 0.000000000000000000
       end
       item
-        Color = xFFEBC9FF
+        Color = xFFFE7BBF
         Offset = 1.000000000000000000
       end>
     Fill.Gradient.StartPosition.X = 0.500000000000000000
@@ -38,7 +38,7 @@ object AddEditForm: TAddEditForm
     TextSettings.Font.StyleExt = {00070000000000000004000000}
     TextSettings.FontColor = claDarkslateblue
     Position.X = 8.000000000000000000
-    Position.Y = 27.000000000000000000
+    Position.Y = 67.000000000000000000
     Size.Width = 209.000000000000000000
     Size.Height = 25.000000000000000000
     Size.PlatformDefault = False
@@ -51,7 +51,7 @@ object AddEditForm: TAddEditForm
     TextSettings.Font.StyleExt = {00070000000000000004000000}
     TextSettings.FontColor = claDarkslateblue
     Position.X = 8.000000000000000000
-    Position.Y = 81.000000000000000000
+    Position.Y = 121.000000000000000000
     Size.Width = 49.000000000000000000
     Size.Height = 27.000000000000000000
     Size.PlatformDefault = False
@@ -62,7 +62,7 @@ object AddEditForm: TAddEditForm
     Images = MainForm.ImageList
     ImageIndex = 15
     Position.X = 8.000000000000000000
-    Position.Y = 113.000000000000000000
+    Position.Y = 8.000000000000000000
     Size.Width = 35.000000000000000000
     Size.Height = 35.000000000000000000
     Size.PlatformDefault = False
@@ -74,19 +74,19 @@ object AddEditForm: TAddEditForm
     StyledSettings = [Family, Size, Style]
     Images = MainForm.ImageList
     ImageIndex = 19
-    Position.X = 182.000000000000000000
-    Position.Y = 113.000000000000000000
+    Position.X = 183.000000000000000000
+    Position.Y = 8.000000000000000000
     Size.Width = 35.000000000000000000
     Size.Height = 35.000000000000000000
     Size.PlatformDefault = False
-    StyleLookup = 'composetoolbutton'
+    StyleLookup = 'stoptoolbutton'
     TextSettings.FontColor = claDarkslateblue
     OnClick = btnCancelClick
   end
   object Label1: TLabel
     StyledSettings = [Family, Size]
     Position.X = 8.000000000000000000
-    Position.Y = 8.000000000000000000
+    Position.Y = 48.000000000000000000
     Size.Width = 177.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
@@ -98,12 +98,12 @@ object AddEditForm: TAddEditForm
   object Label2: TLabel
     StyledSettings = [Family, Size]
     Position.X = 8.000000000000000000
-    Position.Y = 60.000000000000000000
+    Position.Y = 100.000000000000000000
     Size.Width = 209.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
-    TextSettings.FontColor = claDarkslateblue
+    TextSettings.FontColor = claHotpink
     Text = '2-'#1093' '#1089#1080#1084#1074#1086#1083#1100#1085#1099#1081' '#1082#1086#1076
     TabOrder = 4
   end

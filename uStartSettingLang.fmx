@@ -17,11 +17,11 @@ object FormStartLang: TFormStartLang
     Fill.Kind = Gradient
     Fill.Gradient.Points = <
       item
-        Color = xFFFECC98
+        Color = xF9504099
         Offset = 0.000000000000000000
       end
       item
-        Color = xFFEBC9FF
+        Color = xFFFE7BBF
         Offset = 1.000000000000000000
       end>
     Fill.Gradient.StartPosition.X = 0.500000000000000000
@@ -48,11 +48,12 @@ object FormStartLang: TFormStartLang
   end
   object labText: TLabel
     Align = Client
-    StyledSettings = [Family, Style]
+    StyledSettings = [Family]
     Size.Width = 452.000000000000000000
     Size.Height = 160.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 14.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
     TextSettings.FontColor = claDarkslateblue
     TextSettings.HorzAlign = Center
     Text = 

@@ -14,7 +14,7 @@ type
     btnCancel: TSpeedButton;
     Label1: TLabel;
     Label2: TLabel;
-    Rectangle5: TRectangle;
+    Rectangle2: TRectangle;
     procedure FormShow(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);

@@ -28,8 +28,8 @@ type
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkFillControlToField1: TLinkFillControlToField;
-    Rectangle5: TRectangle;
     Rectangle1: TRectangle;
+    Rectangle5: TRectangle;
     procedure btnStartSettingLangClick(Sender: TObject);
     procedure btnSettLangClick(Sender: TObject);
     procedure ListViewLangItemClick(const Sender: TObject; const AItem: TListViewItem);
