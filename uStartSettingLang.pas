@@ -4,19 +4,22 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, Winapi.Windows, FMX.ListBox, uTranscriptions,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Objects;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Objects, FMX.Effects, System.ImageList, FMX.ImgList;
 
 type
   TFormStartLang = class(TForm)
-    btnStart: TCornerButton;
     timerCheckTrack: TTimer;
     timerGetPos: TTimer;
     labText: TLabel;
-    Layout1: TLayout;
+    imgBackground: TImage;
+    Circle1: TCircle;
+    btnStart: TCornerButton;
     btnApplyAll: TCornerButton;
     btnCancel: TCornerButton;
-    Image1: TImage;
-    Rectangle5: TRectangle;
+    btnClose: TSpeedButton;
+    Image9: TImage;
+    GlowEffect8: TGlowEffect;
+    ImageList: TImageList;
     procedure btnStartClick(Sender: TObject);
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
@@ -88,6 +91,7 @@ begin
     end;
   btnStart.Visible := false;
   btnApplyAll.Visible := false;
+  imgBackground.MultiResBitmap[0].Bitmap := ImageList.Source[0].MultiResBitmap[0].Bitmap;
   labText.Text := 'Настройка языков завершена.';
   btnCancel.Visible := TRUE;
   Self.FormStyle := TFormStyle.StayOnTop;
@@ -168,6 +172,7 @@ begin
       begin
         labText.Text := labText.Text + #13#13 + 'Если Вы заметили, что кнопка "ДОБАВИТЬ ПЕРЕВОД НА ДРУГОЙ ЯЗЫК" не меняет своего положения, то нажмите на кнопку "Применить для остальных".';
         btnApplyAll.Visible := TRUE;
+        imgBackground.MultiResBitmap[0].Bitmap := ImageList.Source[1].MultiResBitmap[0].Bitmap;
       end;
       break;
     end;
@@ -176,6 +181,7 @@ begin
   begin
     btnStart.Visible := false;
     btnApplyAll.Visible := false;
+    imgBackground.MultiResBitmap[0].Bitmap := ImageList.Source[0].MultiResBitmap[0].Bitmap;
     labText.Text := 'Настройка языков завершена.';
     btnCancel.Visible := TRUE;
   end;
@@ -205,14 +211,12 @@ begin
 
   if PosClick = posXY.X.ToString + '-' + posXY.Y.ToString then
   begin
-    btnStart.Hint := (StrToFloat(btnStart.Hint) - 0.1).ToString;
     timerCheckTrack.Enabled := TRUE;
   end
   else
   begin
     PosClick := posXY.X.ToString + '-' + posXY.Y.ToString;
     timerCheckTrack.Enabled := false;
-    btnStart.Hint := '1';
   end;
 
 end;

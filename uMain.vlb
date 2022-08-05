@@ -46,7 +46,7 @@ Visible=False
 Coordinates=197,76,122,124
 
 []
-Coordinates=569,544,80,36
+Coordinates=1180,295,101,36
 Visible=False
 
 [lbLang]
@@ -58,20 +58,11 @@ Coordinates=580,460,93,58
 [Label3]
 Coordinates=150,376,53,58
 
-[ShadowEffect4]
-Coordinates=703,1,101,36
-
 [btnCancelProfile]
 Coordinates=804,460,109,58
 
 [btnAddProfile]
 Coordinates=319,376,92,58
-
-[ShadowEffect2]
-Coordinates=1180,295,101,36
-
-[ShadowEffect3]
-Coordinates=1180,350,101,36
 
 [TabSettSubtitle]
 Coordinates=621,606,103,36
@@ -102,9 +93,6 @@ Coordinates=750,606,88,36
 
 [Image3]
 Coordinates=424,292,57,58
-
-[ShadowEffect5]
-Coordinates=1381,276,101,36
 
 [Image]
 Coordinates=860,292,50,58

@@ -4,13 +4,14 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uLoadFile, System.Threading, ShellApi,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Effects;
 
 type
   TUpdateForm = class(TForm)
     AniIndicator: TAniIndicator;
     labWait: TLabel;
-    Rectangle5: TRectangle;
+    Image1: TImage;
+    ShadowEffect1: TShadowEffect;
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }

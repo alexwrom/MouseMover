@@ -60,17 +60,13 @@ type
     Label3: TLabel;
     btnAddProfile: TSpeedButton;
     Image2: TImage;
-    ShadowEffect3: TShadowEffect;
     btnDelProfile: TSpeedButton;
     Image3: TImage;
-    ShadowEffect4: TShadowEffect;
     layBottom: TLayout;
     btnChangeProfile: TSpeedButton;
     Image1: TImage;
-    ShadowEffect2: TShadowEffect;
     btnCancelProfile: TSpeedButton;
     Image4: TImage;
-    ShadowEffect5: TShadowEffect;
     effectPlay: TMonochromeEffect;
     tcSettings: TTabControl;
     TabSettLang: TTabItem;
@@ -119,7 +115,6 @@ type
     edProfileName: TEdit;
     Label5: TLabel;
     layProfiles: TLayout;
-    ShadowEffect16: TShadowEffect;
     effectPlaySettMono: TMonochromeEffect;
     btnUpdate: TSpeedButton;
     Image15: TImage;
@@ -133,11 +128,16 @@ type
     GlowEffect7: TGlowEffect;
     GlowEffect8: TGlowEffect;
     GlowEffect1: TGlowEffect;
-    Rectangle1: TRectangle;
     Rectangle3: TRectangle;
     Rectangle2: TRectangle;
     Rectangle4: TRectangle;
     Rectangle5: TRectangle;
+    Image16: TImage;
+    Layout1: TLayout;
+    GlowEffect10: TGlowEffect;
+    GlowEffect11: TGlowEffect;
+    GlowEffect12: TGlowEffect;
+    GlowEffect13: TGlowEffect;
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
     procedure btnTrackingStartClick(Sender: TObject);
@@ -393,7 +393,7 @@ end;
 procedure TMainForm.btnTrackingStartClick(Sender: TObject);
 begin
   Self.Hide;
-  TagTranslate := (Sender as TSpeedButton).Tag;
+  TagTranslate := (Sender as TCornerButton).Tag;
   timerCheckTrack.Enabled := true;
   timerGetPos.Enabled := true;
 end;
@@ -763,23 +763,19 @@ end;
 procedure TMainForm.timerGetPosTimer(Sender: TObject);
 var
   posXY: TPoint;
-  Seconds: double;
 begin
   GetCursorPos(posXY);
-  Seconds := 2.5;
 
   if (CurrListBox.Selected.Tag = itemPos) or (CurrListBox.Selected.Tag = itemGetLang) then
   begin
     if editPosCursor.Text = posXY.X.ToString + '-' + posXY.Y.ToString then
     begin
-      Seconds := Seconds - 0.1;
       timerCheckTrack.Enabled := true;
     end
     else
     begin
       editPosCursor.Text := posXY.X.ToString + '-' + posXY.Y.ToString;
       timerCheckTrack.Enabled := false;
-      Seconds := 2.5;
     end;
   end
   else
@@ -788,56 +784,48 @@ begin
         begin
           if FormStartName.edSourcePos.Text = posXY.X.ToString + '-' + posXY.Y.ToString then
           begin
-            Seconds := Seconds - 0.1;
             timerCheckTrack.Enabled := true;
           end
           else
           begin
             FormStartName.edSourcePos.Text := posXY.X.ToString + '-' + posXY.Y.ToString;
             timerCheckTrack.Enabled := false;
-            Seconds := 2.5;
           end;
         end;
       1:
         begin
           if FormStartName.edTargetPos.Text = posXY.X.ToString + '-' + posXY.Y.ToString then
           begin
-            Seconds := Seconds - 0.1;
             timerCheckTrack.Enabled := true;
           end
           else
           begin
             FormStartName.edTargetPos.Text := posXY.X.ToString + '-' + posXY.Y.ToString;
             timerCheckTrack.Enabled := false;
-            Seconds := 2.5;
           end;
         end;
       2:
         begin
           if FormStartName.edCurrentSourcePos.Text = posXY.X.ToString + '-' + posXY.Y.ToString then
           begin
-            Seconds := Seconds - 0.1;
             timerCheckTrack.Enabled := true;
           end
           else
           begin
             FormStartName.edCurrentSourcePos.Text := posXY.X.ToString + '-' + posXY.Y.ToString;
             timerCheckTrack.Enabled := false;
-            Seconds := 2.5;
           end;
         end;
       3:
         begin
           if FormStartName.edCurrentTargetPos.Text = posXY.X.ToString + '-' + posXY.Y.ToString then
           begin
-            Seconds := Seconds - 0.1;
             timerCheckTrack.Enabled := true;
           end
           else
           begin
             FormStartName.edCurrentTargetPos.Text := posXY.X.ToString + '-' + posXY.Y.ToString;
             timerCheckTrack.Enabled := false;
-            Seconds := 2.5;
           end;
         end;
     end;
