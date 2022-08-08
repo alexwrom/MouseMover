@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, System.Threading, uStartSettingLang,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.Edit, FMX.EditBox, FMX.SpinBox, FMX.Objects, FMX.ListView, FMX.Controls.Presentation,
   FMX.Layouts, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.ImageList,
-  FMX.ImgList, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope;
+  FMX.ImgList, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, FMX.Effects;
 
 type
   TFrameSettLang = class(TFrame)
@@ -30,6 +30,9 @@ type
     LinkFillControlToField1: TLinkFillControlToField;
     Rectangle1: TRectangle;
     Rectangle5: TRectangle;
+    Layout1: TLayout;
+    InnerGlowEffect1: TInnerGlowEffect;
+    InnerGlowEffect2: TInnerGlowEffect;
     procedure btnStartSettingLangClick(Sender: TObject);
     procedure btnSettLangClick(Sender: TObject);
     procedure ListViewLangItemClick(const Sender: TObject; const AItem: TListViewItem);
@@ -136,14 +139,14 @@ begin
     MainForm.CreateItem(itemSeparator, MainForm.lbLang, AItem.Text);
     InsHint(itemSeparator, AItem.Text);
 
-    MainForm.CreateItem(itemPos, MainForm.lbLang, '0-0');
-    InsHint(itemPos, '0-0');
+    MainForm.CreateItem(itemPos, MainForm.lbLang, MainForm.lbLang.ListItems[MainForm.lbLang.Count - 10].Hint);
+    InsHint(itemPos, MainForm.lbLang.ListItems[MainForm.lbLang.Count - 10].Hint);
     // ќстальное пр€чем
     MainForm.CreateItem(itemClick, MainForm.lbLang);
     InsHint(itemClick, '');
 
-    MainForm.CreateItem(itemSleep, MainForm.lbLang, sbLangBtnPause.Text);
-    InsHint(itemSleep, sbLangBtnPause.Text);
+    MainForm.CreateItem(itemSleep, MainForm.lbLang,  MainForm.lbLang.ListItems[MainForm.lbLang.Count - 10].Hint);
+    InsHint(itemSleep, MainForm.lbLang.ListItems[MainForm.lbLang.Count - 10].Hint);
 
     MainForm.CreateItem(itemText, MainForm.lbLang, AItem.Text);
     InsHint(itemText, AItem.Text);
@@ -151,8 +154,8 @@ begin
     MainForm.CreateItem(itemEnter, MainForm.lbLang);
     InsHint(itemEnter, '');
 
-    MainForm.CreateItem(itemSleep, MainForm.lbLang, sbLangAddPause.Text);
-    InsHint(itemSleep, sbLangAddPause.Text);
+    MainForm.CreateItem(itemSleep, MainForm.lbLang, MainForm.lbLang.ListItems[MainForm.lbLang.Count - 10].Hint);
+    InsHint(itemSleep, MainForm.lbLang.ListItems[MainForm.lbLang.Count - 10].Hint);
 
     MainForm.CreateItem(itemScroll, MainForm.lbLang, '-10000');
     InsHint(itemScroll, '-10000');
@@ -175,6 +178,7 @@ begin
 
         for J := 1 to 9 do
           MainForm.lbLang.Items.Delete(I);
+
         DelHint(I + 1);
         break;
       end;

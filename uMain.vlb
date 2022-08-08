@@ -46,7 +46,7 @@ Visible=False
 Coordinates=197,76,122,124
 
 []
-Coordinates=1180,295,101,36
+Coordinates=116,606,71,36
 Visible=False
 
 [lbLang]
@@ -64,17 +64,11 @@ Coordinates=804,460,109,58
 [btnAddProfile]
 Coordinates=319,376,92,58
 
-[TabSettSubtitle]
-Coordinates=621,606,103,36
-
 [btnChangeProfile]
 Coordinates=10,376,114,58
 
 [Image2]
 Coordinates=497,460,57,58
-
-[tcSettings]
-Coordinates=116,606,71,36
 
 [Image4]
 Coordinates=586,292,57,58
@@ -84,12 +78,6 @@ Coordinates=927,376,89,58
 
 [Image1]
 Coordinates=936,292,57,58
-
-[TabSettName]
-Coordinates=385,606,93,36
-
-[TabSettLang]
-Coordinates=750,606,88,36
 
 [Image3]
 Coordinates=424,292,57,58
@@ -124,17 +112,11 @@ Coordinates=93,292,57,58
 [Image11]
 Coordinates=837,376,64,58
 
-[Layout12]
-Coordinates=675,544,67,36
-
 [Image12]
 Coordinates=437,376,64,58
 
 [ShadowEffect7]
 Coordinates=852,56,101,36
-
-[btnCloseSetting]
-Coordinates=437,544,106,36
 
 [Layout2]
 Coordinates=351,544,60,36
@@ -166,9 +148,6 @@ Coordinates=669,292,75,58
 [Label17]
 Coordinates=255,292,60,58
 
-[Layout6]
-Coordinates=159,544,60,36
-
 [editPosCursor]
 Coordinates=295,460,96,58
 
@@ -192,4 +171,7 @@ Coordinates=93,460,57,58
 
 [effectPlay]
 Coordinates=1301,1,129,36
+
+[laySettSubtitle]
+Coordinates=675,544,67,36
 

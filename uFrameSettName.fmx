@@ -5,26 +5,15 @@ object FrameSettName: TFrameSettName
   Padding.Right = 5.000000000000000000
   Padding.Bottom = 5.000000000000000000
   Size.Width = 512.000000000000000000
-  Size.Height = 556.000000000000000000
+  Size.Height = 456.000000000000000000
   Size.PlatformDefault = False
   object Rectangle5: TRectangle
     Align = Contents
-    Fill.Kind = Gradient
-    Fill.Gradient.Points = <
-      item
-        Color = xF9504099
-        Offset = 0.000000000000000000
-      end
-      item
-        Color = xFFFE7BBF
-        Offset = 1.000000000000000000
-      end>
-    Fill.Gradient.StartPosition.X = 0.500000000000000000
-    Fill.Gradient.StartPosition.Y = 1.000000000000000000
-    Fill.Gradient.StopPosition.X = 0.499999970197677600
-    Fill.Gradient.StopPosition.Y = 0.000000000000000000
+    Fill.Color = xFF504099
+    Margins.Top = 55.000000000000000000
+    Margins.Bottom = 55.000000000000000000
     Size.Width = 512.000000000000000000
-    Size.Height = 556.000000000000000000
+    Size.Height = 346.000000000000000000
     Size.PlatformDefault = False
     Stroke.Kind = None
   end
@@ -57,15 +46,15 @@ object FrameSettName: TFrameSettName
       #1042#1053#1048#1052#1040#1053#1048#1045'!!! '#1055#1088#1080' '#1087#1077#1088#1077#1087#1086#1083#1085#1077#1085#1080#1080' '#1076#1086#1087#1091#1089#1090#1080#1084#1086#1075#1086' '#1095#1080#1089#1083#1072' '#1089#1080#1084#1074#1086#1083#1086#1084' '#1089#1090#1088#1086#1082#1072' '#1094 +
       #1077#1083#1077#1074#1086#1075#1086' '#1103#1079#1099#1082#1072' '#1073#1091#1076#1077#1090' '#1086#1073#1088#1077#1079#1072#1090#1100#1089#1103'.'
     Visible = False
-    TabOrder = 2
+    TabOrder = 3
   end
   object layHandData: TLayout
     Align = Client
     Size.Width = 502.000000000000000000
-    Size.Height = 364.000000000000000000
+    Size.Height = 241.000000000000000000
     Size.PlatformDefault = False
     Visible = False
-    TabOrder = 5
+    TabOrder = 6
     object mDetails: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
       DataDetectorTypes = []
@@ -75,11 +64,11 @@ object FrameSettName: TFrameSettName
       TextSettings.WordWrap = True
       Align = Client
       Size.Width = 502.000000000000000000
-      Size.Height = 224.000000000000000000
+      Size.Height = 131.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 4
       Viewport.Width = 498.000000000000000000
-      Viewport.Height = 220.000000000000000000
+      Viewport.Height = 127.000000000000000000
     end
     object mName: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
@@ -90,17 +79,17 @@ object FrameSettName: TFrameSettName
       TextSettings.WordWrap = True
       OnChangeTracking = mNameChangeTracking
       Align = Top
-      Margins.Bottom = 10.000000000000000000
-      Position.Y = 26.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Position.Y = 21.000000000000000000
       Size.Width = 502.000000000000000000
-      Size.Height = 88.000000000000000000
+      Size.Height = 68.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 6
       Viewport.Width = 498.000000000000000000
-      Viewport.Height = 84.000000000000000000
+      Viewport.Height = 64.000000000000000000
       object labCountWord: TLabel
         Align = Bottom
-        Position.Y = 67.000000000000000000
+        Position.Y = 47.000000000000000000
         Size.Width = 498.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
@@ -113,13 +102,13 @@ object FrameSettName: TFrameSettName
       Align = Top
       AutoSize = True
       StyledSettings = [Family, Size]
-      Margins.Top = 10.000000000000000000
-      Position.Y = 10.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Position.Y = 5.000000000000000000
       Size.Width = 502.000000000000000000
       Size.Height = 16.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claDarkslateblue
+      TextSettings.FontColor = claHotpink
       Text = #1053#1072#1079#1074#1072#1085#1080#1077':'
       TabOrder = 3
     end
@@ -127,12 +116,12 @@ object FrameSettName: TFrameSettName
       Align = Top
       AutoSize = True
       StyledSettings = [Family, Size]
-      Position.Y = 124.000000000000000000
+      Position.Y = 94.000000000000000000
       Size.Width = 502.000000000000000000
       Size.Height = 16.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claDarkslateblue
+      TextSettings.FontColor = claHotpink
       Text = #1054#1087#1080#1089#1072#1085#1080#1077':'
       TabOrder = 2
     end
@@ -140,16 +129,16 @@ object FrameSettName: TFrameSettName
   object Layout14: TLayout
     Align = Top
     Position.X = 5.000000000000000000
-    Position.Y = 114.000000000000000000
+    Position.Y = 103.000000000000000000
     Size.Width = 502.000000000000000000
-    Size.Height = 73.000000000000000000
+    Size.Height = 57.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 4
+    TabOrder = 5
     object swGetData: TSwitch
       Align = Center
       IsChecked = False
-      Size.Width = 108.000000000000000000
-      Size.Height = 41.000000000000000000
+      Size.Width = 77.000000000000000000
+      Size.Height = 25.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       OnSwitch = swGetDataSwitch
@@ -159,11 +148,11 @@ object FrameSettName: TFrameSettName
       AutoSize = True
       StyledSettings = [Family, Size]
       Position.Y = 16.000000000000000000
-      Size.Width = 120.000000000000000000
-      Size.Height = 57.000000000000000000
+      Size.Width = 74.000000000000000000
+      Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claDarkslateblue
+      TextSettings.FontColor = claHotpink
       TextSettings.HorzAlign = Trailing
       Text = #1048#1079' Youtube'
       TabOrder = 3
@@ -172,13 +161,13 @@ object FrameSettName: TFrameSettName
       Align = Right
       AutoSize = True
       StyledSettings = [Family, Size]
-      Position.X = 382.000000000000000000
+      Position.X = 440.000000000000000000
       Position.Y = 16.000000000000000000
-      Size.Width = 120.000000000000000000
-      Size.Height = 57.000000000000000000
+      Size.Width = 62.000000000000000000
+      Size.Height = 41.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claDarkslateblue
+      TextSettings.FontColor = claHotpink
       Text = #1056#1091#1095#1085#1086#1081
       TabOrder = 1
     end
@@ -192,55 +181,10 @@ object FrameSettName: TFrameSettName
       Size.Height = 16.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claDarkslateblue
+      TextSettings.FontColor = claHotpink
       TextSettings.HorzAlign = Center
       Text = #1042#1099#1073#1086#1088' '#1090#1080#1087#1072' '#1087#1086#1083#1091#1095#1077#1085#1080#1103' '#1076#1072#1085#1085#1099#1093':'
       TabOrder = 2
-    end
-  end
-  object Layout8: TLayout
-    Align = Top
-    Position.X = 5.000000000000000000
-    Position.Y = 48.000000000000000000
-    Size.Width = 502.000000000000000000
-    Size.Height = 66.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 3
-    object Label11: TLabel
-      Align = Top
-      AutoSize = True
-      StyledSettings = [Family, Size]
-      Margins.Left = 20.000000000000000000
-      Position.X = 20.000000000000000000
-      Size.Width = 482.000000000000000000
-      Size.Height = 16.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claDarkslateblue
-      TextSettings.HorzAlign = Center
-      Text = #1048#1089#1093#1086#1076#1085#1099#1081' '#1103#1079#1099#1082' '#1076#1083#1103' '#1087#1077#1088#1077#1074#1086#1076#1072':'
-      TabOrder = 1
-    end
-    object cbLang: TComboBox
-      Align = Center
-      Size.Width = 273.000000000000000000
-      Size.Height = 32.000000000000000000
-      Size.PlatformDefault = False
-      TabOrder = 4
-      OnChange = cbLangChange
-    end
-    object Label12: TLabel
-      StyledSettings = [Family, Size]
-      Position.X = 1.000000000000000000
-      Position.Y = 35.000000000000000000
-      Size.Width = 120.000000000000000000
-      Size.Height = 25.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claSlategray
-      Text = #1053#1072#1079#1074#1072#1085#1080#1077':'
-      Visible = False
-      TabOrder = 3
     end
   end
   object Layout12: TLayout
@@ -248,9 +192,9 @@ object FrameSettName: TFrameSettName
     Position.X = 5.000000000000000000
     Position.Y = 5.000000000000000000
     Size.Width = 502.000000000000000000
-    Size.Height = 43.000000000000000000
+    Size.Height = 50.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 1
+    TabOrder = 2
     object btnStartSettingName: TCornerButton
       Align = Center
       StyledSettings = [Family]
@@ -259,8 +203,8 @@ object FrameSettName: TFrameSettName
       Margins.Right = 5.000000000000000000
       Margins.Bottom = 5.000000000000000000
       Sides = [Top, Left, Bottom, Right]
-      Size.Width = 200.000000000000000000
-      Size.Height = 33.000000000000000000
+      Size.Width = 164.000000000000000000
+      Size.Height = 45.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       Text = #1047#1072#1087#1091#1089#1090#1080#1090#1100' '#1085#1072#1089#1090#1088#1086#1081#1082#1091
@@ -271,6 +215,50 @@ object FrameSettName: TFrameSettName
       YRadius = 3.000000000000000000
       OnClick = btnStartSettingNameClick
     end
+  end
+  object Layout8: TLayout
+    Align = Top
+    Position.X = 5.000000000000000000
+    Position.Y = 55.000000000000000000
+    Size.Width = 502.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object Label11: TLabel
+      Align = Top
+      AutoSize = True
+      StyledSettings = [Family, Size]
+      Margins.Left = 20.000000000000000000
+      Position.X = 20.000000000000000000
+      Size.Width = 482.000000000000000000
+      Size.Height = 16.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claHotpink
+      TextSettings.HorzAlign = Center
+      Text = #1048#1089#1093#1086#1076#1085#1099#1081' '#1103#1079#1099#1082' '#1076#1083#1103' '#1087#1077#1088#1077#1074#1086#1076#1072':'
+      TabOrder = 1
+    end
+    object cbLang: TComboBox
+      Align = Client
+      Margins.Left = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Size.Width = 492.000000000000000000
+      Size.Height = 27.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+      OnChange = cbLangChange
+    end
+  end
+  object Layout1: TLayout
+    Align = Bottom
+    Position.X = 5.000000000000000000
+    Position.Y = 401.000000000000000000
+    Size.Width = 502.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
   end
   object QueryLang: TFDQuery
     Connection = MainForm.Conn

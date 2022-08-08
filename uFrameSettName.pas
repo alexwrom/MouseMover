@@ -26,7 +26,6 @@ type
     Layout8: TLayout;
     Label11: TLabel;
     cbLang: TComboBox;
-    Label12: TLabel;
     QueryLang: TFDQuery;
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
@@ -34,6 +33,7 @@ type
     Layout12: TLayout;
     btnStartSettingName: TCornerButton;
     Rectangle5: TRectangle;
+    Layout1: TLayout;
     procedure swGetDataSwitch(Sender: TObject);
     procedure cbLangChange(Sender: TObject);
     procedure mNameChangeTracking(Sender: TObject);

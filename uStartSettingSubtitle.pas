@@ -31,6 +31,11 @@ type
     GlowEffect8: TGlowEffect;
     Rectangle5: TRectangle;
     Rectangle1: TRectangle;
+    TabItem11: TTabItem;
+    Rectangle2: TRectangle;
+    sleepLoop: TSpinBox;
+    Label3: TLabel;
+    Label4: TLabel;
     procedure btnSettNamePosAddClick(Sender: TObject);
     procedure btnPauseOneClick(Sender: TObject);
     procedure btnSettTranslateClick(Sender: TObject);
@@ -39,6 +44,7 @@ type
     procedure btnCloseClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
+    procedure PauseSleepLoop(Sender: TObject);
     { Private declarations }
   public
     { Public declarations }
@@ -87,7 +93,6 @@ begin
   MainForm.SetHint(sbPauseTwo.Text);
 
   labText.Text := 'После нажатия кнопки "Указать" наведите указатель на кнопку "Опубликовать".';
-  tcSettSub.Height := 50;
   Image.Fill.Bitmap.Bitmap := ImageList.Source[1].MultiResBitmap[0].Bitmap;
   tcSettSub.Visible := false;
   (Sender As TCornerButton).Text := 'Указать';
@@ -97,14 +102,28 @@ end;
 
 procedure TFormStartSubtitle.btnPublishClick(Sender: TObject);
 begin
-  labText.Text := 'Настройка завершена.';
-  Image.Visible := false;
+  labText.Text := 'Если Ваш компьютерный медленно работает, то здесь Вы можете указать большую паузу между переводами. Если нет, то используйте данные по-умолчанию.';
   MainForm.lbSubtitles.ClearSelection;
   MainForm.lbSubtitles.ListItems[6].IsSelected := true;
+  tcSettSub.Visible := true;
+
   MainForm.btnTrackingStartClick(Sender);
+  (Sender As TCornerButton).Text := 'Продолжить';
+  (Sender As TCornerButton).OnClick := PauseSleepLoop;
+  Image.Fill.Bitmap.Bitmap := ImageList.Source[2].MultiResBitmap[0].Bitmap;
+  Self.Hide;
+  tcSettSub.Next();
+end;
+
+procedure TFormStartSubtitle.PauseSleepLoop(Sender: TObject);
+begin
+  labText.Text := 'Настройка завершена.';
+  MainForm.lbSubtitles.ClearSelection;
+  MainForm.lbSubtitles.ListItems[8].IsSelected := true;
+  MainForm.SetHint(sleepLoop.Text);
   (Sender As TCornerButton).Text := 'Завершить';
   (Sender As TCornerButton).OnClick := btnCloseClick;
-  Self.Hide;
+  tcSettSub.Visible := false;
 end;
 
 procedure TFormStartSubtitle.btnSettNamePosAddClick(Sender: TObject);

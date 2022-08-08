@@ -68,16 +68,10 @@ type
     btnCancelProfile: TSpeedButton;
     Image4: TImage;
     effectPlay: TMonochromeEffect;
-    tcSettings: TTabControl;
-    TabSettLang: TTabItem;
-    TabSettName: TTabItem;
-    TabSettSubtitle: TTabItem;
     LinkFillControlToField5: TLinkFillControlToField;
     LinkFillControlToField6: TLinkFillControlToField;
     editPosCursor: TEdit;
-    Layout6: TLayout;
-    btnCloseSetting: TCornerButton;
-    Layout12: TLayout;
+    laySettSubtitle: TLayout;
     btnStartSettingSub: TCornerButton;
     Label17: TLabel;
     labCountTrial: TLabel;
@@ -128,16 +122,22 @@ type
     GlowEffect7: TGlowEffect;
     GlowEffect8: TGlowEffect;
     GlowEffect1: TGlowEffect;
-    Rectangle3: TRectangle;
-    Rectangle2: TRectangle;
-    Rectangle4: TRectangle;
-    Rectangle5: TRectangle;
     Image16: TImage;
     Layout1: TLayout;
     GlowEffect10: TGlowEffect;
     GlowEffect11: TGlowEffect;
     GlowEffect12: TGlowEffect;
     GlowEffect13: TGlowEffect;
+    Image17: TImage;
+    btnItemSubtitle: TCornerButton;
+    btnItemLang: TCornerButton;
+    btnItemName: TCornerButton;
+    btnCloseSetting: TSpeedButton;
+    Image18: TImage;
+    GlowEffect14: TGlowEffect;
+    Circle1: TCircle;
+    layControl: TLayout;
+    effectSel: TGlowEffect;
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
     procedure btnTrackingStartClick(Sender: TObject);
@@ -152,11 +152,8 @@ type
     procedure btnUpdateClick(Sender: TObject);
     procedure btnChangeProfileClick(Sender: TObject);
     procedure btnCancelProfileClick(Sender: TObject);
-    procedure TabSettLangClick(Sender: TObject);
     procedure btnCloseSettingClick(Sender: TObject);
     procedure btnStartSettingSubClick(Sender: TObject);
-    procedure TabSettNameClick(Sender: TObject);
-    procedure TabSettSubtitleClick(Sender: TObject);
     procedure btnSettingsClick(Sender: TObject);
     procedure btnSystemClick(Sender: TObject);
     procedure btnCloseAppClick(Sender: TObject);
@@ -168,6 +165,9 @@ type
     procedure btnCancelEnterNameClick(Sender: TObject);
     procedure btnMasterLeftClick(Sender: TObject);
     procedure btnEnterNameClick(Sender: TObject);
+    procedure btnItemLangClick(Sender: TObject);
+    procedure btnItemNameClick(Sender: TObject);
+    procedure btnItemSubtitleClick(Sender: TObject);
   private
     LoopCount: integer;
     IsTrial: boolean;
@@ -226,7 +226,7 @@ end;
 procedure TMainForm.btnCancelProfileClick(Sender: TObject);
 begin
   layProfiles.Visible := false;
-  imgBackground.Enabled := true;
+  imgBackground.Visible := true;
 end;
 
 procedure TMainForm.btnChangeProfileClick(Sender: TObject);
@@ -237,7 +237,7 @@ begin
     ProfileID := lvProfiles.Items[lvProfiles.Selected.Index].Detail.ToInteger;
     OpenFiles(nil);
     layProfiles.Visible := false;
-    imgBackground.Enabled := true;
+    imgBackground.Visible := true;
     btnMasterLeft.Text := lvProfiles.Items[lvProfiles.Selected.Index].Text;
     effectPlay.Enabled := false;
     btnStart.Enabled := true;
@@ -267,7 +267,7 @@ end;
 procedure TMainForm.btnCloseSettingClick(Sender: TObject);
 begin
   laySettings.Visible := false;
-  imgBackground.Enabled := true;
+  imgBackground.Visible := true;
 end;
 
 procedure TMainForm.btnDelProfileClick(Sender: TObject);
@@ -320,10 +320,39 @@ begin
   ContactForm.ShowModal;
 end;
 
+procedure TMainForm.btnItemLangClick(Sender: TObject);
+begin
+  effectSel.Parent := Sender as TCornerButton;
+  FrameSettLang.Visible := true;
+  FrameSettName.Visible := false;
+  laySettSubtitle.Visible := false;
+  lbLang.ClearSelection;
+  lbLang.ListItems[0].IsSelected := true;
+  CurrListBox := lbLang;
+end;
+
+procedure TMainForm.btnItemNameClick(Sender: TObject);
+begin
+  effectSel.Parent := Sender as TCornerButton;
+  FrameSettLang.Visible := false;
+  FrameSettName.Visible := true;
+  laySettSubtitle.Visible := false;
+  CurrListBox := lbNameDetail;
+end;
+
+procedure TMainForm.btnItemSubtitleClick(Sender: TObject);
+begin
+  effectSel.Parent := Sender as TCornerButton;
+  FrameSettLang.Visible := false;
+  FrameSettName.Visible := false;
+  laySettSubtitle.Visible := true;
+  CurrListBox := lbSubtitles;
+end;
+
 procedure TMainForm.btnMasterLeftClick(Sender: TObject);
 begin
   layProfiles.Visible := true;
-  imgBackground.Enabled := false;
+  imgBackground.Visible := false;
 end;
 
 procedure TMainForm.btnMoveMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
@@ -347,6 +376,7 @@ end;
 procedure TMainForm.btnSettingsClick(Sender: TObject);
 begin
   laySettings.Visible := true;
+  imgBackground.Visible := false;
   CurrListBox := lbLang;
 end;
 
@@ -354,22 +384,22 @@ procedure TMainForm.btnStartClick(Sender: TObject);
 begin
   if (FrameSettName.swGetData.IsChecked) and ((FrameSettName.mName.Text = '') or (FrameSettName.mDetails.Text = '')) then
   begin
-    ShowMessage('У Вас выбран режим ручного ввода названия и описания. Одно из полей пустое. Введите его в меню настроек.');
+    ShowMessage('У Вас выбран режим ручного ввода названия и описания. Одно из полей не заполнено. Заполните его в меню настроек.');
   end
   else
   begin
     setkey(Lo(GetUserDefaultUILanguage), sublang_default);
 
-    if lbLang.Count > 0 then
+    if (lbLang.Count > 0) and (lbNameDetail.Count > 0) and (lbNameDetail.Count > 0) then
     begin
       Self.Hide;
       GetCursorPos(OldPos);
       LoopCount := 1;
-      // LoopCount := Round((lbLang.Count - 1) / 9);
+      if btnStart.Tag <> 1 then
+        LoopCount := Round((lbLang.Count - 1) / 9);
       timerStart.Interval := 500;
       timerStart.Enabled := true;
       timerSleepControl.Enabled := true;
-      btnStart.Tag := 1;
     end;
   end;
 end;
@@ -576,12 +606,14 @@ begin
   end;
 
   FrameSettLang := TFrameSettLang.Create(nil);
-  FrameSettLang.Parent := TabSettLang;
+  FrameSettLang.Parent := layControl;
   FrameSettLang.QueryLang.Active := true;
+  FrameSettLang.Visible := true;
 
   FrameSettName := TFrameSettName.Create(nil);
-  FrameSettName.Parent := TabSettName;
+  FrameSettName.Parent := layControl;
   FrameSettName.QueryLang.Active := true;
+  FrameSettName.Visible := false;
 end;
 
 function TMainForm.GetUserAppPath: string;
@@ -684,23 +716,6 @@ begin
   loadkeyboardlayout(strcopy(Layout, pchar(s)), klf_activate);
 end;
 
-procedure TMainForm.TabSettLangClick(Sender: TObject);
-begin
-  lbLang.ClearSelection;
-  lbLang.ListItems[0].IsSelected := true;
-  CurrListBox := lbLang;
-end;
-
-procedure TMainForm.TabSettNameClick(Sender: TObject);
-begin
-  CurrListBox := lbNameDetail;
-end;
-
-procedure TMainForm.TabSettSubtitleClick(Sender: TObject);
-begin
-  CurrListBox := lbSubtitles;
-end;
-
 procedure TMainForm.timerCheckTrackTimer(Sender: TObject);
 begin
   if (CurrListBox = lbLang) or (CurrListBox = lbSubtitles) then
@@ -709,20 +724,20 @@ begin
   end
   else
   begin
-    if (CurrListBox.Selected.Tag = itemPos) then
+    if (CurrListBox.Selected.Tag = itemPos) or (CurrListBox.Selected.Tag = itemGetLang) then
       CurrListBox.Selected.Hint := editPosCursor.Text
     else if (CurrListBox.Selected.Tag = itemTranslate) then
       CurrListBox.Selected.Hint := FormStartName.edSourcePos.Text + ';' + FormStartName.edTargetPos.Text + ';' + FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
         Copy(FrameSettName.cbLang.Selected.Text, FrameSettName.cbLang.Selected.Text.Length - 2, 2) + ';' + FrameSettName.swGetData.IsChecked.ToString;
   end;
 
-  if tcSettings.ActiveTab = TabSettName then
+  if FrameSettName.Visible then
   begin
     FormStartName.tcSettName.Next();
     FormStartName.FormStyle := TFormStyle.StayOnTop;
     FormStartName.Show;
   end
-  else if tcSettings.ActiveTab = TabSettSubtitle then
+  else if laySettSubtitle.Visible then
   begin
     FormStartSubtitle.tcSettSub.Next();
     FormStartSubtitle.FormStyle := TFormStyle.StayOnTop;
@@ -839,7 +854,7 @@ begin
 
   if OldPos <> posXY then
   begin
-    btnStartClick(nil);
+    btnStart.Tag := 1;
     timerSleepControl.Enabled := false;
     timerStart.Enabled := false;
     Self.FormStyle := TFormStyle.StayOnTop;
@@ -864,23 +879,32 @@ var
   IsAutoData: boolean;
   OldInd: integer;
 begin
+  case btnStart.Tag of
+    1:
+      CurrListBox := lbLang;
+    2:
+      CurrListBox := lbNameDetail;
+    3:
+      CurrListBox := lbSubtitles;
+  end;
+
   timerStart.Enabled := false;
   if LoopCount <> 0 then
   begin
-    for I := 0 to lbLang.Count - 1 do
+    for I := 0 to CurrListBox.Count - 1 do
     begin
-      case lbLang.ListItems[I].Tag of
+      case CurrListBox.ListItems[I].Tag of
         itemPos:
           begin
-            if Pos(';', lbLang.ListItems[I].Hint) = 0 then
+            if Pos(';', CurrListBox.ListItems[I].Hint) = 0 then
             begin
-              tmpPoint.X := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1)));
+              tmpPoint.X := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, 1, Pos('-', CurrListBox.ListItems[I].Hint) - 1)));
+              tmpPoint.Y := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, Pos('-', CurrListBox.ListItems[I].Hint) + 1)));
             end
             else
             begin
-              tmpPoint.X := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1, Pos(';', lbLang.ListItems[I].Hint) - Pos('-', lbLang.ListItems[I].Hint) - 1)));
+              tmpPoint.X := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, 1, Pos('-', CurrListBox.ListItems[I].Hint) - 1)));
+              tmpPoint.Y := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, Pos('-', CurrListBox.ListItems[I].Hint) + 1, Pos(';', CurrListBox.ListItems[I].Hint) - Pos('-', CurrListBox.ListItems[I].Hint) - 1)));
             end;
 
             timerSleepControl.Enabled := false;
@@ -890,7 +914,7 @@ begin
           end;
         itemSleep:
           begin
-            sleep(lbLang.ListItems[I].Hint.ToInteger);
+            sleep(CurrListBox.ListItems[I].Hint.ToInteger);
           end;
         itemClick:
           begin
@@ -899,7 +923,7 @@ begin
           end;
         itemScroll:
           begin
-            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, DWORD(lbLang.ListItems[I].Hint.ToInteger), 0);
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, DWORD(CurrListBox.ListItems[I].Hint.ToInteger), 0);
           end;
 
         itemDoubleClick:
@@ -929,7 +953,7 @@ begin
           end;
         itemText:
           begin
-            s := AnsiUPPERCASE(lbLang.ListItems[I].Hint);
+            s := AnsiUPPERCASE(CurrListBox.ListItems[I].Hint);
             if Lo(GetUserDefaultUILanguage) = LANG_RUSSIAN then
               s := ConvertToEng(s);
 
@@ -943,8 +967,8 @@ begin
         itemGetLang:
           begin
             TranslateLangCode := '';
-            tmpPoint.X := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, 1, Pos('-', lbLang.ListItems[I].Hint) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(lbLang.ListItems[I].Hint, Pos('-', lbLang.ListItems[I].Hint) + 1)));
+            tmpPoint.X := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, 1, Pos('-', CurrListBox.ListItems[I].Hint) - 1)));
+            tmpPoint.Y := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, Pos('-', CurrListBox.ListItems[I].Hint) + 1)));
             timerSleepControl.Enabled := false;
             OldPos := tmpPoint;
             SetCursorPos(tmpPoint.X, tmpPoint.Y);
@@ -978,7 +1002,7 @@ begin
               labCountTrial.Text := GetLastCount.ToString;
             end;
 
-            tmpPos := lbLang.ListItems[I].Hint;
+            tmpPos := CurrListBox.ListItems[I].Hint;
             tmpSP := Copy(tmpPos, 1, Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
             tmpTP := Copy(tmpPos, 1, Pos(';', tmpPos));
@@ -1095,12 +1119,28 @@ begin
   end
   else
   begin
-    timerSleepControl.Enabled := false;
-    timerStart.Enabled := false;
-    Self.FormStyle := TFormStyle.StayOnTop;
-    Self.Show;
-    Self.FormStyle := TFormStyle.Normal;
+    if LoopCount = 0 then
+      case btnStart.Tag of
+        1:
+          btnStart.Tag := 2;
+        2:
+          btnStart.Tag := 3;
+        3:
+          btnStart.Tag := 1;
+      end;
+
+    if btnStart.Tag = 1 then
+    begin
+      timerSleepControl.Enabled := false;
+      timerStart.Enabled := false;
+      Self.FormStyle := TFormStyle.StayOnTop;
+      Self.Show;
+      Self.FormStyle := TFormStyle.Normal;
+    end
+    else
+      btnStartClick(nil);
   end;
+
 end;
 
 procedure TMainForm.PostKeyEx32(key: word; const Shift: TShiftState);

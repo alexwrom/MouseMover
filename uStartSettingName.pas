@@ -39,6 +39,11 @@ type
     Rectangle5: TRectangle;
     Image: TCircle;
     Rectangle1: TRectangle;
+    TabItem11: TTabItem;
+    Label5: TLabel;
+    Label6: TLabel;
+    Rectangle2: TRectangle;
+    sleepLoop: TSpinBox;
     procedure btnSettNamePosAddClick(Sender: TObject);
     procedure btnGetPosNameBlockClick(Sender: TObject);
     procedure btnGetPosDetailsBlockClick(Sender: TObject);
@@ -51,6 +56,7 @@ type
     procedure btnCloseClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
+    procedure PauseSleepLoop(Sender: TObject);
     { Private declarations }
   public
     { Public declarations }
@@ -142,14 +148,27 @@ begin
   tcSettName.Next();
 end;
 
-procedure TFormStartName.btnStopSettName(Sender: TObject);
+procedure TFormStartName.PauseSleepLoop(Sender: TObject);
 begin
   labText.Text := 'Настройка завершена.';
   MainForm.lbNameDetail.ClearSelection;
-  MainForm.lbNameDetail.ListItems[6].IsSelected := true;
-  MainForm.btnTrackingStartClick(Sender);
+  MainForm.lbNameDetail.ListItems[8].IsSelected := true;
+  MainForm.SetHint(sleepLoop.Text);
   (Sender As TCornerButton).Text := 'Завершить';
   (Sender As TCornerButton).OnClick := btnCloseClick;
+  tcSettName.Visible := false;
+end;
+
+procedure TFormStartName.btnStopSettName(Sender: TObject);
+begin
+  labText.Text := 'Если Ваш компьютерный медленно работает, то здесь Вы можете указать большую паузу между переводами. Если нет, то используйте данные по-умолчанию.';
+  MainForm.lbNameDetail.ClearSelection;
+  MainForm.lbNameDetail.ListItems[6].IsSelected := true;
+  MainForm.btnTrackingStartClick(Sender);
+  (Sender As TCornerButton).Text := 'Продолжить';
+  (Sender As TCornerButton).OnClick := PauseSleepLoop;
+  Image.Fill.Bitmap.Bitmap := ImageList.Source[6].MultiResBitmap[0].Bitmap;
+  tcSettName.Visible := true;
   Self.Hide;
 end;
 
