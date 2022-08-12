@@ -53,11 +53,15 @@ uses uMain;
 procedure TFrameSettName.btnStartSettingNameClick(Sender: TObject);
 begin
   MainForm.Hide;
+  MainForm.SetInfo(FormStartName.btnStart, 'Нажмите сюда, чтобы начать настройку. Соблюдайте инструкцию.');
+   MainForm.recTextInfo.Position.Y := MainForm.recTextInfo.Position.Y - 70;
+  MainForm.recTextInfo.Position.X := MainForm.recTextInfo.Position.X - 50;
   FormStartName.ShowModal;
 
   MainForm.FormStyle := TFormStyle.StayOnTop;
   MainForm.Show;
   MainForm.FormStyle := TFormStyle.Normal;
+
 end;
 
 procedure TFrameSettName.cbLangChange(Sender: TObject);
@@ -66,6 +70,8 @@ begin
   MainForm.lbNameDetail.Selected.Hint := FormStartName.edSourcePos.Text + ';' + FormStartName.edTargetPos.Text + ';' + FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
     Copy(cbLang.Selected.Text, cbLang.Selected.Text.Length - 2, 2) + ';' + swGetData.IsChecked.ToString;
   MainForm.SetHint(MainForm.lbNameDetail.Selected.Hint);
+
+  MainForm.SetInfo(btnStartSettingName, 'Нажмите сюда, чтобы запустить настройку перевода.');
 end;
 
 procedure TFrameSettName.mNameChangeTracking(Sender: TObject);
@@ -82,6 +88,7 @@ begin
   MainForm.lbNameDetail.Selected.Hint := FormStartName.edSourcePos.Text + ';' + FormStartName.edTargetPos.Text + ';' + FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
     Copy(cbLang.Selected.Text, cbLang.Selected.Text.Length - 2, 2) + ';' + swGetData.IsChecked.ToString;
   MainForm.SetHint(MainForm.lbNameDetail.Selected.Hint);
+
 end;
 
 end.

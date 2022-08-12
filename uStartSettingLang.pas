@@ -103,7 +103,10 @@ begin
   labText.Text := 'Перед началом настройки языков откройте в браузере Youtube Studio и перейдите в настройки субтитров на одном из Ваших новых видео.' +
     ' Затем вернитесь в программу и нажав кнопку "Начать" наведите на кнопку в браузере "ДОБАВИТЬ ПЕРЕВОД НА ДРУГОЙ ЯЗЫК".';
   btnStart.Text := 'Начать';
+  MainForm.SetInfo(MainForm.btnItemName,'Нажмите сюда, чтобы перейти в раздел настройки переводов названия и описания.');
+  MainForm.recTextInfo.Position.X := MainForm.recTextInfo.Position.X + 40;
   Self.Close;
+
 end;
 
 procedure TFormStartLang.btnStartClick(Sender: TObject);

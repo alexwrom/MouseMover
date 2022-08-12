@@ -1,14 +1,8 @@
 ﻿[FDGUIxWaitCursor1]
 Coordinates=818,562,132,36
 
-[btnStart]
-Coordinates=1109,292,60,58
-
 [BindingsList1]
 Coordinates=384,714,91,36
-
-[timerSleepControl]
-Coordinates=196,714,118,36
 
 [timerGetPos]
 Coordinates=1022,56,86,36
@@ -18,9 +12,6 @@ Coordinates=11,77,45,36
 
 [timerCheckTrack]
 Coordinates=1022,386,112,36
-
-[timerStart]
-Coordinates=943,788,71,36
 
 [BindSourceDB1]
 Coordinates=840,10,112,124
@@ -46,7 +37,7 @@ Visible=False
 Coordinates=197,76,122,124
 
 []
-Coordinates=116,606,71,36
+Coordinates=943,788,71,36
 Visible=False
 
 [lbLang]
@@ -82,96 +73,9 @@ Coordinates=936,292,57,58
 [Image3]
 Coordinates=424,292,57,58
 
-[Image]
-Coordinates=860,292,50,58
-
-[btnGoTo]
-Coordinates=1019,292,64,58
-
-[btnInfo]
-Coordinates=417,460,54,58
-
-[Image5]
-Coordinates=341,292,57,58
-
-[Image9]
-Coordinates=10,460,57,58
-
-[laySettings]
-Coordinates=960,544,78,36
-
-[btnCloseApp]
-Coordinates=527,376,88,58
-
-[Layout3]
-Coordinates=874,544,60,36
-
-[Image8]
-Coordinates=93,292,57,58
-
-[Image11]
-Coordinates=837,376,64,58
-
-[Image12]
-Coordinates=437,376,64,58
-
-[ShadowEffect7]
-Coordinates=852,56,101,36
-
-[Layout2]
-Coordinates=351,544,60,36
-
-[btnMove]
-Coordinates=770,292,64,58
-
-[labCountTrial]
-Coordinates=720,376,91,58
-
-[btnSettings]
-Coordinates=699,460,79,58
-
-[Label4]
-Coordinates=641,376,53,58
-
-[Label2]
-Coordinates=176,292,53,58
-
-[btnMasterLeft]
-Coordinates=176,460,93,58
-
-[Image10]
-Coordinates=229,376,64,58
-
-[btnSystem]
-Coordinates=669,292,75,58
-
-[Label17]
-Coordinates=255,292,60,58
-
-[editPosCursor]
-Coordinates=295,460,96,58
-
-[btnStartSettingSub]
-Coordinates=10,544,123,36
-
-[Image7]
-Coordinates=10,292,57,58
-
-[Label1]
-Coordinates=507,292,53,58
-
 [layTop]
 Coordinates=213,606,60,36
 
 [layBottom]
 Coordinates=299,606,60,36
-
-[imgBackground]
-Coordinates=93,460,57,58
-
-[effectPlay]
-Coordinates=1301,1,129,36
-
-[laySettSubtitle]
-Coordinates=675,544,67,36
 

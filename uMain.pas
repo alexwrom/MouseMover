@@ -5,13 +5,13 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uContact, uFrameSettLang, uStartSettingSubtitle,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus, uAuthorization, uFrameSettName, uStartSettingName,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.ListBox, ShellAPI, uImages, Math, StrUtils,
-  FMX.TabControl, FMX.Edit, FMX.EditBox, FMX.NumberBox, Winapi.Windows, FMX.Platform, System.Threading,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.ListBox, ShellAPI, uImages, Math, StrUtils, uFormPlay,
+  FMX.TabControl, FMX.Edit, FMX.EditBox, FMX.NumberBox, Winapi.Windows, System.Threading,
   FMX.Memo.Types, FMX.ScrollBox, FMX.Memo, Messages, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf,
-  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait, Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Comp.UI,
-  IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, uTranslate, uLang, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, System.ImageList,
-  FMX.ImgList, FMX.Objects, uLoadFile, shlobj, FMX.SpinBox, IdIPMCastBase, IdIPMCastServer, uUpdate, uTranscriptions, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView, FMX.Effects, FMX.MultiView,
-  FMX.Filter.Effects;
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait, FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Comp.UI,
+  IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, uLang, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, System.ImageList,
+  FMX.ImgList, FMX.Objects, uLoadFile, shlobj, FMX.SpinBox, IdIPMCastBase, IdIPMCastServer, uUpdate, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView, FMX.Effects, FMX.MultiView,
+  FMX.Filter.Effects, Data.DB;
 
 const
   intInternalTimer = 100;
@@ -36,16 +36,12 @@ type
   TMainForm = class(TForm)
     timerCheckTrack: TTimer;
     timerGetPos: TTimer;
-    btnStart: TSpeedButton;
-    timerStart: TTimer;
-    timerSleepControl: TTimer;
     Conn: TFDConnection;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     BindingsList1: TBindingsList;
     BindSourceDB1: TBindSourceDB;
     LinkFillControlToField1: TLinkFillControlToField;
     ImageList: TImageList;
-    Image: TImage;
     LinkFillControlToField2: TLinkFillControlToField;
     LinkFillControlToField3: TLinkFillControlToField;
     lbSubtitles: TListBox;
@@ -67,85 +63,92 @@ type
     Image1: TImage;
     btnCancelProfile: TSpeedButton;
     Image4: TImage;
-    effectPlay: TMonochromeEffect;
     LinkFillControlToField5: TLinkFillControlToField;
     LinkFillControlToField6: TLinkFillControlToField;
-    editPosCursor: TEdit;
-    laySettSubtitle: TLayout;
-    btnStartSettingSub: TCornerButton;
-    Label17: TLabel;
-    labCountTrial: TLabel;
-    laySettings: TLayout;
-    imgBackground: TImage;
-    btnMasterLeft: TSpeedButton;
-    Image5: TImage;
-    Label1: TLabel;
-    btnSettings: TSpeedButton;
-    Image7: TImage;
-    Label2: TLabel;
-    ShadowEffect7: TShadowEffect;
-    Layout2: TLayout;
-    Layout3: TLayout;
-    btnSystem: TSpeedButton;
-    Image8: TImage;
-    Label4: TLabel;
-    btnCloseApp: TSpeedButton;
-    Image9: TImage;
-    btnInfo: TSpeedButton;
-    Image10: TImage;
-    btnGoTo: TSpeedButton;
-    Image11: TImage;
-    btnMove: TSpeedButton;
-    Image12: TImage;
     recAddProfile: TRectangle;
     ShadowEffect13: TShadowEffect;
     Layout5: TLayout;
     btnEnterName: TSpeedButton;
     Image13: TImage;
-    ShadowEffect14: TShadowEffect;
     btnCancelEnterName: TSpeedButton;
     Image14: TImage;
-    ShadowEffect15: TShadowEffect;
     edProfileName: TEdit;
     Label5: TLabel;
     layProfiles: TLayout;
-    effectPlaySettMono: TMonochromeEffect;
-    btnUpdate: TSpeedButton;
-    Image15: TImage;
-    btnLicense: TSpeedButton;
-    Image6: TImage;
-    GlowEffect2: TGlowEffect;
-    effectPlaySett: TGlowEffect;
-    GlowEffect4: TGlowEffect;
-    GlowEffect5: TGlowEffect;
-    GlowEffect6: TGlowEffect;
-    GlowEffect7: TGlowEffect;
-    GlowEffect8: TGlowEffect;
-    GlowEffect1: TGlowEffect;
     Image16: TImage;
     Layout1: TLayout;
     GlowEffect10: TGlowEffect;
     GlowEffect11: TGlowEffect;
     GlowEffect12: TGlowEffect;
     GlowEffect13: TGlowEffect;
+    GlowEffect15: TGlowEffect;
+    GlowEffect16: TGlowEffect;
+    imgBackground: TImage;
+    btnStart: TSpeedButton;
+    Image: TImage;
+    effectPlay: TMonochromeEffect;
+    GlowEffect9: TGlowEffect;
+    ShadowEffect7: TShadowEffect;
+    btnCloseApp: TSpeedButton;
+    Image9: TImage;
+    GlowEffect8: TGlowEffect;
+    btnGoTo: TSpeedButton;
+    Image11: TImage;
+    GlowEffect5: TGlowEffect;
+    btnInfo: TSpeedButton;
+    Image10: TImage;
+    GlowEffect4: TGlowEffect;
+    btnMove: TSpeedButton;
+    Image12: TImage;
+    GlowEffect2: TGlowEffect;
+    Layout2: TLayout;
+    btnMasterLeft: TSpeedButton;
+    Image5: TImage;
+    GlowEffect1: TGlowEffect;
+    Label1: TLabel;
+    labCountTrial: TLabel;
+    Label17: TLabel;
+    Layout3: TLayout;
+    btnSettings: TSpeedButton;
+    Image7: TImage;
+    effectPlaySett: TGlowEffect;
+    effectPlaySettMono: TMonochromeEffect;
+    Label2: TLabel;
+    btnSystem: TSpeedButton;
+    Image8: TImage;
+    GlowEffect3: TGlowEffect;
+    Label4: TLabel;
+    btnLicense: TSpeedButton;
+    Image6: TImage;
+    GlowEffect6: TGlowEffect;
+    btnUpdate: TSpeedButton;
+    Image15: TImage;
+    GlowEffect7: TGlowEffect;
+    laySettings: TLayout;
+    editPosCursor: TEdit;
     Image17: TImage;
+    Circle1: TCircle;
+    layControl: TLayout;
+    laySettSubtitle: TLayout;
+    btnStartSettingSub: TCornerButton;
     btnItemSubtitle: TCornerButton;
-    btnItemLang: TCornerButton;
-    btnItemName: TCornerButton;
     btnCloseSetting: TSpeedButton;
     Image18: TImage;
     GlowEffect14: TGlowEffect;
-    Circle1: TCircle;
-    layControl: TLayout;
+    btnItemLang: TCornerButton;
     effectSel: TGlowEffect;
+    btnItemName: TCornerButton;
+    Label6: TLabel;
+    recTextInfo: TCalloutRectangle;
+    labTextInfo: TLabel;
+    ShadowEffect1: TShadowEffect;
+    swOnOffInfo: TSwitch;
+    Label8: TLabel;
     procedure timerGetPosTimer(Sender: TObject);
     procedure timerCheckTrackTimer(Sender: TObject);
     procedure btnTrackingStartClick(Sender: TObject);
     procedure OpenFiles(Sender: TObject);
     procedure btnStartClick(Sender: TObject);
-    procedure timerStartTimer(Sender: TObject);
-    procedure timerSleepControlTimer(Sender: TObject);
-
     procedure FormCreate(Sender: TObject);
     procedure btnGoToClick(Sender: TObject);
     procedure btnLicenseClick(Sender: TObject);
@@ -168,30 +171,29 @@ type
     procedure btnItemLangClick(Sender: TObject);
     procedure btnItemNameClick(Sender: TObject);
     procedure btnItemSubtitleClick(Sender: TObject);
+    procedure swOnOffInfoSwitch(Sender: TObject);
   private
-    LoopCount: integer;
-    IsTrial: boolean;
-    OldPos: TPoint;
-    CurrLangCode: String;
-    TranslateLangCode: string;
+
     TagTranslate: byte;
-    Svc: IFMXClipboardService;
+
     MovePoint: TPoint;
     procedure ItemsClick(Sender: TObject);
     function GetUserAppPath: string;
     function IsLangExists: boolean;
     procedure LoadFileToListBox(idType: integer; lListBox: TListBox);
 
+
     { Private declarations }
 
   public
-
+    IsTrial: boolean;
     UserName: string;
     Password: string;
     ProfileID: integer;
     CurrListBox: TListBox;
     FrameSettLang: TFrameSettLang;
     FrameSettName: TFrameSettName;
+    procedure SetInfo(Sender: TControl; InfoText: String);
     function CreateItem(itemType: integer; ListBox: TListBox; defHint: string = ''): TListBoxItem;
     procedure PostKeyEx32(key: word; const Shift: TShiftState);
     procedure setkey(const langid, sublangid: word); overload;
@@ -213,6 +215,8 @@ begin
   layTop.Enabled := false;
   lvProfiles.Enabled := false;
   edProfileName.Text := '';
+
+  SetInfo(btnEnterName,'Введите имя профиля и нажмите сюда, чтобы создать профиль');
 end;
 
 procedure TMainForm.btnCancelEnterNameClick(Sender: TObject);
@@ -256,6 +260,8 @@ begin
     lbNameDetail.ClearSelection;
     lbNameDetail.ListItems[4].IsSelected := true;
     ItemsClick(lbNameDetail.ListItems[4]);
+
+    SetInfo(btnSettings,'Нажмите сюда, чтобы нстроить профиль');
   end;
 end;
 
@@ -274,25 +280,26 @@ procedure TMainForm.btnDelProfileClick(Sender: TObject);
 var
   tmpQuery: TFDQuery;
 begin
-  if MessageDlg('Удалить выбранный профиль?', TMsgDlgType.mtConfirmation, [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = 6 then
-  begin
-    if lvProfiles.Items[lvProfiles.Selected.Index].Detail.ToInteger = ProfileID then
+  if lvProfiles.Selected <> nil then
+    if MessageDlg('Удалить выбранный профиль?', TMsgDlgType.mtConfirmation, [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = 6 then
     begin
-      effectPlaySettMono.Enabled := true;
-      effectPlay.Enabled := true;
-      btnStart.Enabled := false;
-      btnSettings.Enabled := false;
+      if lvProfiles.Items[lvProfiles.Selected.Index].Detail.ToInteger = ProfileID then
+      begin
+        effectPlaySettMono.Enabled := true;
+        effectPlay.Enabled := true;
+        btnStart.Enabled := false;
+        btnSettings.Enabled := false;
+      end;
+
+      tmpQuery := TFDQuery.Create(nil);
+      tmpQuery.Connection := Conn;
+      tmpQuery.SQL.Add('delete from profiles where id_profile = ' + lvProfiles.Items[lvProfiles.Selected.Index].Detail + ';' + 'delete from objects where id_profile = ' + lvProfiles.Items[lvProfiles.Selected.Index].Detail + ';');
+      tmpQuery.ExecSQL;
+      tmpQuery.DisposeOf;
+      queryProfiles.Active := false;
+      queryProfiles.Active := true;
+
     end;
-
-    tmpQuery := TFDQuery.Create(nil);
-    tmpQuery.Connection := Conn;
-    tmpQuery.SQL.Add('delete from profiles where id_profile = ' + lvProfiles.Items[lvProfiles.Selected.Index].Detail + ';' + 'delete from objects where id_profile = ' + lvProfiles.Items[lvProfiles.Selected.Index].Detail + ';');
-    tmpQuery.ExecSQL;
-    tmpQuery.DisposeOf;
-    queryProfiles.Active := false;
-    queryProfiles.Active := true;
-
-  end;
 end;
 
 procedure TMainForm.btnEnterNameClick(Sender: TObject);
@@ -308,6 +315,9 @@ begin
   queryProfiles.Active := false;
   queryProfiles.Active := true;
   btnCancelEnterNameClick(nil);
+
+  lvProfiles.Selected := lvProfiles.Items[lvProfiles.ItemCount - 1];
+  SetInfo(btnChangeProfile, 'Нажмите сюда, чтобы выбрать профиль');
 end;
 
 procedure TMainForm.btnGoToClick(Sender: TObject);
@@ -338,6 +348,8 @@ begin
   FrameSettName.Visible := true;
   laySettSubtitle.Visible := false;
   CurrListBox := lbNameDetail;
+
+  MainForm.SetInfo(FrameSettName.cbLang,'Нажмите сюда, чтобы выбрать исходный язык перевода.');
 end;
 
 procedure TMainForm.btnItemSubtitleClick(Sender: TObject);
@@ -353,6 +365,8 @@ procedure TMainForm.btnMasterLeftClick(Sender: TObject);
 begin
   layProfiles.Visible := true;
   imgBackground.Visible := false;
+
+  SetInfo(btnAddProfile, 'Нажмите сюда, чтобы создать новый профиль');
 end;
 
 procedure TMainForm.btnMoveMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
@@ -378,36 +392,35 @@ begin
   laySettings.Visible := true;
   imgBackground.Visible := false;
   CurrListBox := lbLang;
+
+  SetInfo(FrameSettLang.btnSettLang,'Выберите необходимые языки, нажмите сюда, для настройки времени задержек');
+end;
+
+procedure TMainForm.SetInfo(Sender: TControl; InfoText: String);
+begin
+   recTextInfo.Parent := Sender;
+    recTextInfo.Position.X := -recTextInfo.Width + 42 + Sender.Width / 2;
+    recTextInfo.Position.Y := Sender.Height;
+    labTextInfo.Text := InfoText;
 end;
 
 procedure TMainForm.btnStartClick(Sender: TObject);
 begin
-  if (FrameSettName.swGetData.IsChecked) and ((FrameSettName.mName.Text = '') or (FrameSettName.mDetails.Text = '')) then
-  begin
-    ShowMessage('У Вас выбран режим ручного ввода названия и описания. Одно из полей не заполнено. Заполните его в меню настроек.');
-  end
-  else
-  begin
-    setkey(Lo(GetUserDefaultUILanguage), sublang_default);
+  MainForm.Visible := false;
+  SetInfo(FormPlay.btnStart,'Нажмите сюда, чтобы выполнить все или на кнопки слева, чтобы запустить раздельно.');
+  recTextInfo.Position.Y :=  recTextInfo.Position.Y - 30;
+  FormPlay.ShowModal;
+  MainForm.Visible := true;
 
-    if (lbLang.Count > 0) and (lbNameDetail.Count > 0) and (lbNameDetail.Count > 0) then
-    begin
-      Self.Hide;
-      GetCursorPos(OldPos);
-      LoopCount := 1;
-      if btnStart.Tag <> 1 then
-        LoopCount := Round((lbLang.Count - 1) / 9);
-      timerStart.Interval := 500;
-      timerStart.Enabled := true;
-      timerSleepControl.Enabled := true;
-    end;
-  end;
 end;
 
 procedure TMainForm.btnStartSettingSubClick(Sender: TObject);
 begin
 
   MainForm.Hide;
+  MainForm.SetInfo(FormStartSubtitle.btnStart, 'Нажмите сюда, чтобы начать настройку. Соблюдайте инструкцию.');
+  MainForm.recTextInfo.Position.Y := MainForm.recTextInfo.Position.Y - 70;
+  MainForm.recTextInfo.Position.X := MainForm.recTextInfo.Position.X - 50;
   FormStartSubtitle.ShowModal;
 
   MainForm.FormStyle := TFormStyle.StayOnTop;
@@ -531,7 +544,7 @@ var
   IsReadUpdate: boolean;
   IsReadSMTP: boolean;
 begin
-  TPlatformServices.Current.SupportsPlatformService(IFMXClipboardService, Svc);
+
   Conn.Params.Database := GetUserAppPath + 'base.db';
   Conn.Connected := true;
   queryProfiles.Active := true;
@@ -556,7 +569,6 @@ begin
         if Pos(s, Self.Caption) = 0 then
         begin
           ShowMessage('Для Вас доступно новое обновление. v' + s);
-          btnUpdate.Text := 'Обновить до версии ' + s;
           btnUpdate.Visible := true;
           imgBackground.MultiResBitmap[0].Bitmap := ImageList.Source[1].MultiResBitmap[0].Bitmap
         end;
@@ -614,6 +626,9 @@ begin
   FrameSettName.Parent := layControl;
   FrameSettName.QueryLang.Active := true;
   FrameSettName.Visible := false;
+
+  swOnOffInfo.IsChecked := GetOnOffHelp;
+  recTextInfo.Visible := swOnOffInfo.IsChecked;
 end;
 
 function TMainForm.GetUserAppPath: string;
@@ -621,7 +636,7 @@ var
   path: array [0 .. MAX_PATH] of char;
 begin
   SHGetFolderPath(0, CSIDL_APPDATA, 0, SHGFP_TYPE_CURRENT, @path);
-  result := path + '\MouseMover\';
+  result := path + '\AutoClicker\';
 end;
 
 procedure TMainForm.btnLicenseClick(Sender: TObject);
@@ -714,6 +729,12 @@ begin
   d := (sublangid shl 10) or langid or (longint(0) shl 16);
   s := inttohex(d, 8);
   loadkeyboardlayout(strcopy(Layout, pchar(s)), klf_activate);
+end;
+
+procedure TMainForm.swOnOffInfoSwitch(Sender: TObject);
+begin
+   recTextInfo.Visible := swOnOffInfo.IsChecked;
+   SetOnOffHelp(swOnOffInfo.IsChecked);
 end;
 
 procedure TMainForm.timerCheckTrackTimer(Sender: TObject);
@@ -844,303 +865,6 @@ begin
           end;
         end;
     end;
-end;
-
-procedure TMainForm.timerSleepControlTimer(Sender: TObject);
-var
-  posXY: TPoint;
-begin
-  GetCursorPos(posXY);
-
-  if OldPos <> posXY then
-  begin
-    btnStart.Tag := 1;
-    timerSleepControl.Enabled := false;
-    timerStart.Enabled := false;
-    Self.FormStyle := TFormStyle.StayOnTop;
-    Self.Show;
-    Self.FormStyle := TFormStyle.Normal;
-  end;
-  OldPos := posXY;
-end;
-
-procedure TMainForm.timerStartTimer(Sender: TObject);
-var
-  I, J: integer;
-  tmpPoint: TPoint;
-  TranslateLangCodeName, TranslateText, tmpPos: string;
-  myLang: string;
-  AutForm: TAuthorizationForm;
-  s: string;
-  tmpSP: string;
-  tmpTP: string;
-  tmpCSP: string;
-  tmpCTP: string;
-  IsAutoData: boolean;
-  OldInd: integer;
-begin
-  case btnStart.Tag of
-    1:
-      CurrListBox := lbLang;
-    2:
-      CurrListBox := lbNameDetail;
-    3:
-      CurrListBox := lbSubtitles;
-  end;
-
-  timerStart.Enabled := false;
-  if LoopCount <> 0 then
-  begin
-    for I := 0 to CurrListBox.Count - 1 do
-    begin
-      case CurrListBox.ListItems[I].Tag of
-        itemPos:
-          begin
-            if Pos(';', CurrListBox.ListItems[I].Hint) = 0 then
-            begin
-              tmpPoint.X := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, 1, Pos('-', CurrListBox.ListItems[I].Hint) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, Pos('-', CurrListBox.ListItems[I].Hint) + 1)));
-            end
-            else
-            begin
-              tmpPoint.X := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, 1, Pos('-', CurrListBox.ListItems[I].Hint) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, Pos('-', CurrListBox.ListItems[I].Hint) + 1, Pos(';', CurrListBox.ListItems[I].Hint) - Pos('-', CurrListBox.ListItems[I].Hint) - 1)));
-            end;
-
-            timerSleepControl.Enabled := false;
-            OldPos := tmpPoint;
-            SetCursorPos(tmpPoint.X, tmpPoint.Y);
-            timerSleepControl.Enabled := true;
-          end;
-        itemSleep:
-          begin
-            sleep(CurrListBox.ListItems[I].Hint.ToInteger);
-          end;
-        itemClick:
-          begin
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-          end;
-        itemScroll:
-          begin
-            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, DWORD(CurrListBox.ListItems[I].Hint.ToInteger), 0);
-          end;
-
-        itemDoubleClick:
-          begin
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-          end;
-
-        itemCtrlA:
-          begin
-            PostKeyEx32(Ord('A'), [ssctrl]);
-          end;
-        itemCtrlC:
-          begin
-            PostKeyEx32(Ord('C'), [ssctrl]);
-          end;
-        itemCtrlV:
-          begin
-            PostKeyEx32(Ord('V'), [ssctrl]);
-          end;
-
-        itemEnter:
-          begin
-            PostKeyEx32(13, [ssctrl]);
-          end;
-        itemText:
-          begin
-            s := AnsiUPPERCASE(CurrListBox.ListItems[I].Hint);
-            if Lo(GetUserDefaultUILanguage) = LANG_RUSSIAN then
-              s := ConvertToEng(s);
-
-            for J := 1 to Length(s) do
-            begin
-              keybd_event(Ord(s[J]), MapVirtualKey(Ord(s[J]), 0), 0, 0);
-              keybd_event(Ord(s[J]), MapVirtualKey(Ord(s[J]), 0), KEYEVENTF_KEYUP, 0);
-            end;
-          end;
-
-        itemGetLang:
-          begin
-            TranslateLangCode := '';
-            tmpPoint.X := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, 1, Pos('-', CurrListBox.ListItems[I].Hint) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(CurrListBox.ListItems[I].Hint, Pos('-', CurrListBox.ListItems[I].Hint) + 1)));
-            timerSleepControl.Enabled := false;
-            OldPos := tmpPoint;
-            SetCursorPos(tmpPoint.X, tmpPoint.Y);
-            timerSleepControl.Enabled := true;
-
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
-            PostKeyEx32(Ord('C'), [ssctrl]);
-
-            sleep(200);
-            TranslateLangCodeName := Svc.GetClipBoard.ToString;
-
-            if TranslateLangCodeName <> '' then
-            begin
-              OldInd := FrameSettName.cbLang.Selected.Index;
-              FrameSettName.QueryLang.Locate('lang_name', TranslateLangCodeName, [loPartialKey]);
-              TranslateLangCode := FrameSettName.QueryLang.FieldByName('lang_code').AsString;
-              FrameSettName.cbLang.ItemIndex := OldInd;
-            end;
-            sleep(200);
-          end;
-
-        itemTranslate:
-          begin
-            if IsTrial then
-            begin
-              SetCountLang(GetLastCount - 1);
-              labCountTrial.Text := GetLastCount.ToString;
-            end;
-
-            tmpPos := CurrListBox.ListItems[I].Hint;
-            tmpSP := Copy(tmpPos, 1, Pos(';', tmpPos));
-            Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpTP := Copy(tmpPos, 1, Pos(';', tmpPos));
-            Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpCSP := Copy(tmpPos, 1, Pos(';', tmpPos));
-            Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpCTP := Copy(tmpPos, 1, Pos(';', tmpPos));
-            Delete(tmpPos, 1, Pos(';', tmpPos));
-            myLang := Copy(tmpPos, 1, Pos(';', tmpPos) - 1);
-            Delete(tmpPos, 1, Pos(';', tmpPos));
-            IsAutoData := Copy(tmpPos, 1).ToBoolean;
-
-            if FrameSettName.mName.Text = '' then
-            begin
-              sleep(100);
-              tmpPoint.X := Round(StrToInt(Copy(tmpCSP, 1, Pos('-', tmpCSP) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(tmpCSP, Pos('-', tmpCSP) + 1, Pos(';', tmpCSP) - 1 - Pos('-', tmpCSP))));
-              timerSleepControl.Enabled := false;
-              OldPos := tmpPoint;
-              SetCursorPos(tmpPoint.X, tmpPoint.Y);
-              mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-              mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-              PostKeyEx32(Ord('A'), [ssctrl]);
-              sleep(200);
-              PostKeyEx32(Ord('C'), [ssctrl]);
-              sleep(200);
-              FrameSettName.mName.Text := Svc.GetClipBoard.ToString;
-            end;
-
-            if FrameSettName.mDetails.Text = '' then
-            begin
-              sleep(100);
-              tmpPoint.X := Round(StrToInt(Copy(tmpCTP, 1, Pos('-', tmpCTP) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(tmpCTP, Pos('-', tmpCTP) + 1, Pos(';', tmpCTP) - 1 - Pos('-', tmpCTP))));
-              timerSleepControl.Enabled := false;
-              OldPos := tmpPoint;
-              SetCursorPos(tmpPoint.X, tmpPoint.Y);
-              mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-              mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-              PostKeyEx32(Ord('A'), [ssctrl]);
-              sleep(200);
-              PostKeyEx32(Ord('C'), [ssctrl]);
-              sleep(200);
-              FrameSettName.mDetails.Text := Svc.GetClipBoard.ToString;
-            end;
-
-            // Название
-            if TranslateLangCode <> '' then
-            begin
-
-              Svc.SetClipboard(Copy(GoogleTranslate(FrameSettName.mName.Text, myLang, TranslateLangCode), 1, 100));
-            end
-            else
-              Svc.SetClipboard('Перевед данного языка не поддерживается!!!');
-
-            sleep(100);
-            tmpPoint.X := Round(StrToInt(Copy(tmpSP, 1, Pos('-', tmpSP) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(tmpSP, Pos('-', tmpSP) + 1, Pos(';', tmpSP) - 1 - Pos('-', tmpSP))));
-            timerSleepControl.Enabled := false;
-            OldPos := tmpPoint;
-            SetCursorPos(tmpPoint.X, tmpPoint.Y);
-
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
-            PostKeyEx32(Ord('A'), [ssctrl]);
-            sleep(100);
-            PostKeyEx32(Ord('V'), [ssctrl]);
-            sleep(100);
-
-            // Описание
-            if TranslateLangCode <> '' then
-            begin
-              Svc.SetClipboard(GoogleTranslate(FrameSettName.mDetails.Text, myLang, TranslateLangCode));
-            end
-            else
-              Svc.SetClipboard('');
-
-            sleep(100);
-            tmpPoint.X := Round(StrToInt(Copy(tmpTP, 1, Pos('-', tmpTP) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(tmpTP, Pos('-', tmpTP) + 1, Pos(';', tmpTP) - 1 - Pos('-', tmpTP))));
-            timerSleepControl.Enabled := false;
-            OldPos := tmpPoint;
-            SetCursorPos(tmpPoint.X, tmpPoint.Y);
-            timerSleepControl.Enabled := true;
-
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
-            PostKeyEx32(Ord('A'), [ssctrl]);
-            sleep(100);
-            PostKeyEx32(Ord('V'), [ssctrl]);
-            sleep(100);
-
-            if IsTrial then
-              if GetLastCount = 0 then
-              begin
-                timerStart.Enabled := false;
-                timerSleepControl.Enabled := false;
-                AutForm := TAuthorizationForm.Create(nil);
-                AutForm.FormStyle := TFormStyle.StayOnTop;
-                AutForm.ShowModal;
-                AutForm.DisposeOf;
-                exit;
-              end;
-          end;
-      end;
-    end;
-
-    if timerStart.Interval <> 0 then
-      timerStart.Enabled := true;
-
-    Dec(LoopCount);
-  end
-  else
-  begin
-    if LoopCount = 0 then
-      case btnStart.Tag of
-        1:
-          btnStart.Tag := 2;
-        2:
-          btnStart.Tag := 3;
-        3:
-          btnStart.Tag := 1;
-      end;
-
-    if btnStart.Tag = 1 then
-    begin
-      timerSleepControl.Enabled := false;
-      timerStart.Enabled := false;
-      Self.FormStyle := TFormStyle.StayOnTop;
-      Self.Show;
-      Self.FormStyle := TFormStyle.Normal;
-    end
-    else
-      btnStartClick(nil);
-  end;
-
 end;
 
 procedure TMainForm.PostKeyEx32(key: word; const Shift: TShiftState);

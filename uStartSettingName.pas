@@ -168,8 +168,10 @@ begin
   (Sender As TCornerButton).Text := 'Продолжить';
   (Sender As TCornerButton).OnClick := PauseSleepLoop;
   Image.Fill.Bitmap.Bitmap := ImageList.Source[6].MultiResBitmap[0].Bitmap;
-  tcSettName.Visible := true;
+
   Self.Hide;
+  tcSettName.Visible := true;
+  tcSettName.Next();
 end;
 
 procedure TFormStartName.FormShow(Sender: TObject);
@@ -193,7 +195,10 @@ begin
   btnStart.OnClick := btnSettNamePosAddClick;
   Image.Fill.Bitmap.Bitmap := ImageList.Source[7].MultiResBitmap[0].Bitmap;
   Self.Tag := 1;
+
+  MainForm.SetInfo(MainForm.btnItemSubtitle, 'Нажмите сюда, чтобы перейти в раздел настройки переводов субтитров.');
   Self.Close;
+
 end;
 
 procedure TFormStartName.btnSettGetLangClick(Sender: TObject);

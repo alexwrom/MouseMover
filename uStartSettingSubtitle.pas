@@ -69,6 +69,8 @@ begin
   btnStart.OnClick := btnSettNamePosAddClick;
   Image.Fill.Bitmap.Bitmap := ImageList.Source[3].MultiResBitmap[0].Bitmap;
   Self.Tag := 1;
+
+  MainForm.SetInfo(MainForm.btnStart,'Нажмите сюда, чтобы перейти в окно выполнения.');
   Self.Close;
 end;
 

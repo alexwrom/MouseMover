@@ -13,6 +13,8 @@ function Hash(InText: string): string;
 function GetLastCount: Integer;
 procedure SetCountLang(LastCount: Integer);
 function GetTempWindows: string;
+function GetOnOffHelp: boolean;
+procedure SetOnOffHelp(Value: boolean);
 
 implementation
 
@@ -118,7 +120,29 @@ begin
   FReestr := TRegIniFile.Create('software');
   FReestr.OpenKey('Samalex', false);
   result := FReestr.ReadString('MouseMover', 'GUID', '');
+  FreeAndNil(FReestr); // ”ничтожаем переменную
+end;
 
+function GetOnOffHelp: boolean;
+var
+  FReestr: TRegIniFile;
+  b: boolean;
+begin
+  FReestr := TRegIniFile.Create('software');
+  FReestr.OpenKey('Samalex', false);
+  result := FReestr.ReadBool('MouseMover', 'Help', true);
+  FreeAndNil(FReestr); // ”ничтожаем переменную
+end;
+
+procedure SetOnOffHelp(Value: boolean);
+var
+  FReestr: TRegIniFile;
+  b: boolean;
+begin
+  FReestr := TRegIniFile.Create('software');
+  FReestr.OpenKey('Samalex', false);
+  FReestr.WriteBool('MouseMover', 'Help', Value);
+  FreeAndNil(FReestr); // ”ничтожаем переменную
 end;
 
 procedure SetCountLang(LastCount: Integer);

@@ -7,7 +7,7 @@ uses
   IdSMTPBase, IdSSLOpenSSL,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.Edit, FMX.StdCtrls, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdExplicitTLSClientServerBase, IdIOHandler,
   IdIOHandlerSocket, IdIOHandlerStack, IdSSL, FMX.TabControl, FMX.ListBox, System.JSON, System.Net.HTTPClient,
-  System.NetEncoding, IdAttachmentFile, FMX.Objects;
+  System.NetEncoding, IdAttachmentFile, FMX.Objects, FMX.Effects;
 
 type
   TAuthorizationForm = class(TForm)
@@ -53,6 +53,8 @@ type
     Rectangle4: TRectangle;
     Rectangle6: TRectangle;
     Rectangle3: TRectangle;
+    InnerGlowEffect1: TInnerGlowEffect;
+    InnerGlowEffect2: TInnerGlowEffect;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCloseClick(Sender: TObject);
@@ -117,7 +119,7 @@ begin
     else
     begin
       SetIsSendMessage;
-      ShowMessage('Добро пожаловать в приложение MouseMover.' + #13#10 + 'Для Вас доступна Trial версия приложения с ограниченным ресурсом переводов.');
+      ShowMessage('Добро пожаловать в приложение AutoClicker.' + #13#10 + 'Для Вас доступна Trial версия приложения с ограниченным ресурсом переводов.');
 
       Self.Close;
       MainForm.Show;
@@ -144,7 +146,7 @@ begin
   IdMessage1.Body.text := 'Фамилия И.О.: ' + edFIO.text + #13#10 + 'Email: ' + edEmail.text + #13#10 + 'ID пользователя: ' + GetID; // Текст сообщения
   IdMessage1.Subject := 'Покупка'; // Тема сообщения
   IdMessage1.From.Address := 'alexwrom@mail.ru'; // Адрес отправителя
-  IdMessage1.From.Name := 'MouseMover - Покупка лицензии';
+  IdMessage1.From.Name := 'AutoClicker - Покупка лицензии';
   IdMessage1.Recipients.EMailAddresses := 'alexwrom@gmail.com'; // Кому отправить письмо (можно через запятую если несколько e-mail'ов)
 
   if FileAttach <> '' then
