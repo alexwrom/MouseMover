@@ -7,11 +7,10 @@ uses
   IdSMTPBase, IdSSLOpenSSL,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.Edit, FMX.StdCtrls, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdExplicitTLSClientServerBase, IdIOHandler,
   IdIOHandlerSocket, IdIOHandlerStack, IdSSL, FMX.TabControl, FMX.ListBox, System.JSON, System.Net.HTTPClient,
-  System.NetEncoding, IdAttachmentFile, FMX.Objects, FMX.Effects;
+  System.NetEncoding, IdAttachmentFile, FMX.Objects, FMX.Effects, FMX.Layouts;
 
 type
   TAuthorizationForm = class(TForm)
-    btnClose: TSpeedButton;
     IdMessage1: TIdMessage;
     IdSMTP1: TIdSMTP;
     IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL;
@@ -30,31 +29,32 @@ type
     Edit4: TEdit;
     Label6: TLabel;
     labScore: TLabel;
-    btnSend: TButton;
-    ToolBar1: TToolBar;
-    btnBack: TButton;
     cbCurrency: TComboBox;
     ListBoxItem1: TListBoxItem;
     ListBoxItem2: TListBoxItem;
     ListBoxItem3: TListBoxItem;
     ListBoxItem4: TListBoxItem;
     Image: TImage;
-    btnAttach: TButton;
     OpenDialog: TOpenDialog;
     Label1: TLabel;
     edFIO: TEdit;
     tabMessage: TTabItem;
     Label7: TLabel;
-    Label8: TLabel;
-    btnReSend: TButton;
-    Rectangle5: TRectangle;
-    Rectangle2: TRectangle;
-    Rectangle1: TRectangle;
-    Rectangle4: TRectangle;
-    Rectangle6: TRectangle;
-    Rectangle3: TRectangle;
-    InnerGlowEffect1: TInnerGlowEffect;
-    InnerGlowEffect2: TInnerGlowEffect;
+    Background: TRectangle;
+    ShadowEffect5: TShadowEffect;
+    Layout2: TLayout;
+    Label9: TLabel;
+    btnClose: TSpeedButton;
+    Image16: TImage;
+    btnReSend: TCornerButton;
+    ShadowEffect3: TShadowEffect;
+    Layout1: TLayout;
+    btnBack: TCornerButton;
+    ShadowEffect1: TShadowEffect;
+    btnSend: TCornerButton;
+    ShadowEffect2: TShadowEffect;
+    btnAttach: TCornerButton;
+    ShadowEffect4: TShadowEffect;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCloseClick(Sender: TObject);
@@ -119,13 +119,16 @@ begin
     else
     begin
       SetIsSendMessage;
-      ShowMessage('Добро пожаловать в приложение AutoClicker.' + #13#10 + 'Для Вас доступна Trial версия приложения с ограниченным ресурсом переводов.');
-
-      Self.Close;
       MainForm.Show;
+      ShowMessage('Добро пожаловать в приложение AutoClicker.' + #13#10 + 'Для Вас доступна Trial версия приложения с ограниченным ресурсом переводов.');
+      MainForm.labCountTrial.text := '200';
+      Self.Close;
     end
   else if TabControl.ActiveTab = tabPayInfo then
-    TabControl.Next()
+  begin
+    TabControl.Next();
+    btnSend.text := 'Отправить';
+  end
   else
   begin
     ShowMessage('Если Вы не прикрепили документ, подтверждающий оплату, мы имеем полное право игнорировать Ваш запрос. Если Вы забыли это сделать, то можете повторить отправку при повторном запуске приложения.');

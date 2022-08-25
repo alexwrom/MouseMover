@@ -6,9 +6,6 @@ Coordinates=462,309,120,33
 Visible=False
 Coordinates=224,369,151,36
 
-[btnSettLang]
-Coordinates=148,270,84,58
-
 [Label26]
 Coordinates=10,354,60,58
 
@@ -69,6 +66,6 @@ Coordinates=197,65,112,124
 Coordinates=118,98,91,36
 
 []
-Coordinates=136,1,80,36
+Coordinates=148,270,84,58
 Visible=True
 

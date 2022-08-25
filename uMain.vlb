@@ -16,18 +16,9 @@ Coordinates=1022,386,112,36
 [BindSourceDB1]
 Coordinates=840,10,112,124
 
-[ImageList]
-Coordinates=597,788,70,36
-
-[lbNameDetail]
-Coordinates=345,10,139,256
-
 [lvProfiles]
 Coordinates=10,10,107,256
 Visible=True
-
-[lbSubtitles]
-Coordinates=675,10,139,256
 
 [queryProfiles]
 Coordinates=1160,30,90,36
@@ -37,11 +28,8 @@ Visible=False
 Coordinates=197,76,122,124
 
 []
-Coordinates=943,788,71,36
+Coordinates=597,788,70,36
 Visible=False
-
-[lbLang]
-Coordinates=510,10,139,256
 
 [QueryObjects]
 Coordinates=580,460,93,58

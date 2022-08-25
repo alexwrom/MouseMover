@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts, FMX.Effects;
 
 type
   TContactForm = class(TForm)
@@ -13,8 +13,14 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    Rectangle5: TRectangle;
+    Background: TRectangle;
+    ShadowEffect5: TShadowEffect;
+    Layout2: TLayout;
+    Label9: TLabel;
+    btnCloseApp: TSpeedButton;
+    Image16: TImage;
     procedure FormCreate(Sender: TObject);
+    procedure btnCloseAppClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,6 +33,11 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TContactForm.btnCloseAppClick(Sender: TObject);
+begin
+  Self.Close;
+end;
 
 procedure TContactForm.FormCreate(Sender: TObject);
 var

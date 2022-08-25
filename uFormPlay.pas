@@ -3,33 +3,32 @@ unit uFormPlay;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uTranslate, Winapi.Windows, uTranscriptions, uAuthorization, FMX.Platform,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, uLoadFile, FMX.Objects, FMX.Effects, FMX.Controls.Presentation, Data.DB, FMX.StdCtrls;
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uTranslate, Winapi.Windows, uTranscriptions, uAuthorization, FMX.Platform, uUtils,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, uLoadFile, FMX.Objects, FMX.Effects, FMX.Controls.Presentation, Data.DB, FMX.StdCtrls, FireDAC.Comp.Client, FMX.Layouts;
 
 type
   TFormPlay = class(TForm)
-    Image1: TImage;
     btnStart: TSpeedButton;
     Image: TImage;
-    GlowEffect9: TGlowEffect;
     btnStartLang: TSpeedButton;
     Image2: TImage;
-    GlowEffect1: TGlowEffect;
     btnStartSubtitle: TSpeedButton;
     Image3: TImage;
     GlowEffect2: TGlowEffect;
     btnStartName: TSpeedButton;
     Image4: TImage;
-    GlowEffect3: TGlowEffect;
-    btnCloseApp: TSpeedButton;
-    Image9: TImage;
-    GlowEffect8: TGlowEffect;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     timerStart: TTimer;
     timerSleepControl: TTimer;
+    Background: TRectangle;
+    ShadowEffect5: TShadowEffect;
+    Layout2: TLayout;
+    Label9: TLabel;
+    btnCloseApp: TSpeedButton;
+    Image16: TImage;
     procedure btnCloseAppClick(Sender: TObject);
     procedure btnStartClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -38,6 +37,7 @@ type
     procedure btnStartLangClick(Sender: TObject);
     procedure btnStartNameClick(Sender: TObject);
     procedure btnStartSubtitleClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     OldPos: TPoint;
@@ -48,6 +48,7 @@ type
 
   public
     { Public declarations }
+    IsShow: Boolean;
   end;
 
 var
@@ -55,7 +56,7 @@ var
 
 implementation
 
-uses uMain;
+uses uMain, uStartSettingLang;
 {$R *.fmx}
 
 procedure TFormPlay.btnCloseAppClick(Sender: TObject);
@@ -64,6 +65,8 @@ begin
 end;
 
 procedure TFormPlay.btnStartClick(Sender: TObject);
+var
+  allCount: integer;
 begin
   if (btnStart.Tag = 2) and (MainForm.FrameSettName.swGetData.IsChecked) and ((MainForm.FrameSettName.mName.Text = '') or (MainForm.FrameSettName.mDetails.Text = '')) then
   begin
@@ -73,7 +76,8 @@ begin
   begin
     MainForm.setkey(Lo(GetUserDefaultUILanguage), sublang_default);
 
-    if (MainForm.lbLang.Count > 0) and (MainForm.lbNameDetail.Count > 0) and (MainForm.lbNameDetail.Count > 0) then
+    allCount := MainForm.GetCountLang;
+    if (allCount > 0) then
     begin
       Self.Hide;
       GetCursorPos(OldPos);
@@ -82,7 +86,7 @@ begin
         NonStop := true;
 
       if btnStart.Tag <> 1 then
-        LoopCount := Round((MainForm.lbLang.Count - 1) / 9);
+        LoopCount := allCount;
       timerStart.Interval := 500;
       timerStart.Enabled := true;
       timerSleepControl.Enabled := true;
@@ -116,6 +120,11 @@ begin
   TPlatformServices.Current.SupportsPlatformService(IFMXClipboardService, Svc);
 end;
 
+procedure TFormPlay.FormShow(Sender: TObject);
+begin
+  IsShow := true;
+end;
+
 procedure TFormPlay.timerSleepControlTimer(Sender: TObject);
 var
   posXY: TPoint;
@@ -147,82 +156,72 @@ var
   tmpCTP: string;
   IsAutoData: Boolean;
   OldInd: integer;
+  tmpQuery: TFDQuery;
+  HintText: string;
+  indexPos: integer;
 begin
   case btnStart.Tag of
     1:
-      MainForm.CurrListBox := MainForm.lbLang;
+      tmpQuery := MainForm.ActiveSQL('select * from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 order by id_order');
     2:
-      MainForm.CurrListBox := MainForm.lbNameDetail;
+      tmpQuery := MainForm.ActiveSQL('select * from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 2 order by id_order');
     3:
-      MainForm.CurrListBox := MainForm.lbSubtitles;
+      tmpQuery := MainForm.ActiveSQL('select * from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 3 order by id_order');
   end;
-
+  indexPos := 1;
   timerStart.Enabled := false;
   if LoopCount <> 0 then
   begin
-    for I := 0 to MainForm.CurrListBox.Count - 1 do
+    while NOT tmpQuery.Eof do
     begin
-      case MainForm.CurrListBox.ListItems[I].Tag of
-        itemPos:
+      HintText := tmpQuery.FieldByName('hint_component').AsString;
+      case tmpQuery.FieldByName('id_component').AsInteger of
+        1: // Position
           begin
-            if Pos(';', MainForm.CurrListBox.ListItems[I].Hint) = 0 then
-            begin
-              tmpPoint.X := Round(StrToInt(Copy(MainForm.CurrListBox.ListItems[I].Hint, 1, Pos('-', MainForm.CurrListBox.ListItems[I].Hint) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(MainForm.CurrListBox.ListItems[I].Hint, Pos('-', MainForm.CurrListBox.ListItems[I].Hint) + 1)));
-            end
-            else
-            begin
-              tmpPoint.X := Round(StrToInt(Copy(MainForm.CurrListBox.ListItems[I].Hint, 1, Pos('-', MainForm.CurrListBox.ListItems[I].Hint) - 1)));
-              tmpPoint.Y := Round(StrToInt(Copy(MainForm.CurrListBox.ListItems[I].Hint, Pos('-', MainForm.CurrListBox.ListItems[I].Hint) + 1, Pos(';', MainForm.CurrListBox.ListItems[I].Hint) - Pos('-', MainForm.CurrListBox.ListItems[I].Hint) - 1)));
-            end;
+
+            tmpPoint.X := Round(StrToInt(Copy(HintText, 1, Pos('-', HintText) - 1)));
+            tmpPoint.Y := Round(StrToInt(Copy(HintText, Pos('-', HintText) + 1)));
 
             timerSleepControl.Enabled := false;
             OldPos := tmpPoint;
             SetCursorPos(tmpPoint.X, tmpPoint.Y);
             timerSleepControl.Enabled := true;
+
           end;
-        itemSleep:
+        3: // Sleep
           begin
-            sleep(MainForm.CurrListBox.ListItems[I].Hint.ToInteger);
+            sleep(HintText.ToInteger);
           end;
-        itemClick:
+        2: // Click
           begin
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
           end;
-        itemScroll:
+        4: // Page Down
           begin
-            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, DWORD(MainForm.CurrListBox.ListItems[I].Hint.ToInteger), 0);
+            MainForm.PostKeyEx32(35, []);
           end;
 
-        itemDoubleClick:
-          begin
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-          end;
-
-        itemCtrlA:
+        8: // Ctrl + A
           begin
             MainForm.PostKeyEx32(Ord('A'), [ssctrl]);
           end;
-        itemCtrlC:
+        9: // Ctrl + C
           begin
             MainForm.PostKeyEx32(Ord('C'), [ssctrl]);
           end;
-        itemCtrlV:
+        12: // Ctrl +V
           begin
             MainForm.PostKeyEx32(Ord('V'), [ssctrl]);
           end;
 
-        itemEnter:
+        16: // Enter
           begin
-            MainForm.PostKeyEx32(13, [ssctrl]);
+            MainForm.PostKeyEx32(13, []);
           end;
-        itemText:
+        17: // KeyEnter text
           begin
-            s := AnsiUPPERCASE(MainForm.CurrListBox.ListItems[I].Hint);
+            s := AnsiUPPERCASE(HintText);
             if Lo(GetUserDefaultUILanguage) = LANG_RUSSIAN then
               s := ConvertToEng(s);
 
@@ -232,12 +231,23 @@ begin
               keybd_event(Ord(s[J]), MapVirtualKey(Ord(s[J]), 0), KEYEVENTF_KEYUP, 0);
             end;
           end;
+        18: // Tabulation
+          begin
+            for I := 1 to ABS(HintText.ToInteger) do
+            begin
+              if HintText.ToInteger > 0 then
+                MainForm.PostKeyEx32(9, [])
+              else
+                MainForm.PostKeyEx32(9, [ssshift]) ;
+                sleep(1);
+            end;
+          end;
 
-        itemGetLang:
+        14: // Get Language
           begin
             TranslateLangCode := '';
-            tmpPoint.X := Round(StrToInt(Copy(MainForm.CurrListBox.ListItems[I].Hint, 1, Pos('-', MainForm.CurrListBox.ListItems[I].Hint) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(MainForm.CurrListBox.ListItems[I].Hint, Pos('-', MainForm.CurrListBox.ListItems[I].Hint) + 1)));
+            tmpPoint.X := Round(StrToInt(Copy(HintText, 1, Pos('-', HintText) - 1)));
+            tmpPoint.Y := Round(StrToInt(Copy(HintText, Pos('-', HintText) + 1)));
             timerSleepControl.Enabled := false;
             OldPos := tmpPoint;
             SetCursorPos(tmpPoint.X, tmpPoint.Y);
@@ -263,7 +273,7 @@ begin
             sleep(200);
           end;
 
-        itemTranslate:
+        13: // Translate
           begin
             if MainForm.IsTrial then
             begin
@@ -271,11 +281,7 @@ begin
               MainForm.labCountTrial.Text := GetLastCount.ToString;
             end;
 
-            tmpPos := MainForm.CurrListBox.ListItems[I].Hint;
-            tmpSP := Copy(tmpPos, 1, Pos(';', tmpPos));
-            Delete(tmpPos, 1, Pos(';', tmpPos));
-            tmpTP := Copy(tmpPos, 1, Pos(';', tmpPos));
-            Delete(tmpPos, 1, Pos(';', tmpPos));
+            tmpPos := HintText;
             tmpCSP := Copy(tmpPos, 1, Pos(';', tmpPos));
             Delete(tmpPos, 1, Pos(';', tmpPos));
             tmpCTP := Copy(tmpPos, 1, Pos(';', tmpPos));
@@ -328,15 +334,8 @@ begin
               Svc.SetClipboard('Перевед данного языка не поддерживается!!!');
 
             sleep(100);
-            tmpPoint.X := Round(StrToInt(Copy(tmpSP, 1, Pos('-', tmpSP) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(tmpSP, Pos('-', tmpSP) + 1, Pos(';', tmpSP) - 1 - Pos('-', tmpSP))));
-            timerSleepControl.Enabled := false;
-            OldPos := tmpPoint;
-            SetCursorPos(tmpPoint.X, tmpPoint.Y);
 
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
+            MainForm.PostKeyEx32(9, []);
             MainForm.PostKeyEx32(Ord('A'), [ssctrl]);
             sleep(100);
             MainForm.PostKeyEx32(Ord('V'), [ssctrl]);
@@ -351,20 +350,14 @@ begin
               Svc.SetClipboard('');
 
             sleep(100);
-            tmpPoint.X := Round(StrToInt(Copy(tmpTP, 1, Pos('-', tmpTP) - 1)));
-            tmpPoint.Y := Round(StrToInt(Copy(tmpTP, Pos('-', tmpTP) + 1, Pos(';', tmpTP) - 1 - Pos('-', tmpTP))));
-            timerSleepControl.Enabled := false;
-            OldPos := tmpPoint;
-            SetCursorPos(tmpPoint.X, tmpPoint.Y);
-            timerSleepControl.Enabled := true;
 
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
+            MainForm.PostKeyEx32(9, []);
             MainForm.PostKeyEx32(Ord('A'), [ssctrl]);
             sleep(100);
             MainForm.PostKeyEx32(Ord('V'), [ssctrl]);
             sleep(100);
+            MainForm.PostKeyEx32(9, []);
+            MainForm.PostKeyEx32(13, []);
 
             if MainForm.IsTrial then
               if GetLastCount = 0 then
@@ -379,6 +372,7 @@ begin
               end;
           end;
       end;
+      tmpQuery.Next;
     end;
 
     if timerStart.Interval <> 0 then
@@ -388,6 +382,10 @@ begin
   end
   else
   begin
+    sleep(1000);
+    MainForm.PostKeyEx32(35, []);
+    sleep(100);
+
     case btnStart.Tag of
       1:
         btnStart.Tag := 2;
@@ -402,8 +400,15 @@ begin
       btnStart.Tag := 1;
       timerSleepControl.Enabled := false;
       timerStart.Enabled := false;
-      Self.FormStyle := TFormStyle.StayOnTop;
-      Self.Show;
+
+      if IsShow then
+      begin
+        Self.FormStyle := TFormStyle.StayOnTop;
+        Self.Show;
+      end
+      else
+        FormStartLang.Show;
+
     end
     else
       btnStartClick(nil);

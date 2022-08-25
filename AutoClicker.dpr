@@ -17,7 +17,8 @@ uses
   uFrameSettName in 'uFrameSettName.pas' {FrameSettName: TFrame},
   uStartSettingName in 'uStartSettingName.pas' {FormStartName},
   uStartSettingSubtitle in 'uStartSettingSubtitle.pas' {FormStartSubtitle},
-  uFormPlay in 'uFormPlay.pas' {FormPlay};
+  uFormPlay in 'uFormPlay.pas' {FormPlay},
+  uUtils in 'uUtils.pas';
 
 {$R *.res}
 

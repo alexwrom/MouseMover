@@ -20,10 +20,7 @@ Coordinates=433,71,97,33
 [MainForm.BindSourceDB2]
 Coordinates=251,1,144,69
 
-[labText]
-Coordinates=163,1,50,51
-
 []
-Coordinates=192,159,53,33
+Coordinates=163,1,50,51
 Visible=True
 

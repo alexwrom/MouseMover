@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, uStartSettingName,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.Memo.Types, FMX.Edit, FMX.TabControl, FMX.ListBox, FMX.ScrollBox, FMX.Memo, FMX.Layouts, FMX.Controls.Presentation, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components,
-  Data.Bind.DBScope, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.EditBox, FMX.SpinBox, FMX.Objects;
+  Data.Bind.DBScope, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.EditBox, FMX.SpinBox, FMX.Objects,uUtils;
 
 type
   TFrameSettName = class(TFrame)
@@ -32,8 +32,6 @@ type
     LinkFillControlToField1: TLinkFillControlToField;
     Layout12: TLayout;
     btnStartSettingName: TCornerButton;
-    Rectangle5: TRectangle;
-    Layout1: TLayout;
     procedure swGetDataSwitch(Sender: TObject);
     procedure cbLangChange(Sender: TObject);
     procedure mNameChangeTracking(Sender: TObject);
@@ -54,8 +52,9 @@ procedure TFrameSettName.btnStartSettingNameClick(Sender: TObject);
 begin
   MainForm.Hide;
   MainForm.SetInfo(FormStartName.btnStart, 'Нажмите сюда, чтобы начать настройку. Соблюдайте инструкцию.');
-   MainForm.recTextInfo.Position.Y := MainForm.recTextInfo.Position.Y - 70;
-  MainForm.recTextInfo.Position.X := MainForm.recTextInfo.Position.X - 50;
+
+  FormStartName.sleepTime.Text := MainForm.ActiveSQL('select hint_component from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type= 2 and id_order = 3').FieldByName('hint_component').AsString;
+  FormStartName.sleepLoop.Text  := MainForm.ActiveSQL('select hint_component from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type= 2 and id_order = 6').FieldByName('hint_component').AsString;
   FormStartName.ShowModal;
 
   MainForm.FormStyle := TFormStyle.StayOnTop;
@@ -66,10 +65,10 @@ end;
 
 procedure TFrameSettName.cbLangChange(Sender: TObject);
 begin
-  MainForm.CurrListBox := MainForm.lbNameDetail;
-  MainForm.lbNameDetail.Selected.Hint := FormStartName.edSourcePos.Text + ';' + FormStartName.edTargetPos.Text + ';' + FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
-    Copy(cbLang.Selected.Text, cbLang.Selected.Text.Length - 2, 2) + ';' + swGetData.IsChecked.ToString;
-  MainForm.SetHint(MainForm.lbNameDetail.Selected.Hint);
+  MainForm.blockType := blockName;
+  MainForm.OrderId := 5;
+  MainForm.SetHint(FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
+    Copy(cbLang.Selected.Text, cbLang.Selected.Text.Length - 2, 2) + ';' + swGetData.IsChecked.ToString);
 
   MainForm.SetInfo(btnStartSettingName, 'Нажмите сюда, чтобы запустить настройку перевода.');
 end;
@@ -81,13 +80,11 @@ end;
 
 procedure TFrameSettName.swGetDataSwitch(Sender: TObject);
 begin
-  MainForm.CurrListBox := MainForm.lbNameDetail;
-  MainForm.lbNameDetail.ClearSelection;
-  MainForm.lbNameDetail.ListItems[4].IsSelected := true;
+  MainForm.blockType := blockName;
+  MainForm.OrderId := 5;
   layHandData.Visible := swGetData.IsChecked;
-  MainForm.lbNameDetail.Selected.Hint := FormStartName.edSourcePos.Text + ';' + FormStartName.edTargetPos.Text + ';' + FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
-    Copy(cbLang.Selected.Text, cbLang.Selected.Text.Length - 2, 2) + ';' + swGetData.IsChecked.ToString;
-  MainForm.SetHint(MainForm.lbNameDetail.Selected.Hint);
+  MainForm.SetHint(FormStartName.edCurrentSourcePos.Text + ';' + FormStartName.edCurrentTargetPos.Text + ';' +
+    Copy(cbLang.Selected.Text, cbLang.Selected.Text.Length - 2, 2) + ';' + swGetData.IsChecked.ToString);
 
 end;
 

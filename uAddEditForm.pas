@@ -4,17 +4,25 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, FireDAC.Comp.Client,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.ListView.Appearances, FMX.Objects;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.ListView.Appearances, FMX.Objects, FMX.Layouts, FMX.Effects;
 
 type
   TAddEditForm = class(TForm)
     edName: TEdit;
     edCode: TEdit;
-    btnSave: TSpeedButton;
-    btnCancel: TSpeedButton;
     Label1: TLabel;
     Label2: TLabel;
-    Rectangle2: TRectangle;
+    Background: TRectangle;
+    ShadowEffect5: TShadowEffect;
+    Layout2: TLayout;
+    Label9: TLabel;
+    btnCloseApp: TSpeedButton;
+    Image16: TImage;
+    layBottom: TLayout;
+    btnSave: TSpeedButton;
+    Image1: TImage;
+    btnCancel: TSpeedButton;
+    Image4: TImage;
     procedure FormShow(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);

@@ -32,7 +32,7 @@ var
   FileName: String;
   HWND: THandle;
 begin
-    FileName := GetTempWindows + '\Update MouseMover.exe';
+    FileName := GetTempWindows + '\Update AutoClicker.exe';
     TTask.Run( // uses System.Threading
       procedure
       begin
