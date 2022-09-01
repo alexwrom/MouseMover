@@ -4,7 +4,7 @@
         <ProjectVersion>19.3</ProjectVersion>
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -184,7 +184,7 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1049</VerInfo_Locale>
-        <Icon_MainIcon>MouseMover_Icon1.ico</Icon_MainIcon>
+        <Icon_MainIcon>AutoClicker_Icon.ico</Icon_MainIcon>
         <VerInfo_Keys>CompanyName=by Samasiuk;FileDescription=AutoClicker by Samasiuk;FileVersion=2.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.samasiuk.$(MSBuildProjectName);ProductName=AutoClicker by Samasiuk;ProductVersion=2.0.0.0;Comments=</VerInfo_Keys>
         <PF_UWPPublisher>CN=Samasiuk</PF_UWPPublisher>
         <PF_UWPPackageName>MouseMover</PF_UWPPackageName>

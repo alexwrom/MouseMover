@@ -8,8 +8,6 @@ uses
 
 type
   TFormPlay = class(TForm)
-    btnStart: TSpeedButton;
-    Image: TImage;
     btnStartLang: TSpeedButton;
     Image2: TImage;
     btnStartSubtitle: TSpeedButton;
@@ -17,7 +15,6 @@ type
     GlowEffect2: TGlowEffect;
     btnStartName: TSpeedButton;
     Image4: TImage;
-    Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -42,7 +39,6 @@ type
     { Private declarations }
     OldPos: TPoint;
     LoopCount: integer;
-    NonStop: Boolean;
     TranslateLangCode: string;
     Svc: IFMXClipboardService;
 
@@ -68,7 +64,7 @@ procedure TFormPlay.btnStartClick(Sender: TObject);
 var
   allCount: integer;
 begin
-  if (btnStart.Tag = 2) and (MainForm.FrameSettName.swGetData.IsChecked) and ((MainForm.FrameSettName.mName.Text = '') or (MainForm.FrameSettName.mDetails.Text = '')) then
+  if (Self.Tag = 2) and (MainForm.FrameSettName.swGetData.IsChecked) and ((MainForm.FrameSettName.mName.Text = '') or (MainForm.FrameSettName.mDetails.Text = '')) then
   begin
     ShowMessage('У Вас выбран режим ручного ввода названия и описания. Одно из полей не заполнено. Заполните его в меню настроек и повторите.');
   end
@@ -82,10 +78,8 @@ begin
       Self.Hide;
       GetCursorPos(OldPos);
       LoopCount := 1;
-      if (Sender = btnStart) then
-        NonStop := true;
 
-      if btnStart.Tag <> 1 then
+      if Self.Tag <> 1 then
         LoopCount := allCount;
       timerStart.Interval := 500;
       timerStart.Enabled := true;
@@ -96,22 +90,19 @@ end;
 
 procedure TFormPlay.btnStartLangClick(Sender: TObject);
 begin
-  NonStop := false;
-  btnStart.Tag := 1;
+  Self.Tag := 1;
   btnStartClick(nil);
 end;
 
 procedure TFormPlay.btnStartNameClick(Sender: TObject);
 begin
-  NonStop := false;
-  btnStart.Tag := 2;
+  Self.Tag := 2;
   btnStartClick(nil);
 end;
 
 procedure TFormPlay.btnStartSubtitleClick(Sender: TObject);
 begin
-  NonStop := false;
-  btnStart.Tag := 3;
+  Self.Tag := 3;
   btnStartClick(nil);
 end;
 
@@ -133,7 +124,7 @@ begin
 
   if OldPos <> posXY then
   begin
-    btnStart.Tag := 1;
+    Self.Tag := 1;
     timerSleepControl.Enabled := false;
     timerStart.Enabled := false;
     Self.FormStyle := TFormStyle.StayOnTop;
@@ -160,7 +151,7 @@ var
   HintText: string;
   indexPos: integer;
 begin
-  case btnStart.Tag of
+  case Self.Tag of
     1:
       tmpQuery := MainForm.ActiveSQL('select * from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 order by id_order');
     2:
@@ -238,8 +229,8 @@ begin
               if HintText.ToInteger > 0 then
                 MainForm.PostKeyEx32(9, [])
               else
-                MainForm.PostKeyEx32(9, [ssshift]) ;
-                sleep(1);
+                MainForm.PostKeyEx32(9, [ssshift]);
+              sleep(1);
             end;
           end;
 
@@ -386,32 +377,17 @@ begin
     MainForm.PostKeyEx32(35, []);
     sleep(100);
 
-    case btnStart.Tag of
-      1:
-        btnStart.Tag := 2;
-      2:
-        btnStart.Tag := 3;
-      3:
-        btnStart.Tag := 1;
-    end;
+    Self.Tag := 1;
+    timerSleepControl.Enabled := false;
+    timerStart.Enabled := false;
 
-    if (btnStart.Tag = 1) or (NOT NonStop) then
+    if IsShow then
     begin
-      btnStart.Tag := 1;
-      timerSleepControl.Enabled := false;
-      timerStart.Enabled := false;
-
-      if IsShow then
-      begin
-        Self.FormStyle := TFormStyle.StayOnTop;
-        Self.Show;
-      end
-      else
-        FormStartLang.Show;
-
+      Self.FormStyle := TFormStyle.StayOnTop;
+      Self.Show;
     end
     else
-      btnStartClick(nil);
+      FormStartLang.Show;
   end;
 
 end;

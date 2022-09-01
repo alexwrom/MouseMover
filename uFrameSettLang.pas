@@ -32,11 +32,14 @@ type
     Layout1: TLayout;
     Image1: TImage;
     Image2: TImage;
+    btnCheckAll: TSpeedButton;
+    Image3: TImage;
     procedure btnStartSettingLangClick(Sender: TObject);
     procedure btnSettLangClick(Sender: TObject);
     procedure ListViewLangItemClick(const Sender: TObject; const AItem: TListViewItem);
     procedure btnBackToLangClick(Sender: TObject);
     procedure btnOkPopupClick(Sender: TObject);
+    procedure btnCheckAllClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -59,6 +62,19 @@ const
 procedure TFrameSettLang.btnBackToLangClick(Sender: TObject);
 begin
   recPopup.Visible := false;
+end;
+
+procedure TFrameSettLang.btnCheckAllClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  for I := 0 to ListViewLang.ItemCount - 1 do
+    if QueryLang.Locate('lang_code', ListViewLang.Items[I].Detail, []) then
+      if (QueryLang.FieldByName('is_default').AsInteger = 1) and (NOT ListViewLang.Items[I].Checked) then
+      begin
+        ListViewLang.Items[I].Checked := true;
+        ListViewLangItemClick(nil, ListViewLang.Items[I])
+      end;
 end;
 
 procedure TFrameSettLang.btnOkPopupClick(Sender: TObject);
@@ -103,7 +119,7 @@ end;
 
 procedure TFrameSettLang.ListViewLangItemClick(const Sender: TObject; const AItem: TListViewItem);
 var
-  I, J: integer;
+  I, J: Integer;
   s: string;
   IsNotFirst: boolean;
   textItem: string;
@@ -126,10 +142,10 @@ begin
     end
     else
     begin
-      MainForm.ExeSQL('insert into objects (id_type , id_component,hint_component, id_order,id_profile) values (1, 18,''' + ((MainForm.GetCountLang * 2) + 4).ToString + ''', (select Count(*) + 1 from objects where id_profile = ' + MainForm.ProfileID.ToString +
-        ' and id_type = 1),' + MainForm.ProfileID.ToString + ')');
-        MainForm.ExeSQL('insert into objects (id_type , id_component,hint_component, id_order,id_profile) values (1, 16,'''', (select Count(*) + 1 from objects where id_profile = ' + MainForm.ProfileID.ToString +
-        ' and id_type = 1),' + MainForm.ProfileID.ToString + ')');
+      MainForm.ExeSQL('insert into objects (id_type , id_component,hint_component, id_order,id_profile) values (1, 18,''' + ((MainForm.GetCountLang * 2) + 4).ToString + ''', (select Count(*) + 1 from objects where id_profile = ' +
+        MainForm.ProfileID.ToString + ' and id_type = 1),' + MainForm.ProfileID.ToString + ')');
+      MainForm.ExeSQL('insert into objects (id_type , id_component,hint_component, id_order,id_profile) values (1, 16,'''', (select Count(*) + 1 from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1),' +
+        MainForm.ProfileID.ToString + ')');
     end;
 
     MainForm.ExeSQL('insert into objects (id_type , id_component,hint_component, id_order,id_profile) values (1, 3,''' + sbLangBtnPause.Text + ''', (select Count(*) + 1 from objects where id_profile = ' + MainForm.ProfileID.ToString +
@@ -148,12 +164,12 @@ begin
     s := MainForm.ActiveSQL('select hint_component from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 and id_order = 1').FieldByName('hint_component').AsString;
     Delete(s, Pos(AItem.Detail, s), Length(AItem.Detail) + 1);
     MainForm.SetHint(s);
-     IdOrder := MainForm.ActiveSQL('select (id_order - 3) as id_order from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 and id_component = 17 and hint_component = ''' + AItem.Text + '''').FieldByName('id_order').AsString;
+    IdOrder := MainForm.ActiveSQL('select (id_order - 3) as id_order from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 and id_component = 17 and hint_component = ''' + AItem.Text + '''')
+      .FieldByName('id_order').AsString;
 
-     MainForm.ExeSQL('update objects set hint_component = TO_CHAR(TO_NUMBER(hint_component) - 2) where id_profile = ' + MainForm.ProfileID.ToString +
-     ' and id_type = 1 and id_component = 18 and id_order >= ' + IdOrder + ' + 6;');
-     MainForm.ExeSQL('delete from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 and id_order between ' + IdOrder + ' and ' + IdOrder + ' + 5;');
-     MainForm.ExeSQL('update objects set id_order = id_order - 6 where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 and id_order >= ' + IdOrder + ' + 6;');
+    MainForm.ExeSQL('update objects set hint_component = TO_CHAR(TO_NUMBER(hint_component) - 2) where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 and id_component = 18 and id_order >= ' + IdOrder + ' + 6;');
+    MainForm.ExeSQL('delete from objects where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 and id_order between ' + IdOrder + ' and ' + IdOrder + ' + 5;');
+    MainForm.ExeSQL('update objects set id_order = id_order - 6 where id_profile = ' + MainForm.ProfileID.ToString + ' and id_type = 1 and id_order >= ' + IdOrder + ' + 6;');
   end;
 
 end;

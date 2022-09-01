@@ -420,7 +420,7 @@ end;
 procedure TMainForm.btnStartClick(Sender: TObject);
 begin
   MainForm.Visible := false;
-  SetInfo(FormPlay.btnStart, 'Нажмите сюда, чтобы выполнить все или на кнопки слева, чтобы запустить раздельно.');
+  SetInfo(FormPlay.btnStartLang, 'Нажмите сюда, чтобы выполнить заполнение языков.');
   recTextInfo.Position.Y := recTextInfo.Position.Y - 30;
   FormPlay.ShowModal;
   MainForm.Visible := true;
@@ -467,7 +467,7 @@ var
   IsReadSMTP: boolean;
 begin
 
-  Conn.Params.Database := GetUserAppPath + 'base.db';
+  Conn.Params.Database := GetUserAppPath + 'library.dll';
   Conn.Connected := true;
   queryProfiles.Active := true;
 

@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.030,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.173,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.542,D:\Delphi\Android\MouseMover\Unit1.pas=D:\Delphi\Android\MouseMover\uContact.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.936,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.325,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.579,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.542,D:\Delphi\Android\MouseMover\Unit1.pas=D:\Delphi\Android\MouseMover\uContact.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.475,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.245,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.320,D:\Delphi\Android\MouseMover\Unit1.pas=D:\Delphi\Android\MouseMover\uAddEditForm.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.542,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.551,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.320,D:\Delphi\Android\MouseMover\Unit1.pas=D:\Delphi\Android\MouseMover\uAddEditForm.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.557,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.158,D:\Delphi\Android\MouseMover\Unit1.pas=D:\Delphi\Android\MouseMover\uImages.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.765,D:\Delphi\Android\MouseMover\Unit1.pas=D:\Delphi\Android\MouseMover\uAuhorization.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.293,D:\Delphi\Android\MouseMover\Unit1.pas=D:\Delphi\Android\MouseMover\uStartSettingLang.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.551,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.835,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.936,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.586,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.557,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.168,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.021,=D:\Delphi\Android\MouseMover\uLoadFile.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.494,D:\Delphi\Android\MouseMover\uFormPlay.fmx=D:\Delphi\Android\MouseMover\Unit1.fmx</Transaction>
@@ -25,13 +25,13 @@
     <Transaction>1899.12.30 00:00:00.000.970,D:\Delphi\Android\MouseMover\uFrameSettName.fmx=D:\Delphi\Android\MouseMover\Unit1.fmx</Transaction>
     <Transaction>1899.12.30 00:00:00.000.685,D:\Delphi\Android\MouseMover\uFrameSettLang.pas=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.799,D:\Delphi\Android\MouseMover\uAuhorization.fmx=D:\Delphi\Android\MouseMover\uAuthorization.fmx</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.835,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.579,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.315,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.855,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.749,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.554,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.677,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.030,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.173,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.554,=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.391,D:\Delphi\Android\MouseMover\Unit1.pas=D:\Delphi\Android\MouseMover\uTranscriptions.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.615,D:\Delphi\Android\MouseMover\uLang.pas=D:\Delphi\Android\MouseMover\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.708,D:\Delphi\Android\MouseMover\uUpdate.fmx=D:\Delphi\Android\MouseMover\Unit1.fmx</Transaction>
@@ -65,5 +65,34 @@
     <Transaction>1899.12.30 00:00:00.000.685,D:\Delphi\Android\MouseMover\uFrameSettLang.fmx=D:\Delphi\Android\MouseMover\Unit1.fmx</Transaction>
     <Transaction>1899.12.30 00:00:00.000.765,D:\Delphi\Android\MouseMover\Unit1.fmx=D:\Delphi\Android\MouseMover\uAuhorization.fmx</Transaction>
   </Transactions>
-	<BT_BuildType>Debug</BT_BuildType>
+	<BT_BuildType>Debug</BT_BuildType>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="uAddEditForm.pas"/>
+    <File Path="uAddEditForm.fmx"/>
+    <File Path="uAuthorization.pas"/>
+    <File Path="uAuthorization.fmx"/>
+    <File Path="uContact.pas"/>
+    <File Path="uContact.fmx"/>
+    <File Path="uFormPlay.pas"/>
+    <File Path="uFormPlay.fmx"/>
+    <File Path="uFrameSettLang.pas"/>
+    <File Path="uFrameSettLang.fmx"/>
+    <File Path="uFrameSettName.pas"/>
+    <File Path="uFrameSettName.fmx"/>
+    <File Path="uLang.pas"/>
+    <File Path="uLang.fmx"/>
+    <File Path="uLoadFile.pas"/>
+    <File Path="uMain.pas"/>
+    <File Path="uMain.fmx"/>
+    <File Path="uStartSettingLang.pas"/>
+    <File Path="uStartSettingLang.fmx"/>
+    <File Path="uStartSettingName.pas"/>
+    <File Path="uStartSettingName.fmx"/>
+    <File Path="uStartSettingSubtitle.pas"/>
+    <File Path="uStartSettingSubtitle.fmx"/>
+    <File Path="uTranscriptions.pas"/>
+    <File Path="uTranslate.pas"/>
+    <File Path="uUpdate.pas"/>
+    <File Path="uUpdate.fmx"/>
+    <File Path="uUtils.pas"/>
+  </ProjectSortOrder>
 </BorlandProject>
